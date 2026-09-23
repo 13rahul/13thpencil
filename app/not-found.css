@@ -1,0 +1,60 @@
+.nf {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 5vw, 84px);
+  background: var(--ink);
+  color: var(--paper);
+}
+.nf__logo {
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(15px, 1.35vw, 19px);
+  color: var(--paper);
+}
+.nf__mid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 3vh, 34px);
+  max-width: min(780px, 100%);
+}
+.nf__h {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  font-size: clamp(2.1rem, 5.4vw, 4.4rem);
+  margin: 0;
+}
+.nf__p {
+  max-width: 42ch;
+  font-family: var(--f-text);
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--dim);
+  margin: 0;
+}
+.nf__back {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  background: var(--lacquer);
+  color: #181a1c;
+  padding: 0.92em 1.5em;
+  border-radius: 100px;
+  align-self: flex-start;
+  transition: background 0.3s;
+}
+.nf__back:hover {
+  background: #ffc42e;
+}
+.nf__foot {
+  font-family: var(--f-text);
+  font-style: italic;
+  color: var(--dim-2);
+  font-size: 1rem;
+}

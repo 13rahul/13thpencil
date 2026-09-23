@@ -1,0 +1,68 @@
+# 13th Pencil — sample nginx server block for 13thpencil.com
+# Static site. No application server, no reverse proxy, no runtime.
+# Adjust paths and certificate locations to your environment.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name 13thpencil.com www.13thpencil.com;
+    return 301 https://13thpencil.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.13thpencil.com;
+
+    ssl_certificate     /etc/letsencrypt/live/13thpencil.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/13thpencil.com/privkey.pem;
+
+    return 301 https://13thpencil.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name 13thpencil.com;
+
+    root /var/www/13thpencil;
+    index index.html;
+
+    ssl_certificate     /etc/letsencrypt/live/13thpencil.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/13thpencil.com/privkey.pem;
+
+    # ---- security headers ----
+    # The site loads no third-party scripts. If you add analytics later, the CSP
+    # below will block it until you add that host — update it deliberately.
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" always;
+
+    # ---- compression ----
+    gzip on;
+    gzip_comp_level 6;
+    gzip_min_length 512;
+    gzip_types text/plain text/css application/javascript image/svg+xml application/manifest+json;
+    # brotli on;  brotli_types text/css application/javascript image/svg+xml;   # if ngx_brotli is built in
+
+    # ---- caching ----
+    # Fingerprint or bump filenames when you change CSS/JS, or shorten this.
+    location ~* \.(css|js|woff2|woff|svg|png|jpg|webp|ico)$ {
+        expires 30d;
+        add_header Cache-Control "public, max-age=2592000";
+    }
+
+    # HTML is always revalidated so a deploy is visible immediately.
+    location = /index.html {
+        add_header Cache-Control "no-cache";
+    }
+
+    error_page 404 /404.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

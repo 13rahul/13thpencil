@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>13th Pencil — Creative &amp; Innovation Company</title>
+<meta name="description" content="13th Pencil is a creative and innovation company working across brand and strategy, creative, AI and innovation, experiences and digital growth. We start where the obvious answer stops.">
+<meta property="og:title" content="13th Pencil — The obvious idea was already taken.">
+<meta property="og:type" content="website">
+<meta property="og:description" content="A creative and innovation company working across brand and strategy, creative, AI and innovation, experiences and digital growth.">
+<meta property="og:url" content="https://13thpencil.com">
+<meta name="theme-color" content="#181A1C">
+<link rel="canonical" href="https://13thpencil.com/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23181A1C'/%3E%3Crect x='14' y='14' width='72' height='72' fill='none' stroke='%23EDE5D6' stroke-opacity='.38' stroke-width='5'/%3E%3Cpath d='M34 24h16v38l-8 14-8-14z' fill='%23EDE5D6'/%3E%3Cpath d='M42 79c13 6 25 1 46-13' fill='none' stroke='%23F4737E' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   13TH PENCIL — design tokens
+   Paper (oatmeal) / Graphite (cool near-black)
+   Lacquer yellow = the pencil. Eraser pink = the 13th element.
+   ============================================================ */
+:root{
+  --paper:#EDE5D6;
+  --paper-2:#E2D8C4;
+  --ink:#181A1C;
+  --ink-2:#23272B;
+  --grey:#5C6268;      /* readable secondary on paper — was too light */
+  --lacquer:#F5B301;
+  --eraser:#F4737E;
+  --eraser-deep:#AE3450;   /* coral, weighted for small type on paper */
+  --rule:rgba(24,26,28,.16);
+  --rule-on-ink:rgba(237,229,214,.18);
+  --dim:#CFC8BB;        /* secondary text sitting on the ink panels */
+  --dim-2:#A7ADB4;      /* tertiary text / annotations on ink */
+  --stroke:#3A3F45;     /* quiet graphite strokes on ink */
+  --ph:#50565C;         /* label on the hatched placeholder tiles */
+
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-text:"Newsreader","Iowan Old Style",Georgia,serif;
+
+  --pad:clamp(20px,5vw,84px);
+  --gap:clamp(28px,4vw,56px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131416; --paper-2:#1B1E21; --ink:#EDE5D6; --ink-2:#DDD2BC;
+    --grey:#8D9299; --rule:rgba(237,229,214,.18); --rule-on-ink:rgba(24,26,28,.16);
+    --eraser-deep:#F4737E;
+    --dim:#43494F; --dim-2:#565D64; --stroke:#CFC6B4; --ph:#949AA1;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131416; --paper-2:#1B1E21; --ink:#EDE5D6; --ink-2:#DDD2BC;
+  --grey:#8D9299; --rule:rgba(237,229,214,.18); --rule-on-ink:rgba(24,26,28,.16);
+  --eraser-deep:#F4737E; --dim:#43494F; --dim-2:#565D64; --stroke:#CFC6B4; --ph:#949AA1;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-text);font-weight:400;font-size:clamp(17px,1.05vw,18.5px);line-height:1.68;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body.is-locked{overflow:hidden}
+img,svg,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--lacquer);outline-offset:4px;border-radius:2px}
+::selection{background:var(--lacquer);color:#181A1C}
+
+/* ---------- layout ---------- */
+.panel{position:relative;padding-left:var(--pad);padding-right:var(--pad);overflow:clip}
+.panel--paper{background:var(--paper);color:var(--ink)}
+.panel--ink{background:var(--ink);color:var(--paper)}
+.panel--ink ::selection{background:var(--eraser);color:#181A1C}
+.wrap{max-width:1500px;margin:0 auto;width:100%}
+
+/* ---------- type ---------- */
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:800;margin:0;line-height:.88;letter-spacing:-.035em;text-wrap:balance}
+.display{font-size:clamp(2.9rem,10.4vw,10.5rem);text-transform:uppercase}
+.h2{font-size:clamp(2.2rem,6.6vw,6.2rem)}
+.h3{font-size:clamp(1.5rem,2.6vw,2.6rem);line-height:.96}
+.lede{font-size:clamp(1.15rem,1.85vw,1.6rem);line-height:1.45;max-width:24ch;font-weight:300}
+p{margin:0 0 1.1em;max-width:62ch}
+.note{font-style:italic;color:var(--grey);font-size:1.02rem;line-height:1.62;max-width:34ch}
+.panel--ink .note{color:var(--dim-2)}
+.annot{font-family:var(--f-text);font-style:italic;font-size:1rem;color:var(--grey);line-height:1.5}
+.tick{font-family:var(--f-display);font-weight:600;font-size:.8rem;letter-spacing:.12em;color:var(--grey)}
+.pink{color:var(--eraser-deep)}
+.panel--ink .pink{color:var(--eraser)}
+
+/* ---------- identity ----------
+   The lockup: framed symbol + 13TH PENCIL wordmark, used together wherever the
+   logo appears — header, intro and footer. The symbol alone is for the favicon,
+   social avatar and decorative use once the brand is already established.       */
+.mark{width:1em;height:1em;flex:none;overflow:visible}
+.mark .frame{fill:none;stroke:currentColor;stroke-width:5;opacity:.38}
+.mark .shaft{fill:currentColor}
+.mark .lead{fill:none;stroke:var(--eraser);stroke-width:8;stroke-linecap:round}
+.wordmark{display:inline-flex;align-items:baseline;gap:.34em;font-family:var(--f-display);font-weight:800;
+  letter-spacing:-.04em;line-height:1;text-transform:uppercase;white-space:nowrap}
+.wm__num{display:inline-flex;align-items:flex-start}
+.wm__one{width:.30em;height:.78em;align-self:center;margin-right:.06em;overflow:visible}
+.wm__one path{fill:currentColor}
+.wm__th{font-size:.42em;font-weight:600;letter-spacing:.02em;transform:translateY(.12em);margin-left:.06em}
+.lockup{display:inline-flex;align-items:center;gap:.5em}
+
+/* ---------- loader ---------- */
+.loader{position:fixed;inset:0;z-index:120;background:var(--ink);display:grid;place-items:center;transition:transform 1s var(--ease-out)}
+.loader[hidden]{display:none}
+.loader.is-done{transform:translateY(-101%)}
+.loader__strokes{display:flex;align-items:flex-end;gap:clamp(6px,1.4vw,14px);height:34vh;max-height:280px}
+.loader__strokes i{display:block;width:clamp(3px,.55vw,6px);height:0;background:var(--paper-2);opacity:.55;transition:height .5s var(--ease-out)}
+.loader__strokes i.on{height:100%}
+.loader__strokes i.thirteen{background:var(--eraser);opacity:1;transform-origin:bottom center;transition:height .55s var(--ease-out),transform .8s var(--ease-out)}
+.loader__strokes i.thirteen.go{transform:rotate(13deg) scaleY(1.45)}
+.loader__logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateY(14px);color:var(--paper);
+  font-size:clamp(19px,3.2vw,38px);opacity:0;transition:opacity .6s var(--ease),transform .9s var(--ease-out)}
+.loader__logo.in{opacity:1;transform:translate(-50%,-50%)}
+.loader__cap{position:absolute;bottom:clamp(20px,5vw,60px);left:var(--pad);color:var(--paper-2);opacity:.65}
+
+/* ---------- cursor + trail ---------- */
+.trail{position:fixed;inset:0;z-index:95;pointer-events:none;opacity:.9}
+.cursor{position:fixed;top:0;left:0;z-index:96;width:10px;height:10px;border-radius:50%;background:var(--lacquer);pointer-events:none;mix-blend-mode:normal;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),background .25s}
+.cursor.big{width:52px;height:52px;background:var(--eraser)}
+@media (hover:none),(pointer:coarse){.trail,.cursor{display:none}}
+
+/* ---------- rail (scroll line) ---------- */
+.rail{position:fixed;left:max(10px,calc(var(--pad) * .34));top:0;bottom:0;width:1px;z-index:40;background:var(--grey);opacity:.35;pointer-events:none}
+.rail__fill{position:absolute;top:0;left:-1px;width:3px;background:var(--lacquer);height:0}
+.rail__tip{position:absolute;left:-4px;width:9px;height:9px;background:var(--eraser);border-radius:50% 50% 50% 0;transform:rotate(-45deg);top:0}
+@media (max-width:820px){.rail{display:none}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:clamp(14px,1.6vw,22px) var(--pad);color:var(--paper);transition:color .4s var(--ease),transform .5s var(--ease)}
+.nav.on-paper{color:var(--ink)}
+.nav.menu-open{color:var(--paper)}
+.nav.hide{transform:translateY(-110%)}
+.nav__logo{display:inline-flex;align-items:center;font-size:clamp(15px,1.35vw,19px);flex:none}
+.nav__right{display:flex;align-items:center;gap:clamp(12px,1.8vw,30px)}
+.nav__links{display:flex;align-items:center;gap:clamp(16px,2vw,34px);font-family:var(--f-display);font-weight:600;font-size:.9rem;letter-spacing:-.01em}
+.nav__links a{position:relative;padding:4px 0}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--lacquer);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-out)}
+.nav__links a:hover::after,.nav__links a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+.nav__cta{border:1px solid currentColor;border-radius:100px;padding:.52em 1.1em;font-family:var(--f-display);
+  font-weight:600;font-size:.9rem;letter-spacing:-.01em;transition:background .3s,color .3s,border-color .3s}
+.nav__cta:hover{background:var(--lacquer);border-color:var(--lacquer);color:#181A1C}
+.nav__cta::after{display:none}
+@media (max-width:640px){
+  .nav{gap:10px;padding-left:18px;padding-right:18px}
+  .nav__logo{font-size:14px}
+  .lockup{gap:.42em}
+  .nav__right{gap:10px}
+  .nav__cta{font-size:.8rem;padding:.5em .82em}
+  .nav__burger{width:34px;height:34px}
+}
+@media (max-width:420px){
+  .nav{gap:8px;padding-left:15px;padding-right:15px}
+  .nav__logo{font-size:12.4px}
+  .lockup{gap:.38em}
+  .nav__right{gap:8px}
+  .nav__cta{font-size:.74rem;padding:.46em .7em;white-space:nowrap}
+  .nav__burger{width:30px;height:30px}
+  .nav__burger span,.nav__burger span::before,.nav__burger span::after{width:19px}
+}
+.nav__burger{display:none;width:40px;height:40px;align-items:center;justify-content:center}
+.nav__burger span{display:block;width:22px;height:0;border-top:2px solid currentColor;position:relative}
+.nav__burger span::before,.nav__burger span::after{content:"";position:absolute;left:0;width:22px;border-top:2px solid currentColor;transition:transform .35s var(--ease)}
+.nav__burger span::before{top:-7px}.nav__burger span::after{top:5px}
+@media (max-width:900px){
+  .nav__links{display:none}
+  .nav__burger{display:flex}
+}
+.menu{position:fixed;inset:0;z-index:59;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;gap:.1em;padding:var(--pad);
+  clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--ease-out);pointer-events:none}
+.menu.open{clip-path:inset(0 0 0 0);pointer-events:auto}
+.menu a{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,8.4vw,4.6rem);line-height:1.04;letter-spacing:-.04em;
+  text-transform:uppercase;padding:.1em 0;transition:color .3s,padding-left .4s var(--ease)}
+.menu a:hover{color:var(--lacquer);padding-left:.12em}
+.menu a.menu__cta{color:var(--eraser)}
+.menu__foot{margin-top:1.8rem;font-family:var(--f-text);color:var(--dim);font-size:1.05rem;line-height:1.6}
+.menu__foot a{border-bottom:1px solid var(--lacquer)}
+.menu__desc{margin-top:.4rem;font-family:var(--f-text);font-style:italic;color:var(--dim-2);font-size:1rem}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding-top:clamp(120px,18vh,22vh);padding-bottom:clamp(34px,5vh,64px)}
+.hero__bars{position:absolute;left:var(--pad);right:var(--pad);bottom:0;top:0;display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none}
+.hero__bars b{display:block;width:clamp(2px,.42vw,5px);background:var(--stroke);height:22%;transform-origin:bottom center;transform:scaleY(0);transition:transform 1s var(--ease-out)}
+.hero.lit .hero__bars b{transform:scaleY(1)}
+.hero__bars b.thirteen{background:var(--eraser);height:62%;width:clamp(3px,.6vw,7px)}
+.hero.lit .hero__bars b.thirteen{transform:rotate(9deg) scaleY(1)}
+.hero__inner{position:relative;z-index:2}
+.hero__h{margin-bottom:clamp(20px,3vh,40px)}
+.hero__h .ln{display:block;overflow:hidden}
+.hero__h .ln > span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease-out)}
+.hero.lit .hero__h .ln > span{transform:translateY(0)}
+.hero__h .ln:nth-child(2) > span{transition-delay:.09s}
+.hero__h em{font-style:normal;position:relative;display:inline-block}
+.hero__h em::after{content:"";position:absolute;left:-.02em;right:-.02em;bottom:.17em;height:.055em;background:var(--eraser);transform:scaleX(0);transform-origin:left;transition:transform .8s .9s var(--ease-out)}
+.hero.lit .hero__h em::after{transform:scaleX(1)}
+.hero__row{display:flex;flex-wrap:wrap;gap:var(--gap);align-items:flex-end;justify-content:space-between;border-top:1px solid var(--rule-on-ink);padding-top:clamp(16px,2vh,26px)}
+.hero__sub{max-width:36ch;font-size:clamp(1.08rem,1.35vw,1.3rem);line-height:1.6;color:var(--dim);margin:0}
+.hero__scroll{display:flex;align-items:center;gap:.6em;color:var(--dim-2)}
+.hero__scroll i{display:block;width:44px;height:1px;background:currentColor;position:relative;overflow:hidden}
+.hero__scroll i::after{content:"";position:absolute;inset:0;background:var(--lacquer);animation:sweep 2.4s infinite var(--ease)}
+@keyframes sweep{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+
+/* ---------- marquee ---------- */
+.marquee{overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:.5em 0;background:var(--paper)}
+.marquee__in{display:flex;width:max-content;animation:roll 42s linear infinite}
+.marquee span{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:clamp(1.6rem,4vw,3.4rem);letter-spacing:-.03em;padding:0 .3em;display:inline-block}
+.marquee span.odd{color:var(--eraser-deep);transform:rotate(180deg)}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+/* ---------- erase ---------- */
+.erase{padding-top:clamp(80px,14vh,190px);padding-bottom:clamp(80px,14vh,190px)}
+.erase__stack{position:relative;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:-.035em;line-height:.92;font-size:clamp(1.9rem,5.6vw,5.1rem)}
+.erase__old{display:block;color:var(--grey);position:relative;transition:opacity .5s .35s}
+.erase__old::after{content:"";position:absolute;left:-.04em;right:-.04em;top:48%;height:.09em;background:var(--eraser);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease-out)}
+.erase.is-on .erase__old::after{transform:scaleX(1)}
+.erase.is-on .erase__old{opacity:.32}
+.erase__rub{position:absolute;left:0;top:0;width:.9em;height:100%;background:linear-gradient(90deg,transparent,var(--eraser),transparent);opacity:0;pointer-events:none}
+.erase.is-on .erase__rub{animation:rub 1s .05s var(--ease) both}
+@keyframes rub{0%{opacity:.9;transform:translateX(0)}100%{opacity:0;transform:translateX(96%)}}
+.erase__new{display:block;margin-top:.12em;clip-path:inset(0 100% 0 0);transition:clip-path 1s .45s var(--ease-out)}
+.erase.is-on .erase__new{clip-path:inset(0 0 0 0)}
+.erase__foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--gap);margin-top:clamp(40px,7vh,90px);border-top:1px solid var(--rule);padding-top:26px}
+
+/* ---------- principle ---------- */
+.principle{padding-top:clamp(80px,13vh,170px);padding-bottom:clamp(80px,13vh,170px)}
+.principle__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:var(--gap);align-items:end}
+@media (max-width:900px){.principle__head{grid-template-columns:1fr}}
+.grid13{margin-top:clamp(40px,7vh,84px);display:flex;flex-direction:column;gap:clamp(12px,2vw,26px)}
+.row13{display:flex;justify-content:space-between;align-items:flex-end;gap:2px}
+.row13 b{display:block;flex:1;max-width:5.2%;height:clamp(28px,4.4vw,62px);background:currentColor;opacity:.22;transform-origin:bottom center;transition:transform .5s var(--ease-out),opacity .5s,background .4s}
+.row13:hover b{opacity:.34;transform:scaleY(.86)}
+.row13 b.thirteen{background:var(--eraser);opacity:1;transform:translateY(-18%) rotate(11deg)}
+.row13:hover b.thirteen{transform:translateY(-38%) rotate(-13deg) scaleY(1.2)}
+.row13:nth-child(2) b{height:clamp(20px,3.2vw,44px)}
+.row13:nth-child(3) b{height:clamp(34px,5.6vw,78px)}
+
+/* ---------- capabilities ---------- */
+.caps{padding-top:clamp(80px,13vh,170px);padding-bottom:clamp(70px,11vh,150px)}
+.caps__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:var(--gap);align-items:start;margin-top:clamp(34px,6vh,70px)}
+@media (max-width:960px){.caps__grid{grid-template-columns:1fr}}
+.cap{display:block;width:100%;text-align:left;border-top:1px solid var(--rule-on-ink);padding:clamp(10px,1.6vh,20px) 0;position:relative}
+.cap:last-of-type{border-bottom:1px solid var(--rule-on-ink)}
+.cap__name{display:block;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:-.04em;line-height:.9;
+  font-size:clamp(1.8rem,4.3vw,4rem);color:var(--dim-2);transition:color .45s var(--ease),transform .55s var(--ease-out),letter-spacing .55s var(--ease-out)}
+.cap[aria-selected="true"] .cap__name{color:var(--paper);transform:translateX(.05em)}
+.cap__body{display:block;max-height:0;overflow:hidden;transition:max-height .65s var(--ease-out),opacity .4s;opacity:0}
+.cap[aria-selected="true"] .cap__body{max-height:340px;opacity:1}
+.cap__body p{margin:.7em 0 .2em;color:var(--dim);font-size:1.06rem;line-height:1.62;max-width:46ch}
+.cap__for{display:block;margin:.55em 0 .3em;font-family:var(--f-display);font-weight:600;font-size:.86rem;
+  letter-spacing:-.01em;color:var(--lacquer);max-width:46ch;line-height:1.45}
+.cap__i{position:absolute;right:0;top:clamp(12px,1.7vh,22px);font-family:var(--f-display);font-size:.8rem;color:var(--dim-2);letter-spacing:.08em}
+/* each capability reshapes its own typography */
+.cap[data-cap="strategy"][aria-selected="true"] .cap__name{letter-spacing:.06em;font-weight:600}
+.cap[data-cap="creative"][aria-selected="true"] .cap__name{font-family:var(--f-text);font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.01em;color:var(--lacquer)}
+.cap[data-cap="ai"][aria-selected="true"] .cap__name{letter-spacing:-.07em;color:var(--eraser)}
+.cap[data-cap="experiences"][aria-selected="true"] .cap__name{transform:translateX(.05em) skewX(-9deg)}
+.cap[data-cap="growth"][aria-selected="true"] .cap__name{transform:translateX(.05em) scaleY(1.16);transform-origin:bottom left}
+.caps__stage{--stage:#1C1F22;--stage-ink:#EDE5D6;position:sticky;top:96px;aspect-ratio:4/3.1;border:1px solid var(--rule-on-ink);background:var(--stage);overflow:hidden}
+:root[data-theme="dark"] .caps__stage{--stage:#E3D9C6;--stage-ink:#181A1C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .caps__stage{--stage:#E3D9C6;--stage-ink:#181A1C}}
+.caps__stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.caps__stage figcaption{position:absolute;left:16px;bottom:13px;font-family:var(--f-text);font-style:italic;color:var(--stage-ink);opacity:.72;font-size:.95rem}
+@media (max-width:960px){.caps__stage{position:relative;top:0;order:-1;aspect-ratio:16/10}}
+
+/* ---------- where we come in (commercial clarity, editorial not cards) ---------- */
+.comein{padding-top:clamp(74px,12vh,160px);padding-bottom:clamp(74px,12vh,160px)}
+.comein .principle__head{align-items:end}
+.comein__list{margin-top:clamp(34px,6vh,72px);border-top:1px solid var(--rule-on-ink)}
+.ci{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:var(--gap);
+  align-items:baseline;padding:clamp(20px,3vh,34px) 0;border-bottom:1px solid var(--rule-on-ink);position:relative}
+@media (max-width:820px){.ci{grid-template-columns:1fr;gap:10px;padding:22px 0}}
+.ci__q{font-family:var(--f-text);font-size:clamp(1.22rem,2.5vw,2rem);line-height:1.34;max-width:30ch;margin:0;color:var(--paper)}
+.ci__a{font-family:var(--f-display);font-weight:600;font-size:.94rem;letter-spacing:-.01em;color:var(--dim-2);align-self:baseline}
+.ci__a b{display:block;font-weight:600;color:var(--lacquer);margin-bottom:.35em}
+/* the last one is the departure — it gets the signature */
+.ci--mark .ci__q{color:var(--paper)}
+.ci--mark .ci__q i{font-style:italic;position:relative;white-space:nowrap}
+.ci--mark .ci__q i::after{content:"";position:absolute;left:-.04em;right:-.04em;bottom:-.06em;height:3px;background:var(--eraser)}
+.ci--mark .ci__a b{color:var(--eraser)}
+
+/* ---------- work ---------- */
+.work{padding-top:clamp(80px,13vh,170px);padding-bottom:clamp(80px,13vh,170px)}
+.work__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,2vw,30px);margin-top:clamp(36px,6vh,72px)}
+.tile{position:relative;display:block;overflow:hidden;border:1px solid var(--rule);
+  background-color:var(--paper-2);
+  background-image:repeating-linear-gradient(115deg,transparent 0 9px,var(--rule) 9px 10px);
+  transition:transform .35s var(--ease-out),border-color .4s}
+.tile:hover{border-color:var(--ink)}
+.tile--f:hover{border-color:var(--eraser)}
+.tile--a{grid-column:1/7;aspect-ratio:4/3}
+.tile--b{grid-column:8/13;aspect-ratio:3/4;margin-top:clamp(28px,7vw,110px)}
+.tile--c{grid-column:1/5;aspect-ratio:1/1;margin-top:clamp(10px,3vw,50px)}
+.tile--d{grid-column:6/13;aspect-ratio:16/9}
+.tile--e{grid-column:2/8;aspect-ratio:5/4}
+/* the 13th element: one tile escapes the margin */
+.tile--f{grid-column:9/13;aspect-ratio:3/4;margin-right:calc(var(--pad) * -1 - 4vw);margin-top:clamp(-40px,-4vw,0px);border-color:var(--eraser)}
+@media (max-width:820px){
+  .work__grid{grid-template-columns:1fr;gap:18px}
+  .tile{grid-column:1/-1 !important;margin:0 !important;aspect-ratio:4/3}
+  .tile--f{margin-right:calc(var(--pad) * -.5) !important}
+}
+.tile__ph{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:.5em;text-align:center;padding:16px;
+  color:var(--ph);font-family:var(--f-display);font-weight:600;font-size:.84rem;letter-spacing:.1em}
+.tile__ph em{font-family:var(--f-text);font-style:italic;font-weight:400;font-size:1.02rem;letter-spacing:0;max-width:26ch;line-height:1.5}
+.tile__scribble{position:absolute;inset:0;opacity:.5}
+.tile__meta{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+  background:linear-gradient(transparent,rgba(20,22,24,.86));color:#EDE5D6;transform:translateY(101%);transition:transform .55s var(--ease-out)}
+.tile:hover .tile__meta,.tile:focus-visible .tile__meta{transform:translateY(0)}
+@media (hover:none),(pointer:coarse){.tile__meta{transform:translateY(0)}}
+.tile__t{font-family:var(--f-display);font-weight:800;font-size:clamp(1.1rem,1.8vw,1.7rem);letter-spacing:-.03em;line-height:1}
+.tile__k{font-family:var(--f-text);font-style:italic;font-size:.96rem;color:#CFC8BB;white-space:nowrap}
+.tile__f{position:absolute;top:13px;left:15px;font-family:var(--f-display);font-weight:600;font-size:.78rem;letter-spacing:.1em;color:var(--eraser-deep)}
+
+/* ---------- process ---------- */
+.process{padding-top:clamp(80px,13vh,170px);padding-bottom:clamp(80px,13vh,170px)}
+.process__line{position:absolute;left:0;right:0;top:0;height:100%;pointer-events:none}
+.process__line path{fill:none;stroke:var(--lacquer);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:var(--gap);margin-top:clamp(40px,7vh,90px);position:relative;z-index:2}
+.step h3{font-size:clamp(1.15rem,1.7vw,1.6rem);margin-bottom:.45em}
+.step p{color:var(--dim);font-size:1.04rem;line-height:1.62}
+.step__n{font-family:var(--f-display);font-weight:600;font-size:.8rem;letter-spacing:.1em;color:var(--lacquer);display:block;margin-bottom:1.5em}
+.step:nth-child(4) .step__n{color:var(--eraser)}
+
+/* ---------- studio ---------- */
+.studio{padding-top:clamp(80px,13vh,170px);padding-bottom:clamp(80px,13vh,170px)}
+.studio__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap)}
+@media (max-width:900px){.studio__grid{grid-template-columns:1fr}}
+.facts{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.facts li{display:flex;justify-content:space-between;gap:22px;padding:.95em 0;border-bottom:1px solid var(--rule);font-size:1.04rem;line-height:1.6}
+.facts b{font-family:var(--f-display);font-weight:600;font-size:.84rem;letter-spacing:.08em;color:var(--grey);flex:none;padding-top:.28em;min-width:4.6em}
+
+/* ---------- contact ---------- */
+.contact{padding-top:clamp(80px,14vh,180px);padding-bottom:clamp(50px,8vh,90px)}
+.contact__h{margin-bottom:clamp(26px,4vh,50px)}
+.contact__h span{display:block}
+.contact__h .swap{color:var(--lacquer)}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(16px,2.4vw,32px)}
+.btn{display:inline-flex;align-items:center;font-family:var(--f-display);font-weight:600;font-size:1.02rem;letter-spacing:-.01em;
+  background:var(--lacquer);color:#181A1C;padding:.92em 1.5em;border-radius:100px;transition:transform .3s var(--ease-out),background .3s}
+.btn:hover{background:#FFC42E;transform:translateY(-2px)}
+.big-link{display:inline-flex;align-items:center;gap:.5em;font-family:var(--f-display);font-weight:800;letter-spacing:-.03em;
+  font-size:clamp(1.25rem,2.9vw,2.3rem);border-bottom:3px solid var(--lacquer);padding-bottom:.08em;transition:color .35s,border-color .35s}
+.big-link:hover{color:var(--lacquer)}
+@media (max-width:560px){.cta-row{gap:18px}.btn{width:100%;justify-content:center}}
+.contact__cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:var(--gap);margin-top:clamp(44px,7vh,96px);border-top:1px solid var(--rule-on-ink);padding-top:30px}
+.foot{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--rule-on-ink);margin-top:clamp(44px,7vh,90px);padding-top:24px;color:var(--dim-2);font-size:.95rem}
+
+/* ---------- mobile: designed for the thumb, not shrunk from desktop ---------- */
+@media (max-width:700px){
+  .display{font-size:clamp(2.7rem,12.6vw,4.4rem);line-height:.92}
+  .h2{font-size:clamp(2.1rem,9.4vw,3.4rem);line-height:.94}
+  .lede{font-size:1.16rem;line-height:1.5;max-width:30ch}
+  .marquee span{font-size:clamp(1.5rem,7.4vw,2.4rem)}
+  .marquee__in{animation-duration:34s}
+  .erase__stack{font-size:clamp(1.75rem,7.6vw,2.6rem);line-height:1.02}
+  .erase__foot{gap:24px;margin-top:38px}
+  .cap{padding:16px 0}
+  .cap__name{font-size:clamp(1.9rem,8.6vw,2.9rem)}
+  .cap__i{top:18px}
+  .grid13{gap:10px}
+  .steps{gap:34px}
+  .step__n{margin-bottom:.9em}
+  .facts li{flex-direction:column;gap:6px}
+  .facts b{padding-top:0}
+  .hero__row{gap:18px}
+  .hero__scroll{display:none}
+  .contact__h{margin-bottom:28px}
+  .foot{gap:16px;font-size:.92rem}
+}
+@media (max-width:700px) and (orientation:landscape){
+  .hero{min-height:auto;padding-top:108px;padding-bottom:44px}
+}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+.rv[data-d="1"]{transition-delay:.08s}.rv[data-d="2"]{transition-delay:.16s}.rv[data-d="3"]{transition-delay:.24s}
+
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .hero__h .ln > span{transform:none;transition:none}
+  .hero__bars b,.hero.lit .hero__bars b{transform:scaleY(1);transition:none}
+  .hero__h em::after,.erase.is-on .erase__old::after{transform:scaleX(1);transition:none}
+  .erase__new{clip-path:none;transition:none}
+  .erase__rub{display:none}
+  .row13 b.thirteen{transform:translateY(-18%) rotate(11deg)}
+  .marquee__in{animation:none}
+  .hero__scroll i::after{animation:none}
+  .btn:hover{transform:none}
+  *{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== INTRO: twelve strokes behave, the thirteenth doesn't ========== -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__strokes" id="loaderStrokes"></div>
+  <div class="loader__cap annot">Twelve agree. The thirteenth doesn't.</div>
+  <div class="loader__logo" id="loaderLogo">
+    <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+  </div>
+</div>
+
+<canvas class="trail" id="trail" aria-hidden="true"></canvas>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<div class="rail" aria-hidden="true"><span class="rail__fill" id="railFill"></span><span class="rail__tip" id="railTip"></span></div>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="nav">
+  <a class="nav__logo" href="#top" aria-label="13th Pencil, home">
+    <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+  </a>
+  <div class="nav__right">
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#principle">Principle</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#comein">Where we help</a>
+      <a href="#work">Thinking</a>
+      <a href="#studio">Studio</a>
+    </nav>
+    <a class="nav__cta" href="#contact">Start a project</a>
+    <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="#principle">Principle</a>
+  <a href="#capabilities">Capabilities</a>
+  <a href="#comein">Where we help</a>
+  <a href="#work">Thinking</a>
+  <a href="#studio">Studio</a>
+  <a class="menu__cta" href="#contact">Start a project</a>
+  <p class="menu__foot"><a href="mailto:hello@13thpencil.com">hello@13thpencil.com</a></p>
+  <p class="menu__desc">A creative and innovation company.</p>
+</div>
+
+<main id="top">
+
+<!-- ========== HERO ========== -->
+<section class="hero panel panel--ink" id="hero">
+  <div class="hero__bars" id="heroBars" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <h1 class="display hero__h">
+      <span class="ln"><span>The <em>obvious</em> idea</span></span>
+      <span class="ln"><span>was already taken.</span></span>
+    </h1>
+    <div class="hero__row">
+      <p class="hero__sub rv">13th Pencil is a creative and innovation company. Most briefs have an answer everyone can see. We are here for the one that took longer to find.</p>
+      <div class="hero__scroll rv" data-d="2" aria-hidden="true"><i></i><span class="annot">Keep scrolling</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MARQUEE ========== -->
+<div class="marquee panel--paper" aria-hidden="true">
+  <div class="marquee__in" id="marquee"></div>
+</div>
+
+<!-- ========== ERASE THE OBVIOUS ========== -->
+<section class="erase panel panel--paper" id="erase">
+  <div class="wrap">
+    <p class="annot rv" style="margin-bottom:2.2em">How most of this industry introduces itself</p>
+    <div class="erase__stack">
+      <span class="erase__old">We help brands thrive in a rapidly changing world.<span class="erase__rub"></span></span>
+      <span class="erase__new">We start where the obvious answer stops.</span>
+    </div>
+    <div class="erase__foot">
+      <p class="rv">13th Pencil is a creative and innovation company. We work on brands, campaigns, products and experiences — usually at the point where the expected route has been mapped and nobody is excited by it.</p>
+      <p class="rv" data-d="1">The expected answer is useful. It tells you where the edge of the category is. It is a starting position, not a strategy, and it is rarely the thing anyone remembers.</p>
+      <p class="note rv" data-d="2">Strategy, creative, AI, experiences and growth — held together by one team rather than passed between five.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== THE 13TH PRINCIPLE ========== -->
+<section class="principle panel panel--paper" id="principle">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">Twelve is a pattern.<br>Thirteen is a decision.</h2>
+      <div>
+        <p class="lede rv" data-d="1">A pattern is what everyone can already see. It is agreement, arriving early and dressed as insight.</p>
+        <p class="note rv" data-d="2">The departure comes later. It breaks the alignment, it is harder to defend in a meeting, and it is usually the only part anyone repeats afterwards. A pencil is the right tool for that moment — it sketches, questions, erases and commits, in that order.</p>
+      </div>
+    </div>
+    <div class="grid13" id="grid13" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ========== CAPABILITIES ========== -->
+<section class="caps panel panel--ink" id="capabilities">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">What we do,<br>demonstrated rather than listed.</h2>
+      <p class="note rv" data-d="1">Five practices, one team. Most projects move through three or four of them, which is the point — the strategy, the film, the prototype and the media plan are made by people in the same conversation.</p>
+    </div>
+    <div class="caps__grid">
+      <div role="tablist" aria-label="Capabilities" id="capList">
+        <button class="cap" data-cap="strategy" role="tab" aria-selected="true" aria-controls="capStage">
+          <span class="cap__i">01</span>
+          <span class="cap__name">Brand &amp; Strategy</span>
+          <span class="cap__body">
+            <span class="cap__for">When the category has a template and you need a position inside it that is yours.</span>
+            <p>Positioning, brand architecture, naming, messaging, audience and cultural insight. We look for the tension in the category before anyone designs anything.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="creative" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">02</span>
+          <span class="cap__name">Creative Studio</span>
+          <span class="cap__body">
+            <span class="cap__for">When the work has to be remembered, not merely approved.</span>
+            <p>Campaign platforms, art direction, identity and design systems, film, photography and copy. Made properly, to the standard the idea deserves.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="ai" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">03</span>
+          <span class="cap__name">AI &amp; Innovation</span>
+          <span class="cap__body">
+            <span class="cap__for">When AI is in the budget and nobody has decided what it should actually make.</span>
+            <p>Generative production pipelines, AI-assisted concepting, synthetic media, and working prototypes you can put in front of people. New tools, old standards.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="experiences" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">04</span>
+          <span class="cap__name">Experiences</span>
+          <span class="cap__body">
+            <span class="cap__for">When the brand needs to exist somewhere people can walk into.</span>
+            <p>Events, environments, installations, launches and brand worlds — designed as something people talk about on the way home, and film on the way round.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="growth" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">05</span>
+          <span class="cap__name">Digital Growth</span>
+          <span class="cap__body">
+            <span class="cap__for">When output is constant and none of it is compounding.</span>
+            <p>Performance creative, social systems, always-on content engines, and the measurement that tells you which idea is carrying the result.</p>
+          </span>
+        </button>
+      </div>
+      <figure class="caps__stage" id="capStage" role="tabpanel" style="margin:0">
+        <canvas id="capCanvas"></canvas>
+        <figcaption id="capCaption">Order, and the one element refusing it</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHERE WE COME IN — commercial clarity, editorial form ========== -->
+<section class="comein panel panel--ink" id="comein">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">Reasons people<br>call us.</h2>
+      <p class="note rv" data-d="1">Written as we actually hear them, in first conversations, before anyone has tidied the problem up.</p>
+    </div>
+    <div class="comein__list">
+      <div class="ci rv">
+        <p class="ci__q">"We're launching into a category where every competitor already sounds the same — including us."</p>
+        <span class="ci__a"><b>Brand &amp; Strategy</b>Positioning, architecture, messaging</span>
+      </div>
+      <div class="ci rv">
+        <p class="ci__q">"The work tests fine. Nobody remembers it a week later."</p>
+        <span class="ci__a"><b>Creative Studio</b>Platform, art direction, film, identity</span>
+      </div>
+      <div class="ci rv">
+        <p class="ci__q">"We have AI in the plan and no agreement on what it should produce."</p>
+        <span class="ci__a"><b>AI &amp; Innovation</b>Pipelines, prototypes, production</span>
+      </div>
+      <div class="ci rv">
+        <p class="ci__q">"We publish constantly. None of it adds up to anything."</p>
+        <span class="ci__a"><b>Digital Growth</b>Content systems, performance creative</span>
+      </div>
+      <div class="ci ci--mark rv">
+        <p class="ci__q">"We have the budget and the deadline. What we don't have is <i>an idea worth the money</i>."</p>
+        <span class="ci__a"><b>Start here</b>One conversation, no deck required</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORK ========== -->
+<section class="work panel panel--paper" id="work">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">Selected thinking</h2>
+      <p class="note rv" data-d="1">13th Pencil is new, so this is where our own work goes first: independent concepts, experiments and brand thinking we started because nobody asked us to. Client projects join them here as they are cleared to publish.</p>
+    </div>
+    <div class="work__grid" id="workGrid">
+      <a class="tile tile--a" href="#contact"><span class="tile__f">Film</span><span class="tile__ph">In development<em>A short film about the ideas that get cut for being too interesting.</em></span><span class="tile__meta"><span class="tile__t">The Rejected Reel</span><span class="tile__k">independent concept</span></span></a>
+      <a class="tile tile--b" href="#contact"><span class="tile__f">Identity</span><span class="tile__ph">In development<em>An identity system that redraws itself every time it is used.</em></span><span class="tile__meta"><span class="tile__t">Never the Same Twice</span><span class="tile__k">design experiment</span></span></a>
+      <a class="tile tile--c" href="#contact"><span class="tile__f">Writing</span><span class="tile__ph">Ongoing<em>Short notes on category defaults, and what sits underneath them.</em></span><span class="tile__meta"><span class="tile__t">The Default Files</span><span class="tile__k">brand thinking</span></span></a>
+      <a class="tile tile--d" href="#contact"><span class="tile__f">Digital</span><span class="tile__ph">Reserved<em>The frame where the first client case study will live.</em></span><span class="tile__meta"><span class="tile__t">Client work</span><span class="tile__k">coming</span></span></a>
+      <a class="tile tile--e" href="#contact"><span class="tile__f">Experience</span><span class="tile__ph">In development<em>A room where the audience decides which idea survives.</em></span><span class="tile__meta"><span class="tile__t">Room Thirteen</span><span class="tile__k">speculative experience</span></span></a>
+      <a class="tile tile--f" href="#contact"><span class="tile__f">AI</span><span class="tile__ph">In development<em>A tool that generates the twelve expected answers so we can skip them.</em></span><span class="tile__meta"><span class="tile__t">Twelve &amp; Out</span><span class="tile__k">internal prototype</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="process panel panel--ink" id="process">
+  <svg class="process__line" id="processLine" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+    <path id="processPath" d="M0 520 C 200 520, 240 120, 430 160 S 720 520, 900 300 S 1120 90, 1200 140"/>
+  </svg>
+  <div class="wrap">
+    <h2 class="h2 rv">How the line gets drawn</h2>
+    <div class="steps">
+      <div class="step rv"><span class="step__n">Step one</span><h3>Find the tension</h3><p>Interrogate the category, the customer and the thing nobody in the business wants to say out loud.</p></div>
+      <div class="step rv" data-d="1"><span class="step__n">Step two</span><h3>Exhaust the expected</h3><p>Every reasonable route goes on the wall, argued properly, before anyone is allowed a favourite.</p></div>
+      <div class="step rv" data-d="2"><span class="step__n">Step three</span><h3>Clear the wall</h3><p>Those routes were the map. They show where the category ends, which is the only place worth working.</p></div>
+      <div class="step rv" data-d="3"><span class="step__n">And then</span><h3>Make the departure</h3><p>One idea gets built properly — film, identity, product, experience — with the craft it was worth in the first place.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STUDIO ========== -->
+<section class="studio panel panel--paper" id="studio">
+  <div class="wrap studio__grid">
+    <div>
+      <h2 class="h2 rv">A studio built<br>the other way round.</h2>
+      <p class="rv" data-d="1" style="margin-top:1.6em">Most agencies scale by adding layers. We scale by removing them. The people you meet first are the people who do the work, from opening conversation to final delivery.</p>
+      <p class="rv" data-d="2">Strategists, art directors, writers, filmmakers, designers, technologists and AI specialists — assembled around the problem rather than the org chart.</p>
+    </div>
+    <div class="rv" data-d="1">
+      <ul class="facts">
+        <li><b>Model</b><span>A small senior team assembled per project. No pyramid, and no handover to people you never met.</span></li>
+        <li><b>Engaging</b><span>Project, retainer, or a paid first sprint if you want to see how we think before committing.</span></li>
+        <li><b>Tools</b><span>AI sits in the pipeline, not on the pedestal. It accelerates production; it does not choose the idea.</span></li>
+        <li><b>Age</b><span>We are new, and say so. Judge us on the thinking on this page and on what we do in the first conversation.</span></li>
+        <li><b>Rule</b><span>If it could have come from anyone else, it goes back on the wall.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact panel panel--ink" id="contact">
+  <div class="wrap">
+    <h2 class="display contact__h"><span>Bring us</span><span>the brief that <span class="swap" id="swapWord">came back rejected</span>.</span></h2>
+    <div class="cta-row">
+      <a class="btn" href="mailto:hello@13thpencil.com?subject=Project%20enquiry%20%E2%80%94%2013th%20Pencil">Start a project</a>
+      <a class="big-link" href="mailto:hello@13thpencil.com?subject=Project%20enquiry%20%E2%80%94%2013th%20Pencil">hello@13thpencil.com</a>
+    </div>
+    <div class="contact__cols">
+      <div><p class="note">New business<br><a href="mailto:hello@13thpencil.com" style="border-bottom:1px solid var(--lacquer)">hello@13thpencil.com</a></p></div>
+      <div><p class="note">Careers<br><a href="mailto:people@13thpencil.com" style="border-bottom:1px solid var(--lacquer)">people@13thpencil.com</a></p></div>
+      <div><p class="note">Send the brief, the deadline, and the answer everyone expects. We will come back with what we would do instead.</p></div>
+    </div>
+    <div class="foot">
+      <a href="#top" aria-label="13th Pencil" style="font-size:1.15rem">
+        <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+      </a>
+      <span>© 2026 13th Pencil — a creative and innovation company. Provisional identity; independent work in progress.</span>
+      <button id="themeBtn" style="border-bottom:1px solid currentColor">Invert</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(s,c){return (c||document).querySelector(s);};
+  var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+  var css = function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+
+  /* ---------- 1. INTRO: twelve behave, the thirteenth doesn't ---------- */
+  var loader = $("#loader"), strokes = $("#loaderStrokes");
+  for(var i=0;i<13;i++){
+    var s = document.createElement("i");
+    if(i===12) s.className = "thirteen";
+    strokes.appendChild(s);
+  }
+  var items = $$("#loaderStrokes i");
+  function endIntro(){
+    loader.classList.add("is-done");
+    document.body.classList.remove("is-locked");
+    setTimeout(function(){ loader.hidden = true; }, 1100);
+    $("#hero").classList.add("lit");
+  }
+  if(reduce){
+    loader.hidden = true; $("#hero").classList.add("lit");
+  }else{
+    document.body.classList.add("is-locked");
+    items.forEach(function(el,idx){
+      setTimeout(function(){
+        el.classList.add("on");
+        if(idx===12) setTimeout(function(){ el.classList.add("go"); }, 260);
+      }, 60 + idx*55);
+    });
+    setTimeout(function(){
+      strokes.style.transition = "opacity .5s"; strokes.style.opacity = ".14";
+      $("#loaderLogo").classList.add("in");
+    }, 1180);
+    setTimeout(endIntro, 2250);
+    window.addEventListener("keydown", function(e){ if(e.key==="Escape") endIntro(); });
+  }
+
+  /* ---------- 2. HERO: a rhythm of marks, one of which leaves it ----------
+     The count follows the viewport rather than spelling out thirteen. */
+  var bars = $("#heroBars");
+  var barCount = Math.max(7, Math.min(17, Math.round(window.innerWidth/86)));
+  var breakAt = barCount - 2;
+  for(var b=0;b<barCount;b++){
+    var el = document.createElement("b");
+    if(b===breakAt) el.className = "thirteen";
+    el.style.transitionDelay = (0.9 + b*0.045) + "s";
+    bars.appendChild(el);
+  }
+
+  var reflowBars;
+  window.addEventListener("resize", function(){
+    clearTimeout(reflowBars);
+    reflowBars = setTimeout(function(){
+      var want = Math.max(7, Math.min(17, Math.round(window.innerWidth/86)));
+      if(want === bars.children.length) return;
+      bars.innerHTML = "";
+      for(var i=0;i<want;i++){
+        var e2 = document.createElement("b");
+        if(i===want-2) e2.className = "thirteen";
+        bars.appendChild(e2);
+      }
+    }, 220);
+  });
+
+  /* ---------- 3. MARQUEE — one word faces the other way ---------- */
+  var words = ["Brand","Strategy","Creative","Film","Identity","AI","Experiences","Systems","Growth","Craft","Otherwise"];
+  var odd = words.length - 1;               /* one word faces the other way */
+  var mq = $("#marquee"), runOne = "";
+  words.forEach(function(w,ix){
+    runOne += '<span'+(ix===odd?' class="odd"':'')+'>'+w+'</span><span aria-hidden="true">·</span>';
+  });
+  mq.innerHTML = runOne + runOne;
+
+  /* ---------- 4. THE 13TH PRINCIPLE grid ---------- */
+  var g = $("#grid13");
+  for(var r=0;r<3;r++){
+    var row = document.createElement("div"); row.className = "row13";
+    for(var c=0;c<13;c++){
+      var m = document.createElement("b");
+      if(c===12) m.className = "thirteen";
+      row.appendChild(m);
+    }
+    g.appendChild(row);
+  }
+
+  /* ---------- 5. REVEALS ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{threshold:.18, rootMargin:"0px 0px -8% 0px"});
+  $$(".rv").forEach(function(n){ io.observe(n); });
+
+  /* ---------- 6. ERASE THE OBVIOUS ---------- */
+  var eraseSec = $("#erase");
+  var io2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ eraseSec.classList.add("is-on"); io2.disconnect(); } });
+  },{threshold:.45});
+  io2.observe(eraseSec);
+
+  /* ---------- 7. NAV: colour follows the panel behind it ---------- */
+  var nav = $("#nav"), lastY = 0;
+  var panels = $$(".panel");
+  function navTone(){
+    var y = nav.getBoundingClientRect().bottom - 8;
+    for(var i=0;i<panels.length;i++){
+      var r = panels[i].getBoundingClientRect();
+      if(r.top <= y && r.bottom >= y){
+        nav.classList.toggle("on-paper", panels[i].classList.contains("panel--paper"));
+        break;
+      }
+    }
+  }
+
+  /* ---------- 8. RAIL + PROCESS LINE + PARALLAX ---------- */
+  var railFill = $("#railFill"), railTip = $("#railTip");
+  var path = $("#processPath"), pathLen = path.getTotalLength();
+  path.style.strokeDasharray = pathLen; path.style.strokeDashoffset = pathLen;
+  var processSec = $("#process");
+  var ticking = false;
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(1, y/h) : 0;
+    railFill.style.height = (p*100) + "%";
+    railTip.style.top = (p*100) + "%";
+    var pr = processSec.getBoundingClientRect();
+    var prog = 1 - (pr.bottom - window.innerHeight*0.25) / (pr.height + window.innerHeight*0.5);
+    prog = Math.max(0, Math.min(1, prog));
+    path.style.strokeDashoffset = pathLen * (1 - prog);
+    nav.classList.toggle("hide", y > lastY + 6 && y > 600);
+    if(y < lastY - 6 || y < 600) nav.classList.remove("hide");
+    lastY = y;
+    navTone();
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+  }, {passive:true});
+  onScroll();
+
+  /* ---------- 9. CURSOR + GRAPHITE TRAIL ---------- */
+  if(fine && !reduce){
+    var dot = $("#cursor"), cv = $("#trail"), ctx = cv.getContext("2d"), dpr = Math.min(2, window.devicePixelRatio||1);
+    var px = -100, py = -100, mx = -100, my = -100, drawing = false;
+    function sizeTrail(){ cv.width = innerWidth*dpr; cv.height = innerHeight*dpr; ctx.scale(dpr,dpr); }
+    sizeTrail();
+    window.addEventListener("resize", function(){ ctx.setTransform(1,0,0,1,0,0); sizeTrail(); });
+    document.addEventListener("mousemove", function(e){
+      mx = e.clientX; my = e.clientY; drawing = true;
+      dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
+    });
+    var lacquer = css("--lacquer") || "#F5B301";
+    (function loop(){
+      if(document.hidden){ requestAnimationFrame(loop); return; }
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0,0,0,.055)";
+      ctx.fillRect(0,0,innerWidth,innerHeight);
+      ctx.globalCompositeOperation = "source-over";
+      if(drawing && px > -50){
+        ctx.strokeStyle = lacquer; ctx.lineWidth = 1.6; ctx.lineCap = "round";
+        ctx.globalAlpha = .55;
+        ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(mx,my); ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+      px = mx; py = my;
+      requestAnimationFrame(loop);
+    })();
+    $$("a, button").forEach(function(a){
+      a.addEventListener("mouseenter", function(){ dot.classList.add("big"); });
+      a.addEventListener("mouseleave", function(){ dot.classList.remove("big"); });
+    });
+  }
+
+  /* ---------- 10. CAPABILITIES — the page performs each discipline ---------- */
+  var stage = $("#capStage"), canvas = $("#capCanvas"), c = canvas.getContext("2d");
+  var small = window.matchMedia("(max-width:760px)").matches;
+  var caps = $$(".cap"), cap = "strategy", t = 0, W = 0, H = 0;
+  var cdpr = Math.min(small ? 1.5 : 2, window.devicePixelRatio||1);
+  var captions = {
+    strategy:"Order, and the one line refusing it",
+    creative:"A line that will not sit still",
+    ai:"Pattern-finding, one node off-model",
+    experiences:"Something entering the room",
+    growth:"Compounding, not spiking"
+  };
+  function sizeCanvas(){
+    var r = stage.getBoundingClientRect();
+    W = r.width; H = r.height;
+    canvas.width = W*cdpr; canvas.height = H*cdpr;
+    c.setTransform(cdpr,0,0,cdpr,0,0);
+  }
+  sizeCanvas();
+  window.addEventListener("resize", sizeCanvas);
+  window.addEventListener("load", sizeCanvas);
+  var stageVisible = true;
+  new IntersectionObserver(function(en){ stageVisible = en[0].isIntersecting; },{threshold:.02}).observe(stage);
+
+  var nodes = [];
+  var nodeCount = small ? 22 : 40;
+  for(var n=0;n<nodeCount;n++) nodes.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0014,vy:(Math.random()-.5)*.0014});
+  var scrib = [], ripples = [], pointer = {x:.5,y:.5};
+  stage.addEventListener("pointermove", function(e){
+    var r = stage.getBoundingClientRect();
+    pointer.x = (e.clientX-r.left)/r.width; pointer.y = (e.clientY-r.top)/r.height;
+    if(cap==="experiences" && ripples.length < 22 && t%4===0) ripples.push({x:pointer.x,y:pointer.y,r:0});
+  });
+
+  function draw(){
+    if(!stageVisible || document.hidden){ requestAnimationFrame(draw); return; }
+    t++;
+    var ink = getComputedStyle(stage).getPropertyValue("--stage-ink").trim() || "#EDE5D6";
+    var lac = css("--lacquer"), era = css("--eraser");
+    c.clearRect(0,0,W,H);
+    c.lineCap = "round";
+
+    if(cap==="strategy"){
+      var count = 9, gap = W/(count+1);
+      for(var i=0;i<count;i++){
+        var x = gap*(i+1);
+        var settle = Math.min(1, t/70);
+        var wob = (1-settle) * Math.sin(t*.05+i) * H*.12;
+        var isThirteen = (i===count-1);
+        c.strokeStyle = isThirteen ? era : ink;
+        c.globalAlpha = isThirteen ? 1 : .42;
+        c.lineWidth = isThirteen ? 4 : 2;
+        c.beginPath();
+        if(isThirteen){
+          c.save(); c.translate(x, H*.5 + Math.sin(t*.02)*8); c.rotate(.28 + Math.sin(t*.015)*.12);
+          c.moveTo(0,-H*.30); c.lineTo(0,H*.30); c.stroke(); c.restore();
+        }else{
+          c.moveTo(x, H*.22 + wob); c.lineTo(x, H*.78 + wob); c.stroke();
+        }
+      }
+      c.globalAlpha = .18; c.strokeStyle = ink; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(W*.06,H*.5); c.lineTo(W*.94,H*.5); c.stroke();
+    }
+
+    else if(cap==="creative"){
+      if(t%2===0){
+        var a = t*.021;
+        scrib.push({
+          x: W*.5 + Math.cos(a*1.3)*W*.31 + Math.sin(a*.47)*W*.12,
+          y: H*.5 + Math.sin(a*1.7)*H*.30 + Math.cos(a*.31)*H*.12
+        });
+      }
+      if(scrib.length > 200) scrib.shift();
+      c.strokeStyle = ink; c.lineWidth = 1.4; c.globalAlpha = .5;
+      c.beginPath();
+      scrib.forEach(function(p,ix){ ix ? c.lineTo(p.x,p.y) : c.moveTo(p.x,p.y); });
+      c.stroke();
+      if(scrib.length){
+        var last = scrib[scrib.length-1];
+        c.globalAlpha = 1; c.fillStyle = lac;
+        c.beginPath(); c.arc(last.x,last.y,4.5,0,6.284); c.fill();
+      }
+    }
+
+    else if(cap==="ai"){
+      nodes.forEach(function(p,ix){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>1) p.vx*=-1;
+        if(p.y<0||p.y>1) p.vy*=-1;
+      });
+      c.lineWidth = 1;
+      for(var i2=0;i2<nodes.length;i2++){
+        for(var j=i2+1;j<nodes.length;j++){
+          var dx=(nodes[i2].x-nodes[j].x)*W, dy=(nodes[i2].y-nodes[j].y)*H;
+          var d = Math.sqrt(dx*dx+dy*dy);
+          if(d < W*.15){
+            c.globalAlpha = (1 - d/(W*.15))*.32; c.strokeStyle = ink;
+            c.beginPath(); c.moveTo(nodes[i2].x*W,nodes[i2].y*H); c.lineTo(nodes[j].x*W,nodes[j].y*H); c.stroke();
+          }
+        }
+      }
+      nodes.forEach(function(p,ix){
+        var off = (ix===nodes.length-1);     /* exactly one node off-model */
+        c.globalAlpha = 1; c.fillStyle = off ? era : ink;
+        c.beginPath(); c.arc(p.x*W,p.y*H, off?5.5:2, 0, 6.284); c.fill();
+      });
+    }
+
+    else if(cap==="experiences"){
+      if(t%26===0) ripples.push({x:pointer.x,y:pointer.y,r:0});
+      ripples = ripples.filter(function(rp){ return rp.r < Math.max(W,H); });
+      ripples.forEach(function(rp,ix){
+        rp.r += 2.4;
+        c.globalAlpha = Math.max(0, .5 - rp.r/Math.max(W,H)*.5);
+        var lead = (ix%7===6);
+        c.strokeStyle = lead ? era : ink;
+        c.lineWidth = lead ? 3 : 1.4;
+        c.beginPath(); c.arc(rp.x*W, rp.y*H, rp.r, 0, 6.284); c.stroke();
+      });
+      c.globalAlpha = 1; c.fillStyle = lac;
+      c.beginPath(); c.arc(pointer.x*W, pointer.y*H, 5, 0, 6.284); c.fill();
+    }
+
+    else if(cap==="growth"){
+      var bars2 = 10, bw = W/(bars2*1.7);
+      for(var k=0;k<bars2;k++){
+        var target = Math.pow((k+1)/bars2, 1.8);
+        var grow = Math.min(1, t/90);
+        var hh = target*H*.72*grow;
+        var bx = W*.09 + k*(W*.82/bars2);
+        var odd2 = (k===bars2-1);
+        c.globalAlpha = odd2 ? 1 : .34;
+        c.fillStyle = odd2 ? era : ink;
+        if(odd2) hh *= 1 + Math.sin(t*.04)*.08 + .18;
+        c.fillRect(bx, H*.86-hh, bw, hh);
+      }
+      c.globalAlpha = .9; c.strokeStyle = lac; c.lineWidth = 2;
+      c.beginPath();
+      for(var q=0;q<=60;q++){
+        var xx = W*.09 + (W*.82)*(q/60);
+        var yy = H*.86 - Math.pow(q/60,1.8)*H*.72*Math.min(1,t/90);
+        q ? c.lineTo(xx,yy) : c.moveTo(xx,yy);
+      }
+      c.stroke();
+    }
+    c.globalAlpha = 1;
+    if(!reduce || t < 100) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  function setCap(name){
+    cap = name; t = 0; scrib = []; ripples = [];
+    caps.forEach(function(el){ el.setAttribute("aria-selected", String(el.dataset.cap === name)); });
+    $("#capCaption").textContent = captions[name];
+    if(reduce) requestAnimationFrame(draw);
+  }
+  caps.forEach(function(el){
+    el.addEventListener("click", function(){
+      setCap(el.dataset.cap);
+      if(!fine) el.scrollIntoView({block:"nearest", behavior: reduce ? "auto" : "smooth"});
+    });
+    if(fine) el.addEventListener("mouseenter", function(){ setCap(el.dataset.cap); });
+    el.addEventListener("focus", function(){ setCap(el.dataset.cap); });
+  });
+
+  /* ---------- 11. WORK TILES — slight tilt toward the cursor ---------- */
+  if(fine && !reduce){
+    $$(".tile").forEach(function(tile){
+      tile.addEventListener("mousemove", function(e){
+        var r = tile.getBoundingClientRect();
+        var rx = ((e.clientY - r.top)/r.height - .5) * -4;
+        var ry = ((e.clientX - r.left)/r.width - .5) * 4;
+        tile.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) scale(1.012)";
+      });
+      tile.addEventListener("mouseleave", function(){ tile.style.transform = ""; });
+    });
+  }
+
+  /* ---------- 12. CONTACT: the word that refuses to settle ---------- */
+  var swaps = ["came back rejected","nobody has approved","is still an argument","sounds too expensive","everyone has an answer for"];
+  var swapEl = $("#swapWord"), si = 0;
+  if(!reduce){
+    setInterval(function(){
+      si = (si+1) % swaps.length;
+      swapEl.style.transition = "opacity .3s, transform .3s";
+      swapEl.style.opacity = "0"; swapEl.style.transform = "translateY(-.12em)";
+      setTimeout(function(){
+        swapEl.textContent = swaps[si];
+        swapEl.style.opacity = "1"; swapEl.style.transform = "none";
+        swapEl.style.color = (si===swaps.length-1) ? css("--eraser") : css("--lacquer");
+      }, 320);
+    }, 3200);
+  }
+
+  /* ---------- 13. MENU + THEME ---------- */
+  var burger = $("#burger"), menu = $("#menu");
+  burger.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.classList.toggle("is-locked", open);
+    nav.classList.toggle("menu-open", open);
+  });
+  $$("#menu a").forEach(function(a){
+    a.addEventListener("click", function(){
+      menu.classList.remove("open"); document.body.classList.remove("is-locked");
+      nav.classList.remove("menu-open");
+      burger.setAttribute("aria-expanded","false");
+    });
+  });
+  $("#themeBtn").addEventListener("click", function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    document.documentElement.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+    navTone();
+  });
+})();
+</script>
+</body>
+</html>

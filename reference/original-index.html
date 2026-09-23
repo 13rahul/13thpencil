@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>13th Pencil — Creative &amp; Innovation Company</title>
+<meta name="description" content="13th Pencil is a creative and innovation company working across brand and strategy, creative, AI and innovation, experiences and digital growth. We start where the obvious answer stops.">
+<meta property="og:title" content="13th Pencil — The obvious idea was already taken.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="13th Pencil">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://13thpencil.com/assets/img/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="13th Pencil — the obvious idea was already taken.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="13th Pencil — The obvious idea was already taken.">
+<meta name="twitter:description" content="A creative and innovation company working across brand and strategy, creative, AI and innovation, experiences and digital growth.">
+<meta name="twitter:image" content="https://13thpencil.com/assets/img/og-image.png">
+<meta property="og:description" content="A creative and innovation company working across brand and strategy, creative, AI and innovation, experiences and digital growth.">
+<meta property="og:url" content="https://13thpencil.com">
+<meta name="theme-color" content="#181A1C">
+<link rel="canonical" href="https://13thpencil.com/">
+<link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- ========== INTRO: twelve strokes behave, the thirteenth doesn't ========== -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__strokes" id="loaderStrokes"></div>
+  <div class="loader__cap annot">Twelve agree. The thirteenth doesn't.</div>
+  <div class="loader__logo" id="loaderLogo">
+    <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+  </div>
+</div>
+
+<canvas class="trail" id="trail" aria-hidden="true"></canvas>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<div class="rail" aria-hidden="true"><span class="rail__fill" id="railFill"></span><span class="rail__tip" id="railTip"></span></div>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="nav">
+  <a class="nav__logo" href="#top" aria-label="13th Pencil, home">
+    <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+  </a>
+  <div class="nav__right">
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#principle">Principle</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#comein">Where we help</a>
+      <a href="#work">Thinking</a>
+      <a href="#studio">Studio</a>
+    </nav>
+    <a class="nav__cta" href="#contact">Start a project</a>
+    <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="#principle">Principle</a>
+  <a href="#capabilities">Capabilities</a>
+  <a href="#comein">Where we help</a>
+  <a href="#work">Thinking</a>
+  <a href="#studio">Studio</a>
+  <a class="menu__cta" href="#contact">Start a project</a>
+  <p class="menu__foot"><a href="mailto:hello@13thpencil.com">hello@13thpencil.com</a></p>
+  <p class="menu__desc">A creative and innovation company.</p>
+</div>
+
+<main id="top">
+
+<!-- ========== HERO ========== -->
+<section class="hero panel panel--ink" id="hero">
+  <div class="hero__bars" id="heroBars" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <h1 class="display hero__h">
+      <span class="ln"><span>The <em>obvious</em> idea</span></span>
+      <span class="ln"><span>was already taken.</span></span>
+    </h1>
+    <div class="hero__row">
+      <p class="hero__sub rv">13th Pencil is a creative and innovation company. Most briefs have an answer everyone can see. We are here for the one that took longer to find.</p>
+      <div class="hero__scroll rv" data-d="2" aria-hidden="true"><i></i><span class="annot">Keep scrolling</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MARQUEE ========== -->
+<div class="marquee panel--paper" aria-hidden="true">
+  <div class="marquee__in" id="marquee"></div>
+</div>
+
+<!-- ========== ERASE THE OBVIOUS ========== -->
+<section class="erase panel panel--paper" id="erase">
+  <div class="wrap">
+    <p class="annot rv" style="margin-bottom:2.2em">How most of this industry introduces itself</p>
+    <div class="erase__stack">
+      <span class="erase__old">We help brands thrive in a rapidly changing world.<span class="erase__rub"></span></span>
+      <span class="erase__new">We start where the obvious answer stops.</span>
+    </div>
+    <div class="erase__foot">
+      <p class="rv">13th Pencil is a creative and innovation company. We work on brands, campaigns, products and experiences — usually at the point where the expected route has been mapped and nobody is excited by it.</p>
+      <p class="rv" data-d="1">The expected answer is useful. It tells you where the edge of the category is. It is a starting position, not a strategy, and it is rarely the thing anyone remembers.</p>
+      <p class="note rv" data-d="2">Strategy, creative, AI, experiences and growth — held together by one team rather than passed between five.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== THE 13TH PRINCIPLE ========== -->
+<section class="principle panel panel--paper" id="principle">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">Twelve is a pattern.<br>Thirteen is a decision.</h2>
+      <div>
+        <p class="lede rv" data-d="1">A pattern is what everyone can already see. It is agreement, arriving early and dressed as insight.</p>
+        <p class="note rv" data-d="2">The departure comes later. It breaks the alignment, it is harder to defend in a meeting, and it is usually the only part anyone repeats afterwards. A pencil is the right tool for that moment — it sketches, questions, erases and commits, in that order.</p>
+      </div>
+    </div>
+    <div class="grid13" id="grid13" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ========== CAPABILITIES ========== -->
+<section class="caps panel panel--ink" id="capabilities">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">What we do,<br>demonstrated rather than listed.</h2>
+      <p class="note rv" data-d="1">Five practices, one team. Most projects move through three or four of them, which is the point — the strategy, the film, the prototype and the media plan are made by people in the same conversation.</p>
+    </div>
+    <div class="caps__grid">
+      <div role="tablist" aria-label="Capabilities" id="capList">
+        <button class="cap" data-cap="strategy" role="tab" aria-selected="true" aria-controls="capStage">
+          <span class="cap__i">01</span>
+          <span class="cap__name">Brand &amp; Strategy</span>
+          <span class="cap__body">
+            <span class="cap__for">When the category has a template and you need a position inside it that is yours.</span>
+            <p>Positioning, brand architecture, naming, messaging, audience and cultural insight. We look for the tension in the category before anyone designs anything.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="creative" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">02</span>
+          <span class="cap__name">Creative Studio</span>
+          <span class="cap__body">
+            <span class="cap__for">When the work has to be remembered, not merely approved.</span>
+            <p>Campaign platforms, art direction, identity and design systems, film, photography and copy. Made properly, to the standard the idea deserves.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="ai" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">03</span>
+          <span class="cap__name">AI &amp; Innovation</span>
+          <span class="cap__body">
+            <span class="cap__for">When AI is in the budget and nobody has decided what it should actually make.</span>
+            <p>Generative production pipelines, AI-assisted concepting, synthetic media, and working prototypes you can put in front of people. New tools, old standards.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="experiences" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">04</span>
+          <span class="cap__name">Experiences</span>
+          <span class="cap__body">
+            <span class="cap__for">When the brand needs to exist somewhere people can walk into.</span>
+            <p>Events, environments, installations, launches and brand worlds — designed as something people talk about on the way home, and film on the way round.</p>
+          </span>
+        </button>
+        <button class="cap" data-cap="growth" role="tab" aria-selected="false" aria-controls="capStage">
+          <span class="cap__i">05</span>
+          <span class="cap__name">Digital Growth</span>
+          <span class="cap__body">
+            <span class="cap__for">When output is constant and none of it is compounding.</span>
+            <p>Performance creative, social systems, always-on content engines, and the measurement that tells you which idea is carrying the result.</p>
+          </span>
+        </button>
+      </div>
+      <figure class="caps__stage" id="capStage" role="tabpanel" style="margin:0">
+        <canvas id="capCanvas"></canvas>
+        <figcaption id="capCaption">Order, and the one element refusing it</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHERE WE COME IN — commercial clarity, editorial form ========== -->
+<section class="comein panel panel--ink" id="comein">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">Reasons people<br>call us.</h2>
+      <p class="note rv" data-d="1">Written as we actually hear them, in first conversations, before anyone has tidied the problem up.</p>
+    </div>
+    <div class="comein__list">
+      <div class="ci rv">
+        <p class="ci__q">"We're launching into a category where every competitor already sounds the same — including us."</p>
+        <span class="ci__a"><b>Brand &amp; Strategy</b>Positioning, architecture, messaging</span>
+      </div>
+      <div class="ci rv">
+        <p class="ci__q">"The work tests fine. Nobody remembers it a week later."</p>
+        <span class="ci__a"><b>Creative Studio</b>Platform, art direction, film, identity</span>
+      </div>
+      <div class="ci rv">
+        <p class="ci__q">"We have AI in the plan and no agreement on what it should produce."</p>
+        <span class="ci__a"><b>AI &amp; Innovation</b>Pipelines, prototypes, production</span>
+      </div>
+      <div class="ci rv">
+        <p class="ci__q">"We publish constantly. None of it adds up to anything."</p>
+        <span class="ci__a"><b>Digital Growth</b>Content systems, performance creative</span>
+      </div>
+      <div class="ci ci--mark rv">
+        <p class="ci__q">"We have the budget and the deadline. What we don't have is <i>an idea worth the money</i>."</p>
+        <span class="ci__a"><b>Start here</b>One conversation, no deck required</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORK ========== -->
+<section class="work panel panel--paper" id="work">
+  <div class="wrap">
+    <div class="principle__head">
+      <h2 class="h2 rv">Selected thinking</h2>
+      <p class="note rv" data-d="1">13th Pencil is new, so this is where our own work goes first: independent concepts, experiments and brand thinking we started because nobody asked us to. Client projects join them here as they are cleared to publish.</p>
+    </div>
+    <div class="work__grid" id="workGrid">
+      <a class="tile tile--a" href="#contact"><span class="tile__f">Film</span><span class="tile__ph">In development<em>A short film about the ideas that get cut for being too interesting.</em></span><span class="tile__meta"><span class="tile__t">The Rejected Reel</span><span class="tile__k">independent concept</span></span></a>
+      <a class="tile tile--b" href="#contact"><span class="tile__f">Identity</span><span class="tile__ph">In development<em>An identity system that redraws itself every time it is used.</em></span><span class="tile__meta"><span class="tile__t">Never the Same Twice</span><span class="tile__k">design experiment</span></span></a>
+      <a class="tile tile--c" href="#contact"><span class="tile__f">Writing</span><span class="tile__ph">Ongoing<em>Short notes on category defaults, and what sits underneath them.</em></span><span class="tile__meta"><span class="tile__t">The Default Files</span><span class="tile__k">brand thinking</span></span></a>
+      <a class="tile tile--d" href="#contact"><span class="tile__f">Digital</span><span class="tile__ph">Reserved<em>The frame where the first client case study will live.</em></span><span class="tile__meta"><span class="tile__t">Client work</span><span class="tile__k">coming</span></span></a>
+      <a class="tile tile--e" href="#contact"><span class="tile__f">Experience</span><span class="tile__ph">In development<em>A room where the audience decides which idea survives.</em></span><span class="tile__meta"><span class="tile__t">Room Thirteen</span><span class="tile__k">speculative experience</span></span></a>
+      <a class="tile tile--f" href="#contact"><span class="tile__f">AI</span><span class="tile__ph">In development<em>A tool that generates the twelve expected answers so we can skip them.</em></span><span class="tile__meta"><span class="tile__t">Twelve &amp; Out</span><span class="tile__k">internal prototype</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="process panel panel--ink" id="process">
+  <svg class="process__line" id="processLine" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+    <path id="processPath" d="M0 520 C 200 520, 240 120, 430 160 S 720 520, 900 300 S 1120 90, 1200 140"/>
+  </svg>
+  <div class="wrap">
+    <h2 class="h2 rv">How the line gets drawn</h2>
+    <div class="steps">
+      <div class="step rv"><span class="step__n">Step one</span><h3>Find the tension</h3><p>Interrogate the category, the customer and the thing nobody in the business wants to say out loud.</p></div>
+      <div class="step rv" data-d="1"><span class="step__n">Step two</span><h3>Exhaust the expected</h3><p>Every reasonable route goes on the wall, argued properly, before anyone is allowed a favourite.</p></div>
+      <div class="step rv" data-d="2"><span class="step__n">Step three</span><h3>Clear the wall</h3><p>Those routes were the map. They show where the category ends, which is the only place worth working.</p></div>
+      <div class="step rv" data-d="3"><span class="step__n">And then</span><h3>Make the departure</h3><p>One idea gets built properly — film, identity, product, experience — with the craft it was worth in the first place.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STUDIO ========== -->
+<section class="studio panel panel--paper" id="studio">
+  <div class="wrap studio__grid">
+    <div>
+      <h2 class="h2 rv">A studio built<br>the other way round.</h2>
+      <p class="rv" data-d="1" style="margin-top:1.6em">Most agencies scale by adding layers. We scale by removing them. The people you meet first are the people who do the work, from opening conversation to final delivery.</p>
+      <p class="rv" data-d="2">Strategists, art directors, writers, filmmakers, designers, technologists and AI specialists — assembled around the problem rather than the org chart.</p>
+    </div>
+    <div class="rv" data-d="1">
+      <ul class="facts">
+        <li><b>Model</b><span>A small senior team assembled per project. No pyramid, and no handover to people you never met.</span></li>
+        <li><b>Engaging</b><span>Project, retainer, or a paid first sprint if you want to see how we think before committing.</span></li>
+        <li><b>Tools</b><span>AI sits in the pipeline, not on the pedestal. It accelerates production; it does not choose the idea.</span></li>
+        <li><b>Age</b><span>We are new, and say so. Judge us on the thinking on this page and on what we do in the first conversation.</span></li>
+        <li><b>Rule</b><span>If it could have come from anyone else, it goes back on the wall.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact panel panel--ink" id="contact">
+  <div class="wrap">
+    <h2 class="display contact__h"><span>Bring us</span><span>the brief that <span class="swap" id="swapWord">came back rejected</span>.</span></h2>
+    <div class="cta-row">
+      <a class="btn" href="mailto:hello@13thpencil.com?subject=Project%20enquiry%20%E2%80%94%2013th%20Pencil">Start a project</a>
+      <a class="big-link" href="mailto:hello@13thpencil.com?subject=Project%20enquiry%20%E2%80%94%2013th%20Pencil">hello@13thpencil.com</a>
+    </div>
+    <div class="contact__cols">
+      <div><p class="note">New business<br><a href="mailto:hello@13thpencil.com" style="border-bottom:1px solid var(--lacquer)">hello@13thpencil.com</a></p></div>
+      <div><p class="note">Careers<br><a href="mailto:people@13thpencil.com" style="border-bottom:1px solid var(--lacquer)">people@13thpencil.com</a></p></div>
+      <div><p class="note">Send the brief, the deadline, and the answer everyone expects. We will come back with what we would do instead.</p></div>
+    </div>
+    <div class="foot">
+      <a href="#top" aria-label="13th Pencil" style="font-size:1.15rem">
+        <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+      </a>
+      <span>© 2026 13th Pencil — a creative and innovation company. Provisional identity; independent work in progress.</span>
+      <button id="themeBtn" style="border-bottom:1px solid currentColor">Invert</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Analytics: paste GA4 / GTM / Meta Pixel / LinkedIn Insight here.
+     Nothing is loaded by default. See README.md, "Analytics". -->
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

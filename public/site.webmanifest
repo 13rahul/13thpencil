@@ -1,0 +1,26 @@
+{
+  "name": "13th Pencil",
+  "short_name": "13th Pencil",
+  "description": "A creative and innovation company.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#181A1C",
+  "theme_color": "#181A1C",
+  "icons": [
+    {
+      "src": "/assets/brand/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
