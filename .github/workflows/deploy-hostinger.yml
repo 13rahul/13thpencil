@@ -1,0 +1,43 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload site to Hostinger
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          timeout: 90s
+          source: "."
+          target: ${{ secrets.HOSTINGER_APP_PATH }}
+          overwrite: true
+          rm: false
+          exclude: ".git,node_modules,.next,.playwright-mcp,.env,.env.local"
+
+      - name: Install, migrate, and rebuild
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          command_timeout: 20m
+          script_stop: true
+          script: |
+            set -e
+            cd "${{ secrets.HOSTINGER_APP_PATH }}"
+            npm ci
+            npx prisma migrate deploy
+            npm run build

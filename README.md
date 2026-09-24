@@ -70,6 +70,31 @@ If MySQL is down, the public site still renders the seeded default copy.
 
 ---
 
+## Auto-deploy (Hostinger Node.js has no GitHub auto-deploy)
+
+Hostinger’s Node.js Git import is a **one-time upload**. It does not rebuild when you push to GitHub. The permanent fix is this repo’s GitHub Action: every push to `main` copies the site over SSH and runs `npm ci`, Prisma migrate, and `npm run build`.
+
+### One-time setup
+
+1. In hPanel: **Advanced → SSH Access → Enable** (password login is not enough if the shell is `nologin`).
+2. In the Node.js app, copy the **application root** path.
+3. In GitHub: **Settings → Secrets and variables → Actions**, add:
+
+| Secret | Example |
+|---|---|
+| `HOSTINGER_HOST` | `145.79.4.103` |
+| `HOSTINGER_PORT` | `65002` |
+| `HOSTINGER_USERNAME` | `u258786982` |
+| `HOSTINGER_PASSWORD` | SSH password |
+| `HOSTINGER_APP_PATH` | application root from hPanel |
+
+4. Keep site env vars in the **Node.js app Environment** panel (`SITE_URL`, `DATABASE_URL`, `AUTH_SECRET`, SMTP). Do not put `.env` in Git.
+5. Push to `main`, or run **Actions → Deploy to Hostinger → Run workflow**. After the first successful Action, click **Restart** once in the Node.js app if the homepage still looks old.
+
+After that, each GitHub push is the deploy. No zip.
+
+---
+
 ## Hostinger (Node.js web app + GitHub)
 
 1. Create a **private** GitHub repo and push this folder (`main`).
