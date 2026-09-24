@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BrandAndStrategyRoute() {
   const content = await getSiteContent();
   const jsContent = {
-    swaps: [content.brandStrategy.contactSwap],
+    swaps: content.contact.swapPhrases,
   };
 
   return (
