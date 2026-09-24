@@ -83,6 +83,10 @@ If MySQL is down, the public site still renders the seeded default copy.
 | Build | `npm run build` |
 | Start | `npm run start -- -p $PORT` |
 
+If Hostinger fails with `EACCES` / `permission denied, scandir`, re-upload `13thpencil-hostinger.zip`. The build now fixes directory permissions before `next build`.
+
+If the Hostinger build fails with `EACCES` / `permission denied, scandir`, the `npm run build` script now fixes directory permissions first. Re-upload the zip after that change.
+
 5. Environment variables in the Hostinger app settings:
 
 ```

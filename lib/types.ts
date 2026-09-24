@@ -56,6 +56,7 @@ export type CapabilityItem = {
   forLine: string;
   description: string;
   canvasCaption: string;
+  pageHref?: string;
 };
 
 export type CapabilitiesContent = {
@@ -91,6 +92,49 @@ export type WorkContent = {
   heading: string;
   intro: string;
   tiles: WorkTile[];
+};
+
+export type PracticeVerb = {
+  label: string;
+  body: string;
+  depart?: boolean;
+};
+
+export type PracticeLink = {
+  name: string;
+  line: string;
+  href: string;
+};
+
+export type StruckLine = {
+  text: string;
+  keep?: boolean;
+};
+
+export type PathStep = {
+  title: string;
+  body: string;
+};
+
+export type BrandStrategyContent = {
+  metaTitle: string;
+  metaDescription: string;
+  number: string;
+  practiceName: string;
+  heroBefore: string;
+  heroEmphasis: string;
+  heroAfter: string;
+  subcopy: string;
+  strikeHeading: string;
+  strikeLines: StruckLine[];
+  verbs: PracticeVerb[];
+  pathHeading: string;
+  pathSteps: PathStep[];
+  othersHeading: string;
+  others: PracticeLink[];
+  contactBefore: string;
+  contactEmphasis: string;
+  contactAfter: string;
 };
 
 export type ProcessStep = {
@@ -146,6 +190,7 @@ export type SiteContent = {
   studio: StudioContent;
   contact: ContactContent;
   notFound: NotFoundContent;
+  brandStrategy: BrandStrategyContent;
 };
 
 export type HomeSectionKey =

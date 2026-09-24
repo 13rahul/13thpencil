@@ -41,6 +41,7 @@ export async function saveSettingsAction(raw: unknown) {
   const data = settingsSchema.parse(raw);
   await saveSettings(data);
   revalidatePath("/");
+  revalidatePath("/capabilities/brand-and-strategy");
   revalidatePath("/admin");
   return { ok: true };
 }
@@ -51,6 +52,16 @@ export async function saveHomeSectionAction(sectionKey: HomeSectionKey, raw: unk
   await saveSection("home", sectionKey, raw);
   revalidatePath("/");
   revalidatePath(`/admin/home/${sectionKey}`);
+  return { ok: true };
+}
+
+export async function saveBrandStrategyAction(raw: unknown) {
+  await requireAdmin();
+  if (!raw || typeof raw !== "object") throw new Error("Invalid content");
+  await saveSection("capabilities", "brandStrategy", raw);
+  revalidatePath("/");
+  revalidatePath("/capabilities/brand-and-strategy");
+  revalidatePath("/admin/capabilities/brand-and-strategy");
   return { ok: true };
 }
 

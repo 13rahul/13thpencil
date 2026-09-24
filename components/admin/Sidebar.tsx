@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HOME_SECTIONS } from "@/lib/default-content";
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const path = usePathname();
@@ -24,20 +23,22 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         <Link href="/admin" className={itemClass("/admin", true)}>
           Dashboard
         </Link>
+        <Link href="/admin/leads" className={itemClass("/admin/leads")}>
+          Leads
+        </Link>
         <Link href="/admin/settings" className={itemClass("/admin/settings", true)}>
           Site settings
         </Link>
-        <p className="admin__group">Home sections</p>
-        {HOME_SECTIONS.map((section) => (
-          <Link
-            key={section.key}
-            href={`/admin/home/${section.key}`}
-            className={itemClass(`/admin/home/${section.key}`, true)}
-          >
-            {section.label}
-          </Link>
-        ))}
-        <p className="admin__group">Other pages</p>
+        <p className="admin__group">Pages</p>
+        <Link href="/admin/home" className={itemClass("/admin/home")}>
+          Home page
+        </Link>
+        <Link
+          href="/admin/capabilities/brand-and-strategy"
+          className={itemClass("/admin/capabilities/brand-and-strategy", true)}
+        >
+          Brand &amp; Strategy
+        </Link>
         <Link href="/admin/not-found" className={itemClass("/admin/not-found", true)}>
           404 page
         </Link>

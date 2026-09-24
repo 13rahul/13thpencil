@@ -36,3 +36,23 @@ model PageSection {
   @@unique([page, sectionKey])
   @@map("page_sections")
 }
+
+model Lead {
+  id         Int      @id @default(autoincrement())
+  reference  String   @unique
+  name       String
+  company    String   @default("")
+  solo       Boolean  @default(false)
+  email      String
+  phone      String   @default("")
+  directions Json
+  story      String   @db.Text
+  ambition   String
+  timeline   String
+  files      Json
+  emailSent  Boolean  @default(false) @map("email_sent")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("leads")
+}

@@ -5,7 +5,18 @@ export function isPlainObject(value: unknown): value is Record<string, unknown> 
 export function deepMerge<T>(base: T, override: unknown): T {
   if (override === undefined || override === null) return base;
   if (Array.isArray(base)) {
-    return (Array.isArray(override) ? override : base) as T;
+    if (!Array.isArray(override)) return base;
+    if (base.every(isPlainObject) && override.every(isPlainObject)) {
+      return override.map((item, index) => {
+        const slug = typeof item.slug === "string" ? item.slug : undefined;
+        const fromBase =
+          (slug &&
+            base.find((candidate) => (candidate as { slug?: string }).slug === slug)) ||
+          base[index];
+        return fromBase ? deepMerge(fromBase, item) : item;
+      }) as T;
+    }
+    return override as T;
   }
   if (isPlainObject(base) && isPlainObject(override)) {
     const out: Record<string, unknown> = { ...base };

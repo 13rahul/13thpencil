@@ -5,8 +5,11 @@ import { HOME_SECTIONS } from "@/lib/default-content";
 
 const TITLES: Record<string, string> = {
   "/admin": "Dashboard",
+  "/admin/leads": "Leads",
   "/admin/settings": "Site settings",
+  "/admin/home": "Home page",
   "/admin/not-found": "404 page",
+  "/admin/capabilities/brand-and-strategy": "Brand & Strategy",
 };
 
 export function Topbar({
@@ -19,7 +22,11 @@ export function Topbar({
   const path = usePathname();
   const router = useRouter();
   const section = HOME_SECTIONS.find((item) => path === `/admin/home/${item.key}`);
-  const title = section ? section.label : TITLES[path] || "Admin";
+  const title = section
+    ? `Home page — ${section.label}`
+    : path.startsWith("/admin/leads/")
+      ? "Lead"
+      : TITLES[path] || "Admin";
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });

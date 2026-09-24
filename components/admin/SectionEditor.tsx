@@ -223,6 +223,16 @@ function CapabilitiesForm({
               }}
             />
           </Field>
+          <Field label="Practice page URL (optional)">
+            <TextInput
+              value={item.pageHref || ""}
+              onChange={(v) => {
+                const items = data.items.slice();
+                items[index] = { ...item, pageHref: v || undefined };
+                onChange({ ...data, items });
+              }}
+            />
+          </Field>
         </div>
       ))}
     </>

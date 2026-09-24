@@ -36,7 +36,7 @@ export function HomePage({ content }: { content: SiteContent }) {
               </a>
             ))}
           </nav>
-          <a className="nav__cta" href="#contact">
+          <a className="nav__cta" href="/start-a-project">
             {settings.ctaLabel}
           </a>
           <button
@@ -57,7 +57,7 @@ export function HomePage({ content }: { content: SiteContent }) {
             {item.label}
           </a>
         ))}
-        <a className="menu__cta" href="#contact">
+        <a className="menu__cta" href="/start-a-project">
           {settings.ctaLabel}
         </a>
         <p className="menu__foot">
@@ -152,23 +152,39 @@ export function HomePage({ content }: { content: SiteContent }) {
             </div>
             <div className="caps__grid">
               <div role="tablist" aria-label="Capabilities" id="capList">
-                {capabilities.items.map((item, i) => (
-                  <button
-                    key={item.slug}
-                    className="cap"
-                    data-cap={item.slug}
-                    role="tab"
-                    aria-selected={i === 0}
-                    aria-controls="capStage"
-                  >
-                    <span className="cap__i">{item.number}</span>
-                    <span className="cap__name">{item.name}</span>
-                    <span className="cap__body">
-                      <span className="cap__for">{item.forLine}</span>
-                      <p>{item.description}</p>
-                    </span>
-                  </button>
-                ))}
+                {capabilities.items.map((item, i) => {
+                  const href =
+                    item.pageHref ||
+                    (item.slug === "strategy" ? "/capabilities/brand-and-strategy" : undefined);
+                  return (
+                    <div
+                      key={item.slug}
+                      className="cap"
+                      data-cap={item.slug}
+                      role="tab"
+                      tabIndex={0}
+                      aria-selected={i === 0}
+                      aria-controls="capStage"
+                    >
+                      <span className="cap__i">{item.number}</span>
+                      <span className="cap__name">
+                        {item.name}
+                        {href ? (
+                          <a className="cap__go" href={href} aria-label={`Open ${item.name}`}>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                              <path d="M7 17 L17 7" />
+                              <path d="M10 7 H17 V14" />
+                            </svg>
+                          </a>
+                        ) : null}
+                      </span>
+                      <span className="cap__body">
+                        <span className="cap__for">{item.forLine}</span>
+                        <p>{item.description}</p>
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
               <figure className="caps__stage" id="capStage" role="tabpanel" style={{ margin: 0 }}>
                 <canvas id="capCanvas" />
@@ -197,7 +213,13 @@ export function HomePage({ content }: { content: SiteContent }) {
                     &rdquo;
                   </p>
                   <span className="ci__a">
-                    <b>{item.answerHeading}</b>
+                    <b>
+                      {item.answerHeading === firstCap?.name && firstCap?.pageHref ? (
+                        <a href={firstCap.pageHref}>{item.answerHeading}</a>
+                      ) : (
+                        item.answerHeading
+                      )}
+                    </b>
                     {item.answerDetail}
                   </span>
                 </div>
@@ -302,10 +324,10 @@ export function HomePage({ content }: { content: SiteContent }) {
               </span>
             </h2>
             <div className="cta-row">
-              <a className="btn" href={enquiryMailto(settings.primaryEmail)}>
+              <a className="btn" href={enquiryMailto()}>
                 {contact.ctaLabel}
               </a>
-              <a className="big-link" href={enquiryMailto(settings.primaryEmail)}>
+              <a className="big-link" href={`mailto:${settings.primaryEmail}`}>
                 {settings.primaryEmail}
               </a>
             </div>

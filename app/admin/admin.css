@@ -34,6 +34,12 @@
 .admin textarea,
 .admin select {
   font: inherit;
+}
+
+.admin input,
+.login input,
+.admin textarea,
+.admin select {
   color: inherit;
 }
 
@@ -112,8 +118,8 @@
   justify-content: center;
   min-height: 48px;
   padding: 0 22px;
-  background: var(--ink);
-  color: var(--paper);
+  background: #181a1c;
+  color: #ede5d6;
   border: 0;
   cursor: pointer;
   font-weight: 600;
@@ -130,9 +136,10 @@
   cursor: not-allowed;
 }
 
+.admin button.admin__btn--ghost,
 .admin__btn--ghost {
-  background: transparent;
-  color: var(--ink);
+  background: #fffdf8;
+  color: #181a1c;
   border: 1px solid var(--rule);
 }
 
@@ -263,6 +270,7 @@
   border: 0;
   cursor: pointer;
   font-weight: 700;
+  color: inherit;
 }
 
 @media (min-width: 960px) {
@@ -385,4 +393,61 @@
   color: var(--mute);
   font-size: 0.88rem;
   margin: -8px 0 16px;
+}
+
+.admin__table-wrap {
+  overflow-x: auto;
+  background: #fffdf8;
+  border: 1px solid var(--rule);
+}
+
+.admin__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.admin__table th,
+.admin__table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.admin__table th {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin__table a {
+  border-bottom: 1px solid var(--lacquer);
+}
+
+.admin__dl {
+  display: grid;
+  gap: 16px;
+  margin: 18px 0 0;
+}
+
+.admin__dl div {
+  display: grid;
+  gap: 4px;
+}
+
+.admin__dl dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.admin__dl dd {
+  margin: 0;
+  font-family: var(--f-text);
+}
+
+.admin__story {
+  white-space: pre-wrap;
 }

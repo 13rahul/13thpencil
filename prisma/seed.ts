@@ -48,6 +48,16 @@ async function main() {
     create: { page: "site", sectionKey: "notFound", content: defaultContent.notFound },
   });
 
+  await prisma.pageSection.upsert({
+    where: { page_sectionKey: { page: "capabilities", sectionKey: "brandStrategy" } },
+    update: {},
+    create: {
+      page: "capabilities",
+      sectionKey: "brandStrategy",
+      content: defaultContent.brandStrategy,
+    },
+  });
+
   console.log(`Seeded admin ${email} and default page copy.`);
 }
 

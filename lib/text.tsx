@@ -29,9 +29,11 @@ export function Marked({ text }: { text: string }) {
   );
 }
 
-export function enquiryMailto(email: string): string {
-  return `mailto:${email}?subject=${encodeURIComponent("Project enquiry — 13th Pencil")}`;
+export function enquiryMailto(_email?: string): string {
+  return "/start-a-project";
 }
+
+export const startProjectHref = "/start-a-project";
 
 export function asNode(value: ReactNode) {
   return value;

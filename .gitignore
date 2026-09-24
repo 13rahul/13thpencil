@@ -13,3 +13,4 @@ Thumbs.db
 .idea/
 prisma/*.db
 prisma/*.db-journal
+public/uploads/leads/**

@@ -81,6 +81,7 @@ export const defaultContent: SiteContent = {
         description:
           "Positioning, brand architecture, naming, messaging, audience and cultural insight. We look for the tension in the category before anyone designs anything.",
         canvasCaption: "Order, and the one line refusing it",
+        pageHref: "/capabilities/brand-and-strategy",
       },
       {
         slug: "creative",
@@ -164,7 +165,7 @@ export const defaultContent: SiteContent = {
         description: "A short film about the ideas that get cut for being too interesting.",
         title: "The Rejected Reel",
         kind: "independent concept",
-        link: "#contact",
+        link: "/start-a-project",
       },
       {
         variant: "b",
@@ -173,7 +174,7 @@ export const defaultContent: SiteContent = {
         description: "An identity system that redraws itself every time it is used.",
         title: "Never the Same Twice",
         kind: "design experiment",
-        link: "#contact",
+        link: "/start-a-project",
       },
       {
         variant: "c",
@@ -182,7 +183,7 @@ export const defaultContent: SiteContent = {
         description: "Short notes on category defaults, and what sits underneath them.",
         title: "The Default Files",
         kind: "brand thinking",
-        link: "#contact",
+        link: "/start-a-project",
       },
       {
         variant: "d",
@@ -191,7 +192,7 @@ export const defaultContent: SiteContent = {
         description: "The frame where the first client case study will live.",
         title: "Client work",
         kind: "coming",
-        link: "#contact",
+        link: "/start-a-project",
       },
       {
         variant: "e",
@@ -200,7 +201,7 @@ export const defaultContent: SiteContent = {
         description: "A room where the audience decides which idea survives.",
         title: "Room Thirteen",
         kind: "speculative experience",
-        link: "#contact",
+        link: "/start-a-project",
       },
       {
         variant: "f",
@@ -209,7 +210,7 @@ export const defaultContent: SiteContent = {
         description: "A tool that generates the twelve expected answers so we can skip them.",
         title: "Twelve & Out",
         kind: "internal prototype",
-        link: "#contact",
+        link: "/start-a-project",
       },
     ],
   },
@@ -289,6 +290,89 @@ export const defaultContent: SiteContent = {
     body: "The address does not exist, or it has moved. Nothing here is broken on your end.",
     buttonLabel: "Back to 13thpencil.com",
     footerLine: "13th Pencil — a creative and innovation company.",
+  },
+  brandStrategy: {
+    metaTitle: "Brand & Strategy — 13th Pencil",
+    metaDescription:
+      "The line the category didn’t draw. Positioning, architecture, naming, messaging and insight — drawn before anyone designs anything.",
+    number: "01",
+    practiceName: "Brand & Strategy",
+    heroBefore: "The line the category ",
+    heroEmphasis: "didn’t",
+    heroAfter: " draw.",
+    subcopy: "Brand & Strategy finds the position that is yours, then draws it hard enough to defend.",
+    strikeHeading: "Every category already wrote these.",
+    strikeLines: [
+      { text: "Human-centric at every touchpoint." },
+      { text: "Purpose-led. Performance-proven." },
+      { text: "Built for tomorrow. Grounded in today." },
+      { text: "A partner, not an agency." },
+      { text: "The position only you can hold.", keep: true },
+    ],
+    verbs: [
+      {
+        label: "Positioning",
+        body: "Find the tension the category has agreed to ignore.",
+      },
+      {
+        label: "Architecture",
+        body: "What sits under what, and what must never share a name.",
+      },
+      {
+        label: "Naming",
+        body: "The word that refuses the template.",
+        depart: true,
+      },
+      {
+        label: "Messaging",
+        body: "The line people can repeat without the deck.",
+      },
+      {
+        label: "Insight",
+        body: "Cultural and audience pressure, before anyone opens a file.",
+      },
+    ],
+    pathHeading: "One line. Three stops.",
+    pathSteps: [
+      {
+        title: "Find the tension",
+        body: "The thing the category has agreed not to say.",
+      },
+      {
+        title: "Exhaust the expected",
+        body: "Every reasonable line goes down first, so we know what to leave.",
+      },
+      {
+        title: "Defend the line",
+        body: "The one that is harder to sell, drawn hard enough to keep.",
+      },
+    ],
+    othersHeading: "The rest of the room.",
+    others: [
+      {
+        name: "Creative Studio",
+        line: "When the work has to be remembered, not merely approved.",
+        href: "/#capabilities",
+      },
+      {
+        name: "AI & Innovation",
+        line: "When AI is in the budget and nobody has decided what it should actually make.",
+        href: "/#capabilities",
+      },
+      {
+        name: "Experiences",
+        line: "When the brand needs to exist somewhere people can walk into.",
+        href: "/#capabilities",
+      },
+      {
+        name: "Digital Growth",
+        line: "When output is constant and none of it is compounding.",
+        href: "/#capabilities",
+      },
+    ],
+    contactBefore: "Bring us the brief",
+    contactEmphasis: "everyone else would write",
+    contactAfter: ".",
   },
 };
 
