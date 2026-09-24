@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -8,7 +9,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://13thpencil.com"),
+  metadataBase: new URL(siteUrl()),
   icons: {
     icon: [
       { url: "/assets/brand/favicon.svg", type: "image/svg+xml" },

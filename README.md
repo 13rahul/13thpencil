@@ -35,6 +35,7 @@ CREATE DATABASE thirteenth_pencil CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_
 ```
 
 ```
+SITE_URL="https://13thpencil.com"
 DATABASE_URL="mysql://USER:PASSWORD@127.0.0.1:3306/thirteenth_pencil"
 AUTH_SECRET="a-long-random-secret"
 ADMIN_EMAIL="hello@13thpencil.com"
@@ -90,11 +91,24 @@ If the Hostinger build fails with `EACCES` / `permission denied, scandir`, the `
 5. Environment variables in the Hostinger app settings:
 
 ```
+SITE_URL=https://13thpencil.com
 DATABASE_URL=mysql://USER:PASSWORD@HOST:3306/DATABASE
 AUTH_SECRET=long-random-production-secret
 ADMIN_EMAIL=hello@13thpencil.com
 ADMIN_PASSWORD=strong-password-you-will-change
+LEAD_NOTIFY_EMAIL=prabu@13thpencil.com
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=465
+SMTP_USER=hello@13thpencil.com
+SMTP_PASS=mailbox-password
+SMTP_FROM=13th Pencil <hello@13thpencil.com>
 ```
+
+Live URLs after DNS is pointed at the app:
+
+- Public site: https://13thpencil.com
+- Admin: https://13thpencil.com/login (`hello@13thpencil.com` / the `ADMIN_PASSWORD` you seeded)
+- `www.13thpencil.com` redirects to the apex host
 
 6. After the first successful deploy, run migrations and seed once (Hostinger Node.js terminal / SSH):
 

@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { siteUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Start a project — 13th Pencil",
-  description: "Bring us the brief. Name, direction, the messy version, and when it needs to exist.",
-};
+const title = "Start a project — 13th Pencil";
+const description = "Bring us the brief. Name, direction, the messy version, and when it needs to exist.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const url = `${siteUrl()}/start-a-project`;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, siteName: "13th Pencil" },
+  };
+}
 
 export default function BriefLayout({ children }: { children: ReactNode }) {
   return (
