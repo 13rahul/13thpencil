@@ -17,7 +17,7 @@ export default async function LeadsPage() {
   return (
     <>
       <p className="admin__lede">
-        Briefs sent from the Start a project wizard. Each row is also emailed to prabu@13thpencil.com.
+        Briefs from the Start a project wizard. The sender gets a thank-you from hello@13thpencil.com; the details go to prabu@13thpencil.com.
       </p>
       {!leads.length ? (
         <p className="admin__hint">No briefs yet. Send one from /start-a-project to see it here.</p>

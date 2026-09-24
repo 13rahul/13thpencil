@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer, { type Transporter } from "nodemailer";
 import {
   AMBITION_LABELS,
   DIRECTION_LABELS,
@@ -7,7 +7,22 @@ import {
   type LeadFile,
 } from "./leads";
 
-const TO = process.env.LEAD_NOTIFY_EMAIL || "prabu@13thpencil.com";
+const STUDIO = process.env.LEAD_NOTIFY_EMAIL || "prabu@13thpencil.com";
+const FROM = process.env.SMTP_FROM || "13th Pencil <hello@13thpencil.com>";
+
+type LeadMail = {
+  reference: string;
+  name: string;
+  company: string;
+  solo: boolean;
+  email: string;
+  phone: string;
+  directions: string[];
+  story: string;
+  ambition: string;
+  timeline: string;
+  files: LeadFile[];
+};
 
 function transporter() {
   const host = process.env.SMTP_HOST;
@@ -22,24 +37,21 @@ function transporter() {
   });
 }
 
-export async function sendLeadEmail(input: {
-  reference: string;
-  name: string;
-  company: string;
-  solo: boolean;
-  email: string;
-  phone: string;
-  directions: string[];
-  story: string;
-  ambition: string;
-  timeline: string;
-  files: LeadFile[];
-}) {
+function firstName(name: string) {
+  return name.trim().split(/\s+/)[0] || "there";
+}
+
+export async function sendLeadEmails(input: LeadMail) {
   const mailer = transporter();
   if (!mailer) {
     throw new Error("SMTP is not configured");
   }
 
+  await sendStudioNotice(mailer, input);
+  await sendThankYou(mailer, input);
+}
+
+async function sendStudioNotice(mailer: Transporter, input: LeadMail) {
   const dirs = labelList(input.directions, DIRECTION_LABELS).join(" + ") || "—";
   const company = input.solo ? "Just me, for now" : input.company || "—";
   const lines = [
@@ -59,8 +71,8 @@ export async function sendLeadEmail(input: {
   ];
 
   await mailer.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
-    to: TO,
+    from: FROM,
+    to: STUDIO,
     replyTo: input.email,
     subject: `New brief ${input.reference} — ${input.name}`,
     text: lines.join("\n"),
@@ -68,5 +80,28 @@ export async function sendLeadEmail(input: {
       filename: file.name,
       path: `${process.cwd()}/public${file.url}`,
     })),
+  });
+}
+
+async function sendThankYou(mailer: Transporter, input: LeadMail) {
+  const name = firstName(input.name);
+  const text = [
+    `Hello ${name},`,
+    "",
+    `We have your brief (${input.reference}). Thank you for sending it.`,
+    "",
+    "Someone from 13th Pencil will write back shortly — usually within a working day.",
+    "If anything is urgent, reply to this email.",
+    "",
+    "13th Pencil",
+    "hello@13thpencil.com",
+  ].join("\n");
+
+  await mailer.sendMail({
+    from: FROM,
+    to: input.email,
+    replyTo: "hello@13thpencil.com",
+    subject: "We have your brief — 13th Pencil",
+    text,
   });
 }

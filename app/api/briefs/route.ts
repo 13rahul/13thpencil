@@ -7,7 +7,7 @@ import {
   makeReference,
   saveLeadFiles,
 } from "@/lib/leads";
-import { sendLeadEmail } from "@/lib/mail";
+import { sendLeadEmails } from "@/lib/mail";
 
 const MAX_FILE = 25 * 1024 * 1024;
 
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
 
     let emailSent = false;
     try {
-      await sendLeadEmail({
+      await sendLeadEmails({
         reference,
         name,
         company,
