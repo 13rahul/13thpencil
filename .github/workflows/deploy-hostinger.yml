@@ -37,7 +37,20 @@ jobs:
           script_stop: true
           script: |
             set -e
+            export PATH="/opt/alt/alt-nodejs22/root/usr/bin:$PATH"
             cd "${{ secrets.HOSTINGER_APP_PATH }}"
             npm ci
-            npx prisma migrate deploy
+            npx prisma generate
+            # migrate may fail until DATABASE_URL is a real Hostinger MySQL user — build still ships
+            npx prisma migrate deploy || echo "migrate skipped"
             npm run build
+            APP_ROOT="$(dirname "${{ secrets.HOSTINGER_APP_PATH }}")/current/nodejs"
+            if [ -d "$APP_ROOT" ]; then
+              rm -rf "$APP_ROOT/.next"
+              cp -a .next "$APP_ROOT/.next"
+              cp -a public "$APP_ROOT/public"
+              cp -f package.json package-lock.json "$APP_ROOT/"
+              mkdir -p "$APP_ROOT/tmp"
+              date > "$APP_ROOT/tmp/restart.txt"
+            fi
+            echo DEPLOY_OK
