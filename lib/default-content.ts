@@ -294,85 +294,193 @@ export const defaultContent: SiteContent = {
   brandStrategy: {
     metaTitle: "Brand & Strategy — 13th Pencil",
     metaDescription:
-      "The line the category didn’t draw. Positioning, architecture, naming, messaging and insight — drawn before anyone designs anything.",
+      "Positioning, brand architecture, naming, messaging and cultural insight. 13th Pencil finds the tension in a category before anyone designs anything.",
     number: "01",
     practiceName: "Brand & Strategy",
-    heroBefore: "The line the category ",
-    heroEmphasis: "didn’t",
-    heroAfter: " draw.",
-    subcopy: "Brand & Strategy finds the position that is yours, then draws it hard enough to defend.",
-    strikeHeading: "Every category already wrote these.",
-    strikeLines: [
-      { text: "Human-centric at every touchpoint." },
-      { text: "Purpose-led. Performance-proven." },
-      { text: "Built for tomorrow. Grounded in today." },
-      { text: "A partner, not an agency." },
-      { text: "The position only you can hold.", keep: true },
-    ],
-    verbs: [
+    heroLine1: "Everyone in your category is",
+    heroLine2Before: "answering the ",
+    heroEmphasis: "same question",
+    heroLine2After: ".",
+    heroTick: "Positioning · Architecture · Naming · Messaging · Insight",
+    subcopy:
+      "Brand and strategy work that goes looking for the question nobody has asked yet — then builds a position on it that competitors cannot copy by adjusting their adjectives.",
+    heardHeading: "The problem, as it\nusually arrives.",
+    heardNote: "Written the way it is actually said in a first conversation, before anyone has tidied it into a brief.",
+    heard: [
       {
-        label: "Positioning",
-        body: "Find the tension the category has agreed to ignore.",
+        quote: '"We sound exactly like our three closest competitors and we cannot tell you why."',
+        label: "Positioning · Category analysis",
       },
       {
-        label: "Architecture",
-        body: "What sits under what, and what must never share a name.",
+        quote: '"We have six products, four sub-brands, and no idea which one the customer is buying."',
+        label: "Brand architecture",
       },
       {
-        label: "Naming",
-        body: "The word that refuses the template.",
-        depart: true,
+        quote: '"Every team writes our story differently, so the market hears five companies."',
+        label: "Messaging framework",
       },
       {
-        label: "Messaging",
-        body: "The line people can repeat without the deck.",
+        quote: '"We are entering a market we do not understand yet and the deck is due Friday."',
+        label: "Audience & cultural insight",
       },
       {
-        label: "Insight",
-        body: "Cultural and audience pressure, before anyone opens a file.",
+        quote: '"The strategy tested fine. It is also *exactly what anyone would have said*."',
+        label: "Start here",
+        marked: true,
       },
     ],
-    pathHeading: "One line. Three stops.",
-    pathSteps: [
+    workHeading: "Six workstreams.\nOne argument.",
+    workNote:
+      "Rarely all six at once. An engagement usually takes two or three and runs them properly rather than touching everything lightly.",
+    workstreams: [
       {
-        title: "Find the tension",
-        body: "The thing the category has agreed not to say.",
+        number: "01",
+        title: "Category analysis",
+        body: "What every competitor is claiming, in their own words, mapped until the pattern is undeniable. The default answer has to be visible before it can be refused.",
       },
       {
-        title: "Exhaust the expected",
-        body: "Every reasonable line goes down first, so we know what to leave.",
+        number: "02",
+        title: "Positioning",
+        body: "The territory you own, the tension it resolves, and the reason it holds up when a competitor reads it. One page, defensible in a board meeting.",
       },
       {
-        title: "Defend the line",
-        body: "The one that is harder to sell, drawn hard enough to keep.",
+        number: "03",
+        title: "Brand architecture",
+        body: "How the master brand, products and sub-brands relate — what gets a name, what gets a descriptor, and what quietly disappears.",
+      },
+      {
+        number: "04",
+        title: "Naming",
+        body: "Names for companies, products and platforms, taken through linguistic and trademark screening rather than presented as a mood board.",
+      },
+      {
+        number: "05",
+        title: "Messaging",
+        body: "The hierarchy — what is said first, what is said to whom, and the proof under each claim. Built so sales, marketing and product say one thing.",
+      },
+      {
+        number: "06 — the departure",
+        title: "Audience & cultural insight",
+        body: "The part most strategy skips. What your audience actually believes, what the category has trained them to expect, and where those two disagree. That gap is where the position comes from.",
+        odd: true,
       },
     ],
-    othersHeading: "The rest of the room.",
-    others: [
+    mapHeading: "Where the work lands.",
+    mapNote: "An illustration of the method, not a client map. Select a position to read what it means in practice.",
+    mapHint: "Select any point on the map. The coral one is the position we are usually hired to find.",
+    howHeading: "How an engagement runs.",
+    howNote: "Four to eight weeks for most positioning work. Longer if architecture and naming are in scope.",
+    steps: [
       {
+        label: "Week one",
+        title: "Immersion",
+        body: "Stakeholder interviews, sales calls, existing research, and every competitor's own words. We read what you already know before adding anything.",
+      },
+      {
+        label: "Week two",
+        title: "The pattern",
+        body: "The category mapped until the default answer is obvious. This is the part that makes the departure arguable rather than merely different.",
+      },
+      {
+        label: "Weeks three to four",
+        title: "Territories",
+        body: "Several positions, written properly and argued against each other. The weak ones are useful — they show where the edge of the category actually is.",
+      },
+      {
+        label: "And then",
+        title: "The one",
+        body: "A single position, built out into architecture and messaging, with the proof under each claim and the language teams can actually use on Monday.",
+      },
+    ],
+    getHeading: "What you get.",
+    getNote: "Documents people use, not a deck that is admired once and filed. Select any of them to see what is inside.",
+    deliverables: [
+      {
+        title: "Category map",
+        body: "Every meaningful competitor, what they claim, the language they use to claim it, and where the claims overlap. Usually the first time a leadership team sees the category stated plainly — and usually the moment the brief changes.",
+      },
+      {
+        title: "Positioning statement",
+        body: "One page. The audience, the tension, the territory, the proof, and what the position deliberately gives up. If it does not sacrifice something, it is not a position — it is a description.",
+      },
+      {
+        title: "Brand architecture",
+        body: "The structure of the portfolio: what is named, what is described, what is retired, and the rule that decides where anything new goes. Written so it survives the next product launch without a workshop.",
+      },
+      {
+        title: "Messaging framework",
+        body: "The hierarchy from a single line down to audience-specific proof points, with the words to avoid because the category already owns them. Built for sales decks, careers pages and product copy alike.",
+      },
+      {
+        title: "The working session",
+        body: "Everything above, walked through with the people who will use it — not presented at them. Recorded, so the team that joins in six months hears the argument rather than inheriting the conclusion.",
+      },
+    ],
+    connectsHeading: "Where it connects.",
+    connectsNote:
+      "Strategy that stops at a document is half a job. Most engagements carry straight into one of these, with the same people.",
+    connects: [
+      {
+        number: "02",
         name: "Creative Studio",
-        line: "When the work has to be remembered, not merely approved.",
-        href: "/#capabilities",
+        line: "The position made visible — identity, campaign platform, film and design systems.",
+        href: "/capabilities/creative-studio",
       },
       {
+        number: "03",
         name: "AI & Innovation",
-        line: "When AI is in the budget and nobody has decided what it should actually make.",
-        href: "/#capabilities",
+        line: "Prototypes that test a territory in the world before the full build is committed.",
+        href: "/capabilities/ai-and-innovation",
       },
       {
+        number: "04",
         name: "Experiences",
-        line: "When the brand needs to exist somewhere people can walk into.",
-        href: "/#capabilities",
+        line: "The position as something people walk into, rather than something they read.",
+        href: "/capabilities/experiences",
       },
       {
+        number: "05",
         name: "Digital Growth",
-        line: "When output is constant and none of it is compounding.",
-        href: "/#capabilities",
+        line: "The messaging tested at scale, where the market answers back with data.",
+        href: "/capabilities/digital-growth",
       },
     ],
-    contactBefore: "Bring us the brief",
-    contactEmphasis: "everyone else would write",
-    contactAfter: ".",
+    faqHeading: "Questions we\nare usually asked.",
+    faqNote: "If yours is not here, ask it directly — the answer will be a sentence, not a capability deck.",
+    faqs: [
+      {
+        question: "How long does positioning work take?",
+        answer:
+          "Four to eight weeks for most positioning engagements. Architecture and naming add time, mainly because trademark screening runs on its own schedule. We will give you a date in the first conversation and tell you plainly if a deadline is not realistic.",
+      },
+      {
+        question: "Do you need existing research, or do you run your own?",
+        answer:
+          "We start with what you already have — it is usually more than anyone remembers. Where there is a genuine gap we will scope primary research separately rather than folding a guess into the strategy and hoping nobody asks.",
+      },
+      {
+        question: "Can you do strategy without doing the creative?",
+        answer:
+          "Yes. Plenty of positioning work is handed to an in-house team or an incumbent agency, and it is written to be handed over — the argument is in the document, not only in our heads. We would rather the work gets made well elsewhere than not at all.",
+      },
+      {
+        question: "What size of company does this suit?",
+        answer:
+          "Anything from a funded startup entering a crowded category to an established business whose portfolio has outgrown its structure. What matters more than size is whether someone in the room can make a decision.",
+      },
+      {
+        question: "How do you charge?",
+        answer:
+          "A fixed fee for a defined scope, agreed before we start. If you want to see how we think first, a paid discovery sprint is a sensible way to begin — short, self-contained, and useful to you whether or not the larger engagement follows.",
+      },
+      {
+        question: "What if we disagree with the position you recommend?",
+        answer:
+          "Then we argue about it, which is the useful part. The territories are written to be argued with — several of them, deliberately, so the choice is yours and the reasoning is visible. A position nobody pushed back on is usually one nobody will defend later either.",
+      },
+    ],
+    contactLine1: "Tell us what",
+    contactLine2: "everyone else would do.",
   },
 };
 

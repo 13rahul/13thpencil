@@ -1,6 +1,8 @@
 import type { SiteContent } from "@/lib/types";
 import { Breaks, enquiryMailto, Marked } from "@/lib/text";
 import { Lockup } from "./Lockup";
+import { SiteFooter } from "./SiteFooter";
+import { SiteHeader } from "./SiteHeader";
 
 export function HomePage({ content }: { content: SiteContent }) {
   const { settings, hero, erase, principle, capabilities, comein, work, process, studio, contact } =
@@ -17,54 +19,7 @@ export function HomePage({ content }: { content: SiteContent }) {
         </div>
       </div>
 
-      <canvas className="trail" id="trail" aria-hidden="true" />
-      <div className="cursor" id="cursor" aria-hidden="true" />
-      <div className="rail" aria-hidden="true">
-        <span className="rail__fill" id="railFill" />
-        <span className="rail__tip" id="railTip" />
-      </div>
-
-      <header className="nav" id="nav">
-        <a className="nav__logo" href="#top" aria-label="13th Pencil, home">
-          <Lockup />
-        </a>
-        <div className="nav__right">
-          <nav className="nav__links" aria-label="Primary">
-            {settings.navItems.map((item) => (
-              <a key={item.href} href={item.href}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-          <a className="nav__cta" href="/start-a-project">
-            {settings.ctaLabel}
-          </a>
-          <button
-            className="nav__burger"
-            id="burger"
-            aria-expanded="false"
-            aria-controls="menu"
-            aria-label="Open menu"
-          >
-            <span />
-          </button>
-        </div>
-      </header>
-
-      <div className="menu" id="menu">
-        {settings.navItems.map((item) => (
-          <a key={item.href} href={item.href}>
-            {item.label}
-          </a>
-        ))}
-        <a className="menu__cta" href="/start-a-project">
-          {settings.ctaLabel}
-        </a>
-        <p className="menu__foot">
-          <a href={`mailto:${settings.primaryEmail}`}>{settings.primaryEmail}</a>
-        </p>
-        <p className="menu__desc">{settings.menuDesc}</p>
-      </div>
+      <SiteHeader settings={settings} />
 
       <main id="top">
         <section className="hero panel panel--ink" id="hero">
@@ -360,15 +315,7 @@ export function HomePage({ content }: { content: SiteContent }) {
                 <p className="note">{contact.supportingNote}</p>
               </div>
             </div>
-            <div className="foot">
-              <a href="#top" aria-label="13th Pencil" style={{ fontSize: "1.15rem" }}>
-                <Lockup />
-              </a>
-              <span>{settings.footerLegal}</span>
-              <button id="themeBtn" style={{ borderBottom: "1px solid currentColor" }}>
-                {settings.invertLabel}
-              </button>
-            </div>
+            <SiteFooter settings={settings} />
           </div>
         </section>
       </main>

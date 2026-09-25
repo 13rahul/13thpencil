@@ -1,10 +1,47 @@
-export function HeroStroke() {
+/** Twelve expected category lines — slightly uneven, like a deck of obvious answers. */
+const TEMPLATE_LINES: { d: string; annot: string | null; desk: boolean; y: number }[] = [
+  { d: "M 120 72 H 1480", annot: null, desk: false, y: 72 },
+  { d: "M 168 118 H 1420", annot: "Positioning", desk: false, y: 118 },
+  { d: "M 96 164 H 1508", annot: null, desk: false, y: 164 },
+  { d: "M 210 210 H 1380", annot: "Architecture", desk: true, y: 210 },
+  { d: "M 140 256 H 1460", annot: null, desk: false, y: 256 },
+  { d: "M 188 302 H 1410", annot: "Naming", desk: false, y: 302 },
+  { d: "M 110 348 H 1490", annot: null, desk: true, y: 348 },
+  { d: "M 230 394 H 1360", annot: "Messaging", desk: false, y: 394 },
+  { d: "M 154 440 H 1440", annot: null, desk: true, y: 440 },
+  { d: "M 200 486 H 1400", annot: "Insight", desk: false, y: 486 },
+  { d: "M 128 532 H 1470", annot: null, desk: true, y: 532 },
+  { d: "M 176 578 H 1430", annot: null, desk: false, y: 578 },
+];
+
+export function HeroField() {
   return (
-    <svg className="bs-hero__stroke" viewBox="0 0 1200 160" aria-hidden="true">
-      <path
-        className="draw"
-        d="M40 110 C 180 40, 320 150, 480 80 S 760 30, 920 100 S 1100 140, 1160 70"
-      />
+    <svg className="bs-hero__field-svg" viewBox="0 0 1600 700" preserveAspectRatio="xMaxYMin slice" aria-hidden="true">
+      <g className="bs-hero__twelve">
+        {TEMPLATE_LINES.map((line, index) => (
+          <g key={line.d} className={line.desk ? "bs-hero__rule bs-hero__desk" : "bs-hero__rule"}>
+            {line.annot ? (
+              <text className="bs-hero__annot" x={index % 2 === 0 ? 1180 : 120} y={line.y - 12}>
+                {line.annot}
+              </text>
+            ) : null}
+            <path className="draw bs-hero__template" d={line.d} />
+          </g>
+        ))}
+      </g>
+
+      <g className="bs-hero__thirteen">
+        <path
+          className="draw draw--coral bs-hero__pencil-stroke"
+          d="M 180 420 C 420 280, 680 200, 960 260 S 1280 420, 1420 180"
+        />
+        <g className="bs-hero__pencil-tip">
+          <path className="draw draw--coral" d="M 1412 190 L 1464 144" />
+          <path className="draw draw--coral" d="M 1452 152 L 1488 120" />
+          <path className="draw draw--coral" d="M 1456 160 L 1480 156" />
+          <circle className="draw draw--dot draw--coral" cx="1488" cy="120" r="4" />
+        </g>
+      </g>
     </svg>
   );
 }

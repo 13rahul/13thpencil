@@ -1,89 +1,136 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { BrandStrategyContent, SiteSettings } from "@/lib/types";
-import { enquiryMailto } from "@/lib/text";
-import { Lockup } from "../Lockup";
-import {
-  ArchitectureSketch,
-  HeroStroke,
-  InsightSketch,
-  MessagingSketch,
-  NamingSketch,
-  PathSketch,
-  PositioningSketch,
-} from "./sketches";
+import { Breaks, Marked, startProjectHref } from "@/lib/text";
+import { SiteFooter } from "../SiteFooter";
 
-const SKETCHES = [
-  PositioningSketch,
-  ArchitectureSketch,
-  NamingSketch,
-  MessagingSketch,
-  InsightSketch,
+type MapPos = { x: number; y: number; t: string; b: string; odd?: boolean };
+
+const MAP_POS: MapPos[] = [
+  {
+    x: 32,
+    y: 64,
+    t: "The cluster",
+    b: "Most categories look like this: every brand claiming a slightly different adjective for the same idea, packed so tightly a customer cannot tell them apart. Being inside it is not a failure of execution. It is a failure of position.",
+  },
+  {
+    x: 39,
+    y: 70,
+    t: "The cluster",
+    b: "Two competitors can sit a millimetre apart on a map like this and spend years outspending each other to own the same word. The budget is real. The distance between them is not.",
+  },
+  {
+    x: 27,
+    y: 72,
+    t: "The cluster",
+    b: "The safest-looking spot on the map is the most crowded one. It feels like consensus because it is — which is exactly why it does not sell anything.",
+  },
+  {
+    x: 44,
+    y: 62,
+    t: "The cluster",
+    b: "Tidy, defensible, indistinguishable. This is where most strategy decks land, because the process rewarded agreement rather than argument.",
+  },
+  {
+    x: 35,
+    y: 77,
+    t: "The cluster",
+    b: "Being close to the category average is comfortable and cheap to approve. It is also the position that requires the largest media budget to be noticed at all.",
+  },
+  {
+    x: 46,
+    y: 55,
+    t: "Convention, well executed",
+    b: "Conventional positioning done properly. It works when you have the largest budget in the category and can simply be seen more often than everyone else. For everyone else it is an expensive way to be forgotten.",
+  },
+  {
+    x: 20,
+    y: 40,
+    t: "Loud, not owned",
+    b: "High distinctiveness inside category convention: a brand shouting the same claim more energetically. It buys short-term attention and leaves nothing behind when the spend stops.",
+  },
+  {
+    x: 64,
+    y: 76,
+    t: "Different, about nothing",
+    b: "Distinctive execution on an empty idea. It gets noticed and then fails to mean anything, so attention never converts into preference. Novelty is not a position.",
+  },
+  {
+    x: 71,
+    y: 46,
+    t: "Nearly there",
+    b: "Genuine territory, half committed to. Usually a brand that found the right idea and then softened it in review until it was comfortable enough to approve.",
+  },
+  {
+    x: 51,
+    y: 31,
+    t: "Borrowed territory",
+    b: "A position that belongs to someone else in an adjacent category. It reads as fresh for about a year, until the comparison becomes the story.",
+  },
+  {
+    x: 82,
+    y: 20,
+    odd: true,
+    t: "The departure",
+    b: "Own territory, high distinctiveness, and a reason to be there that competitors cannot copy by editing their adjectives. It is harder to defend in a meeting, which is precisely why it is still available. This is the position we are hired to find.",
+  },
 ];
 
-function strokeLength(shape: SVGGeometryElement) {
-  try {
-    return shape.getTotalLength() || 400;
-  } catch {
-    return 400;
+const DEFAULT_MAP = { t: MAP_POS[0].t, b: MAP_POS[0].b };
+
+const SUBNAV = [
+  { href: "#heard", label: "What we hear" },
+  { href: "#what", label: "What it covers" },
+  { href: "#map", label: "Where it lands" },
+  { href: "#how", label: "How it runs" },
+  { href: "#get", label: "What you get" },
+  { href: "#connects", label: "Where it connects" },
+  { href: "#faq", label: "Questions" },
+];
+
+function layBars(host: HTMLElement) {
+  const want = Math.max(7, Math.min(17, Math.round(window.innerWidth / 86)));
+  if (host.children.length === want) return;
+  host.innerHTML = "";
+  for (let i = 0; i < want; i++) {
+    const b = document.createElement("b");
+    if (i === want - 3) b.className = "odd";
+    host.appendChild(b);
   }
 }
 
-function hideMarks(scope: HTMLElement) {
-  scope.querySelectorAll<SVGGeometryElement>(".draw:not(.draw--dot)").forEach((shape) => {
-    const length = strokeLength(shape);
-    gsap.set(shape, { strokeDasharray: length, strokeDashoffset: length });
-  });
-  const dots = gsap.utils.toArray<HTMLElement>(scope.querySelectorAll(".draw--dot"));
-  if (dots.length) gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
-}
-
-function drawTimeline(slide: HTMLElement, paused = true) {
-  const strokes = gsap.utils.toArray<Element>(slide.querySelectorAll(".draw:not(.draw--dot)"));
-  const dots = gsap.utils.toArray<Element>(slide.querySelectorAll(".draw--dot"));
-  const wipe = slide.querySelector(".bs-wipe");
-  const crosses = gsap.utils.toArray<Element>(slide.querySelectorAll(".bs-strike__cross"));
-  const shifts = gsap.utils.toArray<Element>(slide.querySelectorAll(".bs-shift"));
-  const tl = gsap.timeline({ paused });
-  if (strokes.length) {
-    tl.fromTo(strokes, { strokeDashoffset: (i, el) => strokeLength(el as SVGGeometryElement) }, { strokeDashoffset: 0, duration: 1, ease: "none", stagger: 0.07, immediateRender: true }, 0);
-  }
-  if (dots.length) tl.to(dots, { scale: 1, duration: 0.18, ease: "none" }, 0.72);
-  if (wipe) tl.fromTo(wipe, { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: "none", immediateRender: true }, 0.5);
-  if (crosses.length) {
-    tl.fromTo(crosses, { scaleX: 0 }, { scaleX: 1, duration: 0.4, stagger: 0.08, ease: "none", immediateRender: true }, 0.12);
-  }
-  if (shifts.length) {
-    tl.fromTo(shifts, { y: 14, opacity: 0.15 }, { y: 0, opacity: 1, duration: 0.36, stagger: 0.06, ease: "none", immediateRender: true }, 0.22);
-  }
-  return tl;
-}
-
-function scrubDraw(slide: HTMLElement, vars: ScrollTrigger.Vars) {
-  hideMarks(slide);
-  ScrollTrigger.create({
-    ...vars,
-    animation: drawTimeline(slide),
-    scrub: 0.85,
-    invalidateOnRefresh: true,
-  });
-}
-
-function setDraws(draws: gsap.core.Timeline[], t: number) {
-  draws.forEach((draw, index) => {
-    const start = index === 0 ? 0 : index - 0.28;
-    draw.progress(Math.max(0, Math.min(1, (t - start) / 0.24)));
-  });
-}
-
-function setIndex(work: HTMLElement, index: number, total: number) {
-  const label = work.querySelector(".bs-work__idx");
-  if (label) label.textContent = `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
-  work.querySelectorAll<HTMLElement>(".bs-work__dot").forEach((dot, i) => {
-    dot.setAttribute("aria-current", i === index ? "true" : "false");
+function wireDisclosure(scope: HTMLElement, itemSel: string, bodySel: string, single: boolean, reduce: boolean) {
+  scope.querySelectorAll<HTMLElement>(itemSel).forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>("button");
+    const body = item.querySelector<HTMLElement>(bodySel);
+    if (!btn || !body) return;
+    btn.addEventListener("click", () => {
+      const open = item.hasAttribute("open");
+      if (single) {
+        scope.querySelectorAll<HTMLElement>(itemSel).forEach((other) => {
+          if (other === item) return;
+          other.removeAttribute("open");
+          const ob = other.querySelector<HTMLElement>(bodySel);
+          const obBtn = other.querySelector("button");
+          if (ob) gsap.to(ob, { height: 0, duration: reduce ? 0 : 0.42, ease: "power2.out" });
+          obBtn?.setAttribute("aria-expanded", "false");
+        });
+      }
+      if (open) {
+        item.removeAttribute("open");
+        btn.setAttribute("aria-expanded", "false");
+        gsap.to(body, { height: 0, duration: reduce ? 0 : 0.42, ease: "power2.out" });
+      } else {
+        item.setAttribute("open", "");
+        btn.setAttribute("aria-expanded", "true");
+        gsap.set(body, { height: "auto" });
+        const h = body.offsetHeight;
+        gsap.fromTo(body, { height: 0 }, { height: h, duration: reduce ? 0 : 0.48, ease: "power2.out" });
+      }
+    });
   });
 }
 
@@ -95,240 +142,514 @@ export function BrandStrategyScene({
   settings: SiteSettings;
 }) {
   const root = useRef<HTMLElement>(null);
-  const struck = page.strikeLines.filter((line) => !line.keep);
-  const kept = page.strikeLines.find((line) => line.keep);
+  const [mapRead, setMapRead] = useState(DEFAULT_MAP);
+  const [mapOn, setMapOn] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     const el = root.current;
     if (!el || typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const wide = window.matchMedia("(min-width: 901px)").matches;
+
+    const setNavH = () => {
+      const nav = document.getElementById("nav");
+      if (nav) document.documentElement.style.setProperty("--navh", `${nav.offsetHeight}px`);
+    };
+    setNavH();
+
+    const bars = el.querySelector<HTMLElement>("#bspBars");
+    if (bars) layBars(bars);
+
+    const dels = el.querySelector<HTMLElement>("#dels");
+    const faqs = el.querySelector<HTMLElement>("#faqs");
+    if (dels) wireDisclosure(dels, ".del", ".del__body", true, reduce);
+    if (faqs) wireDisclosure(faqs, ".faq", ".faq__body", false, reduce);
 
     const ctx = gsap.context(() => {
       if (reduce) {
-        el.querySelector(".bs-work")?.classList.add("is-swipe");
-        gsap.set(el.querySelectorAll(".draw"), { strokeDashoffset: 0, scale: 1 });
-        gsap.set(el.querySelectorAll(".bs-wipe, .bs-strike__cross"), { scaleX: 1 });
+        gsap.set(el.querySelectorAll(".bsp-reveal, .bsp-line > span, #bspBars b"), {
+          clearProps: "all",
+          opacity: 1,
+          y: 0,
+          scaleY: 1,
+          rotate: 0,
+        });
+        el.querySelector("#hero")?.classList.add("lit");
         return;
       }
 
-      el.querySelectorAll<HTMLElement>(".bs-hero, .bs-strike, .bs-path, .bs-close").forEach((slide, index) => {
-        scrubDraw(slide, {
-          trigger: slide,
-          start: index === 0 ? "top top" : "top 78%",
-          end: index === 0 ? "bottom 45%" : "center 32%",
-        });
-      });
+      const hero = el.querySelector("#hero");
+      const barNodes = bars ? gsap.utils.toArray<HTMLElement>("#bspBars b") : [];
+      const lines = gsap.utils.toArray<HTMLElement>(".bsp-line > span", hero || el);
+      const enter = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      const work = el.querySelector<HTMLElement>(".bs-work");
-      const view = el.querySelector<HTMLElement>(".bs-work__view");
-      const track = el.querySelector<HTMLElement>(".bs-work__track");
-      const slides = gsap.utils.toArray<HTMLElement>(".bs-work .bs-draw");
-      if (!work || !view || !track || !slides.length) return;
-
-      const goTo = (index: number) => {
-        const next = Math.max(0, Math.min(slides.length - 1, index));
-        const pin = ScrollTrigger.getById("bs-work");
-        if (pin) {
-          const y = pin.start + (pin.end - pin.start) * (next / Math.max(1, slides.length - 1));
-          window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
-          return;
-        }
-        view.scrollTo({ left: next * view.clientWidth, behavior: reduce ? "auto" : "smooth" });
-      };
-
-      work.querySelectorAll<HTMLButtonElement>("[data-work-to]").forEach((btn) => {
-        btn.addEventListener("click", () => goTo(Number(btn.dataset.workTo)));
-      });
-
-      if (wide && !reduce) {
-        work.classList.add("is-pinned");
-        const steps = Math.max(1, slides.length - 1);
-        slides.forEach((slide) => hideMarks(slide));
-        const draws = slides.map((slide) => drawTimeline(slide, true));
-        gsap.to(track, {
-          x: () => -(track.scrollWidth - work.clientWidth),
-          ease: "none",
-          scrollTrigger: {
-            id: "bs-work",
-            trigger: work,
-            start: "top top",
-            end: () => `+=${steps * window.innerHeight * 2.4}`,
-            pin: true,
-            scrub: 1.25,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const t = self.progress * steps;
-              setIndex(work, Math.round(t), slides.length);
-              setDraws(draws, t);
+      if (barNodes.length) {
+        gsap.set(barNodes, { scaleY: 0, transformOrigin: "bottom center" });
+        enter.to(
+          barNodes,
+          {
+            scaleY: 1,
+            duration: 0.9,
+            stagger: 0.035,
+            ease: "power2.out",
+            onComplete() {
+              const odd = bars?.querySelector("b.odd");
+              if (odd) gsap.to(odd, { rotation: 9, duration: 0.55, ease: "power2.out" });
             },
           },
+          0.1,
+        );
+      }
+      if (lines.length) {
+        gsap.set(lines, { yPercent: 110 });
+        enter.to(lines, { yPercent: 0, duration: 1.05, stagger: 0.1 }, 0.2);
+      }
+      enter.add(() => hero?.classList.add("lit"), 0.55);
+      enter.from(".bsp-crumb, .bsp-tick, .hero__row", { y: 18, opacity: 0, duration: 0.7, stagger: 0.08 }, 0.55);
+
+      gsap.utils.toArray<HTMLElement>(".bsp-reveal").forEach((node) => {
+        const delay = Number(node.dataset.d || 0) * 0.08;
+        gsap.from(node, {
+          y: 28,
+          opacity: 0,
+          duration: 0.85,
+          delay,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: node,
+            start: "top 86%",
+            toggleActions: "play none none none",
+          },
         });
-        return;
+      });
+
+      gsap.utils.toArray<HTMLElement>(".hq").forEach((row, i) => {
+        gsap.from(row, {
+          x: i % 2 === 0 ? -36 : 36,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: row, start: "top 88%", toggleActions: "play none none none" },
+        });
+      });
+
+      gsap.from(".ws", {
+        y: 40,
+        opacity: 0,
+        duration: 0.75,
+        stagger: 0.08,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".work", start: "top 78%", toggleActions: "play none none none" },
+      });
+
+      const mapStage = el.querySelector(".map__stage");
+      if (mapStage) {
+        gsap.from(".map__stage", {
+          scale: 0.96,
+          opacity: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: "#map", start: "top 70%", toggleActions: "play none none none" },
+        });
+        gsap.from(".dot", {
+          scale: 0,
+          opacity: 0,
+          duration: 0.45,
+          stagger: 0.04,
+          ease: "back.out(1.6)",
+          scrollTrigger: { trigger: ".map__stage", start: "top 75%", toggleActions: "play none none none" },
+        });
+        const odd = mapStage.querySelector(".dot--odd");
+        if (odd) {
+          gsap.fromTo(
+            odd,
+            { boxShadow: "0 0 0 0 rgba(244,115,126,0.0)" },
+            {
+              boxShadow: "0 0 0 10px rgba(244,115,126,0.18)",
+              duration: 1.4,
+              repeat: 1,
+              yoyo: true,
+              ease: "sine.inOut",
+              scrollTrigger: { trigger: odd, start: "top 80%", toggleActions: "play none none none" },
+            },
+          );
+        }
       }
 
-      work.classList.add("is-swipe");
-      slides.forEach((slide) => hideMarks(slide));
-      const draws = slides.map((slide) => drawTimeline(slide, true));
-      const onScroll = () => {
-        const width = Math.max(1, view.clientWidth);
-        const i = Math.round(view.scrollLeft / width);
-        setIndex(work, i, slides.length);
-        setDraws(draws, view.scrollLeft / width);
-      };
-      view.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
+      gsap.from(".step", {
+        y: 32,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".steps", start: "top 80%", toggleActions: "play none none none" },
+      });
+
+      gsap.from(".del", {
+        y: 20,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.06,
+        ease: "power2.out",
+        scrollTrigger: { trigger: "#dels", start: "top 82%", toggleActions: "play none none none" },
+      });
+
+      gsap.from(".cc", {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".conn", start: "top 80%", toggleActions: "play none none none" },
+      });
+
+      gsap.from(".faq", {
+        y: 18,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.06,
+        ease: "power2.out",
+        scrollTrigger: { trigger: "#faqs", start: "top 85%", toggleActions: "play none none none" },
+      });
+
+      gsap.from("#start .cta__h .bsp-line > span", {
+        yPercent: 100,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: { trigger: "#start", start: "top 75%", toggleActions: "play none none none" },
+      });
+
+      const links = gsap.utils.toArray<HTMLAnchorElement>("#subnavIn a");
+      const targets = links.map((a) => el.querySelector(a.getAttribute("href") || ""));
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate() {
+          const probe = window.innerHeight * 0.35;
+          let best = -1;
+          let bestTop = -Infinity;
+          targets.forEach((t, i) => {
+            if (!t) return;
+            const top = t.getBoundingClientRect().top;
+            if (top <= probe && top > bestTop) {
+              bestTop = top;
+              best = i;
+            }
+          });
+          links.forEach((a, i) => {
+            const on = i === best;
+            a.classList.toggle("on", on);
+            if (on) a.setAttribute("aria-current", "true");
+            else a.removeAttribute("aria-current");
+          });
+          if (best > -1) {
+            const bar = el.querySelector<HTMLElement>("#subnavIn");
+            const active = links[best];
+            if (bar && active) {
+              const l = active.offsetLeft;
+              const r = l + active.offsetWidth;
+              if (l < bar.scrollLeft || r > bar.scrollLeft + bar.clientWidth) {
+                bar.scrollTo({ left: Math.max(0, l - 24), behavior: "smooth" });
+              }
+            }
+          }
+        },
+      });
     }, el);
 
-    const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener("resize", refresh);
+    let resizeT: ReturnType<typeof setTimeout> | undefined;
+    const onResize = () => {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(() => {
+        setNavH();
+        if (bars) layBars(bars);
+        ScrollTrigger.refresh();
+      }, 220);
+    };
+    window.addEventListener("resize", onResize);
+
     return () => {
-      window.removeEventListener("resize", refresh);
+      window.removeEventListener("resize", onResize);
+      clearTimeout(resizeT);
       ctx.revert();
     };
   }, []);
 
+  const showMap = (index: number) => {
+    const p = MAP_POS[index];
+    setMapOn(index);
+    setMapRead({ t: p.t, b: p.b });
+  };
+
   return (
-    <main className="bs" ref={root} id="top">
-      <section className="bs-slide bs-hero panel panel--paper">
-        <div className="wrap bs-hero__inner">
-          <div className="bs-art" aria-hidden="true">
-            <HeroStroke />
-          </div>
-          <p className="tick bs-id">
-            {page.number} / {page.practiceName}
-          </p>
-          <h1 className="display bs-hero__h">
-            <span className="bs-ln">{page.heroBefore}</span>
-            <span className="bs-ln">
-              <em className="bs-mark">
-                {page.heroEmphasis}
-                <i className="bs-wipe" />
-              </em>
-              {page.heroAfter}
+    <main className="bsp" ref={root} id="top">
+      <section className="hero panel panel--ink bsp-hero" id="hero">
+        <div className="hero__bars" id="bspBars" aria-hidden="true" />
+        <div className="wrap hero__inner">
+          <nav className="crumb bsp-crumb" aria-label="Breadcrumb">
+            <a href="/">13th Pencil</a>
+            <span aria-hidden="true">/</span>
+            <a href="/#capabilities">Capabilities</a>
+            <span aria-hidden="true">/</span>
+            <b>
+              {page.number} — {page.practiceName}
+            </b>
+          </nav>
+          <h1 className="h1 hero__h">
+            <span className="bsp-line">
+              <span>{page.heroLine1}</span>
+            </span>
+            <span className="bsp-line">
+              <span>
+                {page.heroLine2Before}
+                <em>{page.heroEmphasis}</em>
+                {page.heroLine2After}
+              </span>
             </span>
           </h1>
-          <p className="lede bs-hero__sub">{page.subcopy}</p>
-        </div>
-      </section>
-
-      <section className="bs-slide bs-strike panel panel--paper" id="strike">
-        <div className="wrap">
-          <h2 className="h2">{page.strikeHeading}</h2>
-          <ul className="bs-card">
-            {struck.map((line) => (
-              <li key={line.text}>
-                <span>{line.text}</span>
-                <i className="bs-strike__cross" />
-              </li>
-            ))}
-          </ul>
-          {kept ? <p className="bs-kept">{kept.text}</p> : null}
-        </div>
-      </section>
-
-      <section className="bs-work" id="work" aria-label={page.practiceName}>
-        <div className="bs-work__view">
-          <div className="bs-work__track">
-            {page.verbs.map((verb, index) => {
-              const Sketch = SKETCHES[index] ?? PositioningSketch;
-              const ink = index % 2 === 0;
-              return (
-                <article
-                  className={ink ? "bs-draw panel panel--ink" : "bs-draw is-flip panel panel--paper"}
-                  key={verb.label}
-                >
-                  <div className="wrap bs-split">
-                    <div className="bs-art" aria-hidden="true">
-                      <Sketch />
-                    </div>
-                    <div className="bs-copy">
-                      <p className="tick bs-num">{String(index + 1).padStart(2, "0")}</p>
-                      <h2 className={verb.depart ? "pink" : undefined}>{verb.label}</h2>
-                      <p>{verb.body}</p>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-        <div className="bs-work__bar">
-          <span className="tick bs-work__idx">01 / {String(page.verbs.length).padStart(2, "0")}</span>
-          <div className="bs-work__dots" role="tablist" aria-label="Practices">
-            {page.verbs.map((verb, index) => (
-              <button
-                type="button"
-                className="bs-work__dot"
-                key={verb.label}
-                data-work-to={index}
-                aria-label={verb.label}
-                aria-current={index === 0 ? "true" : "false"}
-              />
-            ))}
+          <p className="tick bsp-tick">{page.heroTick}</p>
+          <div className="hero__row">
+            <p className="hero__sub">{page.subcopy}</p>
           </div>
         </div>
       </section>
 
-      <section className="bs-slide bs-path panel panel--paper" id="method">
-        <div className="wrap">
-          <h2 className="h2">{page.pathHeading}</h2>
-          <div className="bs-path__board">
-            <div className="bs-art" aria-hidden="true">
-              <PathSketch />
-            </div>
-            <ol className="bs-stops">
-              {page.pathSteps.map((step, index) => (
-                <li className="bs-shift" key={step.title}>
-                  <span className="tick">{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section className="bs-slide bs-close panel panel--ink" id="contact">
-        <div className="wrap">
-          <p className="tick bs-close__links" id="others">
-            {page.othersHeading}
-          </p>
-          <div className="bs-close__others">
-            {page.others.map((item) => (
-              <a className="bs-shift" key={item.name} href={item.href}>
-                <b>{item.name}</b>
-                <span>{item.line}</span>
-              </a>
-            ))}
-          </div>
-          <h2 className="h2">
-            {page.contactBefore}{" "}
-            <em className="bs-mark">
-              {page.contactEmphasis}
-              <i className="bs-wipe" />
-            </em>
-            {page.contactAfter}
-          </h2>
-          <div className="bs-close__row">
-              <a className="btn" href={enquiryMailto()}>
-                {settings.ctaLabel}
-              </a>
-              <a className="bs-mail" href={`mailto:${settings.primaryEmail}`}>
-                {settings.primaryEmail}
-              </a>
-          </div>
-          <div className="foot">
-            <a href="/" aria-label="13th Pencil" className="bs-lockup">
-              <Lockup />
+      <div className="subnav" id="subnav">
+        <div className="wrap subnav__in" id="subnavIn">
+          {SUBNAV.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
             </a>
-            <span>{settings.footerLegal}</span>
-            <button id="themeBtn" type="button">
-              {settings.invertLabel}
-            </button>
+          ))}
+        </div>
+      </div>
+
+      <section className="sec panel panel--paper" id="heard">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">
+              <Breaks text={page.heardHeading} />
+            </h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.heardNote}
+            </p>
           </div>
+          <div className="heard">
+            {page.heard.map((item) => (
+              <div key={item.quote} className={item.marked ? "hq hq--mark" : "hq"}>
+                <p className="hq__q">
+                  <Marked text={item.quote} />
+                </p>
+                <span className="hq__a">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec panel panel--ink" id="what">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">
+              <Breaks text={page.workHeading} />
+            </h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.workNote}
+            </p>
+          </div>
+          <div className="work">
+            {page.workstreams.map((ws) => (
+              <div key={ws.number} className={ws.odd ? "ws ws--odd" : "ws"}>
+                <span className="ws__n">{ws.number}</span>
+                <h3 className="ws__t">{ws.title}</h3>
+                <p className="ws__d">{ws.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec panel panel--paper" id="map">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">{page.mapHeading}</h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.mapNote}
+            </p>
+          </div>
+          <div className="map">
+            <div className="map__plot bsp-reveal">
+              <div className="map__ys" aria-hidden="true">
+                <span className="map__ylab map__ylab--hi">High distinctiveness</span>
+                <span className="map__ylab map__ylab--lo">Low distinctiveness</span>
+              </div>
+              <div
+                className="map__stage"
+                role="group"
+                aria-label="Positioning map. Select a position to read about it."
+                onMouseLeave={() => {
+                  setMapOn(null);
+                  setMapRead(DEFAULT_MAP);
+                }}
+              >
+                <span className="map__line map__line--h" aria-hidden="true" />
+                <span className="map__line map__line--v" aria-hidden="true" />
+                <span className="map__ring" aria-hidden="true" />
+                <span className="map__ringlab" aria-hidden="true">
+                  the cluster
+                </span>
+                {MAP_POS.map((p, i) => (
+                  <button
+                    key={`${p.x}-${p.y}`}
+                    type="button"
+                    className={`dot${p.odd ? " dot--odd" : ""}${mapOn === i ? " is-on" : ""}`}
+                    style={{ left: `${p.x}%`, top: `${p.y}%` }}
+                    aria-label={p.t}
+                    onMouseEnter={() => showMap(i)}
+                    onFocus={() => showMap(i)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      showMap(i);
+                    }}
+                  />
+                ))}
+                {MAP_POS.filter((p) => p.odd).map((p) => (
+                  <span key={`tag-${p.x}`} className="map__tag" style={{ left: `${p.x}%`, top: `${p.y}%` }}>
+                    the 13th position
+                  </span>
+                ))}
+              </div>
+              <div className="map__xlabs" aria-hidden="true">
+                <span>Category convention</span>
+                <span>Own territory</span>
+              </div>
+            </div>
+            <div className="map__side">
+              <div className="map__read" aria-live="polite">
+                <h3>{mapRead.t}</h3>
+                <p>{mapRead.b}</p>
+              </div>
+              <p className="map__hint">{page.mapHint}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec panel panel--ink" id="how">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">{page.howHeading}</h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.howNote}
+            </p>
+          </div>
+          <div className="steps">
+            {page.steps.map((step) => (
+              <div key={step.title} className="step">
+                <span className="step__n">{step.label}</span>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec panel panel--paper" id="get">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">{page.getHeading}</h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.getNote}
+            </p>
+          </div>
+          <div className="dels" id="dels">
+            {page.deliverables.map((del) => (
+              <div key={del.title} className="del">
+                <button type="button" className="del__btn" aria-expanded="false">
+                  <span className="del__t">{del.title}</span>
+                  <span className="del__ic" aria-hidden="true" />
+                </button>
+                <div className="del__body">
+                  <p>{del.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec panel panel--ink" id="connects">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">{page.connectsHeading}</h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.connectsNote}
+            </p>
+          </div>
+          <div className="conn">
+            {page.connects.map((cc) => (
+              <a key={cc.name} className="cc" href={cc.href}>
+                <span className="cc__n">{cc.number}</span>
+                <h3 className="cc__t">
+                  {cc.name} <span aria-hidden="true">→</span>
+                </h3>
+                <p className="cc__d">{cc.line}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec panel panel--ink bsp-faq" id="faq">
+        <div className="wrap">
+          <div className="head">
+            <h2 className="h2 bsp-reveal">
+              <Breaks text={page.faqHeading} />
+            </h2>
+            <p className="note bsp-reveal" data-d="1">
+              {page.faqNote}
+            </p>
+          </div>
+          <div className="faqs" id="faqs">
+            {page.faqs.map((faq) => (
+              <div key={faq.question} className="faq">
+                <button type="button" className="faq__btn" aria-expanded="false">
+                  <span className="faq__q">{faq.question}</span>
+                  <span className="faq__ic" aria-hidden="true">
+                    +
+                  </span>
+                </button>
+                <div className="faq__body">
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="cta panel panel--ink" id="start">
+        <div className="wrap">
+          <h2 className="h1 cta__h">
+            <span className="bsp-line">
+              <span>{page.contactLine1}</span>
+            </span>
+            <span className="bsp-line">
+              <span>{page.contactLine2}</span>
+            </span>
+          </h2>
+          <div className="cta-row">
+            <a className="btn" href={startProjectHref}>
+              {settings.ctaLabel}
+            </a>
+            <a className="big-link" href={`mailto:${settings.primaryEmail}`}>
+              {settings.primaryEmail}
+            </a>
+          </div>
+          <SiteFooter settings={settings} />
         </div>
       </section>
     </main>

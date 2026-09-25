@@ -28,7 +28,7 @@ export function BrandStrategyForm({ initial }: { initial: BrandStrategyContent }
 
   return (
     <>
-      <p className="admin__lede">Pencil-scroll copy for /capabilities/brand-and-strategy.</p>
+      <p className="admin__lede">Copy for /capabilities/brand-and-strategy.</p>
       <Field label="Browser title">
         <TextInput value={data.metaTitle} onChange={(v) => setData({ ...data, metaTitle: v })} />
       </Field>
@@ -41,121 +41,88 @@ export function BrandStrategyForm({ initial }: { initial: BrandStrategyContent }
       <Field label="Practice name">
         <TextInput value={data.practiceName} onChange={(v) => setData({ ...data, practiceName: v })} />
       </Field>
-      <Field label="Hero before">
-        <TextInput value={data.heroBefore} onChange={(v) => setData({ ...data, heroBefore: v })} />
+      <Field label="Hero line 1">
+        <TextInput value={data.heroLine1} onChange={(v) => setData({ ...data, heroLine1: v })} />
+      </Field>
+      <Field label="Hero line 2 before">
+        <TextInput value={data.heroLine2Before} onChange={(v) => setData({ ...data, heroLine2Before: v })} />
       </Field>
       <Field label="Hero emphasis">
         <TextInput value={data.heroEmphasis} onChange={(v) => setData({ ...data, heroEmphasis: v })} />
       </Field>
-      <Field label="Hero after">
-        <TextInput value={data.heroAfter} onChange={(v) => setData({ ...data, heroAfter: v })} />
+      <Field label="Hero line 2 after">
+        <TextInput value={data.heroLine2After} onChange={(v) => setData({ ...data, heroLine2After: v })} />
+      </Field>
+      <Field label="Hero tick">
+        <TextInput value={data.heroTick} onChange={(v) => setData({ ...data, heroTick: v })} />
       </Field>
       <Field label="Subcopy">
         <TextInput multiline value={data.subcopy} onChange={(v) => setData({ ...data, subcopy: v })} />
       </Field>
-      <Field label="Strike heading">
-        <TextInput value={data.strikeHeading} onChange={(v) => setData({ ...data, strikeHeading: v })} />
+      <Field label="Heard heading (use \\n for breaks)">
+        <TextInput multiline value={data.heardHeading} onChange={(v) => setData({ ...data, heardHeading: v })} />
       </Field>
-      {(data.strikeLines || []).map((line, index) => (
-        <Field key={index} label={`Struck line ${index + 1}${line.keep ? " (kept)" : ""}`}>
-          <TextInput
-            value={line.text}
-            onChange={(v) => {
-              const strikeLines = data.strikeLines.slice();
-              strikeLines[index] = { ...line, text: v };
-              setData({ ...data, strikeLines });
-            }}
-          />
-        </Field>
-      ))}
-      {(data.verbs || []).map((verb, index) => (
+      <Field label="Heard note">
+        <TextInput multiline value={data.heardNote} onChange={(v) => setData({ ...data, heardNote: v })} />
+      </Field>
+      {(data.heard || []).map((item, index) => (
         <div className="admin__block" key={index}>
-          <Field label={`Verb ${index + 1}`}>
+          <Field label={`Heard ${index + 1} quote`}>
             <TextInput
-              value={verb.label}
+              multiline
+              value={item.quote}
               onChange={(v) => {
-                const verbs = data.verbs.slice();
-                verbs[index] = { ...verb, label: v };
-                setData({ ...data, verbs });
+                const heard = data.heard.slice();
+                heard[index] = { ...item, quote: v };
+                setData({ ...data, heard });
               }}
             />
           </Field>
-          <Field label="Line">
+          <Field label="Label">
             <TextInput
-              multiline
-              value={verb.body}
+              value={item.label}
               onChange={(v) => {
-                const verbs = data.verbs.slice();
-                verbs[index] = { ...verb, body: v };
-                setData({ ...data, verbs });
+                const heard = data.heard.slice();
+                heard[index] = { ...item, label: v };
+                setData({ ...data, heard });
               }}
             />
           </Field>
         </div>
       ))}
-      <Field label="Path heading">
-        <TextInput value={data.pathHeading} onChange={(v) => setData({ ...data, pathHeading: v })} />
+      <Field label="Workstreams heading">
+        <TextInput multiline value={data.workHeading} onChange={(v) => setData({ ...data, workHeading: v })} />
       </Field>
-      {(data.pathSteps || []).map((step, index) => (
+      {(data.workstreams || []).map((ws, index) => (
         <div className="admin__block" key={index}>
-          <Field label={`Stop ${index + 1}`}>
+          <Field label={`Stream ${ws.number}`}>
             <TextInput
-              value={step.title}
+              value={ws.title}
               onChange={(v) => {
-                const pathSteps = data.pathSteps.slice();
-                pathSteps[index] = { ...step, title: v };
-                setData({ ...data, pathSteps });
+                const workstreams = data.workstreams.slice();
+                workstreams[index] = { ...ws, title: v };
+                setData({ ...data, workstreams });
               }}
             />
           </Field>
           <Field label="Body">
             <TextInput
               multiline
-              value={step.body}
+              value={ws.body}
               onChange={(v) => {
-                const pathSteps = data.pathSteps.slice();
-                pathSteps[index] = { ...step, body: v };
-                setData({ ...data, pathSteps });
+                const workstreams = data.workstreams.slice();
+                workstreams[index] = { ...ws, body: v };
+                setData({ ...data, workstreams });
               }}
             />
           </Field>
         </div>
       ))}
-      <Field label="Other practices heading">
-        <TextInput value={data.othersHeading} onChange={(v) => setData({ ...data, othersHeading: v })} />
+      <Field label="CTA line 1">
+        <TextInput value={data.contactLine1} onChange={(v) => setData({ ...data, contactLine1: v })} />
       </Field>
-      {(data.others || []).map((item, index) => (
-        <div className="admin__block" key={index}>
-          <Field label="Name">
-            <TextInput
-              value={item.name}
-              onChange={(v) => {
-                const others = data.others.slice();
-                others[index] = { ...item, name: v };
-                setData({ ...data, others });
-              }}
-            />
-          </Field>
-          <Field label="Line">
-            <TextInput
-              value={item.line}
-              onChange={(v) => {
-                const others = data.others.slice();
-                others[index] = { ...item, line: v };
-                setData({ ...data, others });
-              }}
-            />
-          </Field>
-        </div>
-      ))}
-      <Field label="Close before">
-        <TextInput value={data.contactBefore} onChange={(v) => setData({ ...data, contactBefore: v })} />
-      </Field>
-      <Field label="Close emphasis">
-        <TextInput value={data.contactEmphasis} onChange={(v) => setData({ ...data, contactEmphasis: v })} />
-      </Field>
-      <Field label="Close after">
-        <TextInput value={data.contactAfter} onChange={(v) => setData({ ...data, contactAfter: v })} />
+      <Field label="CTA line 2">
+        <TextInput value={data.contactLine2} onChange={(v) => setData({ ...data, contactLine2: v })} />
       </Field>
       <SaveBar saving={saving} message={message} error={error} onSave={save} />
     </>

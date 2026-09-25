@@ -101,6 +101,7 @@ export type PracticeVerb = {
 };
 
 export type PracticeLink = {
+  number?: string;
   name: string;
   line: string;
   href: string;
@@ -112,8 +113,32 @@ export type StruckLine = {
 };
 
 export type PathStep = {
+  label?: string;
   title: string;
   body: string;
+};
+
+export type BrandStrategyHeard = {
+  quote: string;
+  label: string;
+  marked?: boolean;
+};
+
+export type BrandStrategyStream = {
+  number: string;
+  title: string;
+  body: string;
+  odd?: boolean;
+};
+
+export type BrandStrategyDeliverable = {
+  title: string;
+  body: string;
+};
+
+export type BrandStrategyFaq = {
+  question: string;
+  answer: string;
 };
 
 export type BrandStrategyContent = {
@@ -121,20 +146,35 @@ export type BrandStrategyContent = {
   metaDescription: string;
   number: string;
   practiceName: string;
-  heroBefore: string;
+  heroLine1: string;
+  heroLine2Before: string;
   heroEmphasis: string;
-  heroAfter: string;
+  heroLine2After: string;
+  heroTick: string;
   subcopy: string;
-  strikeHeading: string;
-  strikeLines: StruckLine[];
-  verbs: PracticeVerb[];
-  pathHeading: string;
-  pathSteps: PathStep[];
-  othersHeading: string;
-  others: PracticeLink[];
-  contactBefore: string;
-  contactEmphasis: string;
-  contactAfter: string;
+  heardHeading: string;
+  heardNote: string;
+  heard: BrandStrategyHeard[];
+  workHeading: string;
+  workNote: string;
+  workstreams: BrandStrategyStream[];
+  mapHeading: string;
+  mapNote: string;
+  mapHint: string;
+  howHeading: string;
+  howNote: string;
+  steps: PathStep[];
+  getHeading: string;
+  getNote: string;
+  deliverables: BrandStrategyDeliverable[];
+  connectsHeading: string;
+  connectsNote: string;
+  connects: PracticeLink[];
+  faqHeading: string;
+  faqNote: string;
+  faqs: BrandStrategyFaq[];
+  contactLine1: string;
+  contactLine2: string;
 };
 
 export type ProcessStep = {

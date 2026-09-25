@@ -4,9 +4,9 @@ import zipfile
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-out = root.parent / "13thpencil-hostinger.zip"
-skip_dirs = {"node_modules", ".next", ".git"}
-skip_files = {"tsconfig.tsbuildinfo"}
+out = root / "13thpencil-hostinger.zip"
+skip_dirs = {"node_modules", ".next", ".git", ".playwright-mcp", ".cursor"}
+skip_files = {"tsconfig.tsbuildinfo", ".env", ".env.local", "13thpencil-hostinger.zip"}
 
 files = []
 for dirpath, dirnames, filenames in os.walk(root):
