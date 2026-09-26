@@ -12,45 +12,52 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload site to Hostinger
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install and build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+          DATABASE_URL: mysql://build:build@127.0.0.1:3306/build
+        run: |
+          npm ci
+          npx prisma generate
+          npx next build
+
+      - name: Upload built site
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USERNAME }}
           password: ${{ secrets.HOSTINGER_PASSWORD }}
           port: ${{ secrets.HOSTINGER_PORT }}
-          timeout: 90s
-          source: "."
+          timeout: 180s
+          source: ".next,public,package.json,package-lock.json"
           target: ${{ secrets.HOSTINGER_APP_PATH }}
           overwrite: true
           rm: false
-          exclude: ".git,node_modules,.next,.playwright-mcp,.env,.env.local"
+          exclude: ".next/cache"
 
-      - name: Install, migrate, and rebuild
+      - name: Copy into live app and restart
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USERNAME }}
           password: ${{ secrets.HOSTINGER_PASSWORD }}
           port: ${{ secrets.HOSTINGER_PORT }}
-          command_timeout: 20m
-          script_stop: true
+          command_timeout: 10m
           script: |
             set -e
-            export PATH="/opt/alt/alt-nodejs22/root/usr/bin:$PATH"
-            cd "${{ secrets.HOSTINGER_APP_PATH }}"
-            npm ci
-            npx prisma generate
-            # migrate may fail until DATABASE_URL is a real Hostinger MySQL user — build still ships
-            npx prisma migrate deploy || echo "migrate skipped"
-            npm run build
-            APP_ROOT="$(dirname "${{ secrets.HOSTINGER_APP_PATH }}")/current/nodejs"
-            if [ -d "$APP_ROOT" ]; then
-              rm -rf "$APP_ROOT/.next"
-              cp -a .next "$APP_ROOT/.next"
-              cp -a public "$APP_ROOT/public"
-              cp -f package.json package-lock.json "$APP_ROOT/"
-              mkdir -p "$APP_ROOT/tmp"
-              date > "$APP_ROOT/tmp/restart.txt"
-            fi
+            SRC="${{ secrets.HOSTINGER_APP_PATH }}"
+            APP_ROOT="$(dirname "$SRC")/current/nodejs"
+            test -d "$SRC/.next"
+            test -d "$APP_ROOT"
+            rm -rf "$APP_ROOT/.next"
+            cp -a "$SRC/.next" "$APP_ROOT/.next"
+            cp -a "$SRC/public" "$APP_ROOT/public"
+            mkdir -p "$APP_ROOT/tmp"
+            date > "$APP_ROOT/tmp/restart.txt"
             echo DEPLOY_OK
