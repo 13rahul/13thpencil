@@ -223,13 +223,17 @@ p{margin:0 0 1.1em;max-width:62ch}
 .hero.lit .hero__bars b{transform:scaleY(1)}
 .hero__bars b.thirteen{background:var(--eraser);height:62%;width:clamp(3px,.6vw,7px)}
 .hero.lit .hero__bars b.thirteen{transform:rotate(9deg) scaleY(1)}
-.hero__inner{position:relative;z-index:2;container-type:inline-size}
-.hero .display{font-size:clamp(2.35rem,9.2cqi,10.5rem)}
-.hero__h{margin-bottom:clamp(20px,3vh,40px)}
-.hero__h .ln{display:block;overflow:hidden;padding:.14em 0 .18em}
-.hero__h .ln > span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease-out);white-space:nowrap}
+.hero__inner{position:relative;z-index:2}
+.hero__h{margin-bottom:clamp(20px,3vh,40px);line-height:.95}
+.hero__h .ln{display:block;overflow:hidden;padding:.06em 0 .1em}
+.hero__h .ln > span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease-out);white-space:normal}
+.hero.lit .hero__h .ln{overflow:visible}
 .hero.lit .hero__h .ln > span{transform:translateY(0)}
 .hero__h .ln:nth-child(2) > span{transition-delay:.09s}
+@media (min-width:701px){
+  .hero__h .ln:first-child{margin-right:-2vw}
+  .hero__h .ln:first-child > span{white-space:nowrap}
+}
 .hero__h em{font-style:normal;position:relative;display:inline-block}
 .hero__h em::after{content:"";position:absolute;left:-.02em;right:-.02em;bottom:.17em;height:.055em;background:var(--eraser);transform:scaleX(0);transform-origin:left;transition:transform .8s .9s var(--ease-out)}
 .hero.lit .hero__h em::after{transform:scaleX(1)}
@@ -378,6 +382,7 @@ p{margin:0 0 1.1em;max-width:62ch}
 /* ---------- mobile: designed for the thumb, not shrunk from desktop ---------- */
 @media (max-width:700px){
   .display{font-size:clamp(2.35rem,11.4vw,3.8rem);line-height:.94}
+  .hero .display{font-size:clamp(2rem,9.2vw,3.4rem)}
   .h2{font-size:clamp(1.9rem,8.6vw,3rem);line-height:.96}
   .lede{font-size:1.08rem;line-height:1.5;max-width:34ch}
   .ci--mark .ci__q i{white-space:normal}
