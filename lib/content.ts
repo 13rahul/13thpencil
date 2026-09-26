@@ -57,7 +57,20 @@ export async function getSiteContent(): Promise<SiteContent> {
         content.notFound = deepMerge(content.notFound, row.content);
       }
       if (row.page === "capabilities" && row.sectionKey === "brandStrategy") {
-        content.brandStrategy = deepMerge(content.brandStrategy, row.content);
+        const incoming = row.content as { cycleWords?: unknown } | null;
+        // Ignore pre-redesign records that lack the new shape
+        if (incoming && Array.isArray(incoming.cycleWords)) {
+          content.brandStrategy = deepMerge(content.brandStrategy, row.content);
+        }
+      }
+      if (row.page === "about" && row.sectionKey === "ourStory") {
+        content.aboutOurStory = deepMerge(content.aboutOurStory, row.content);
+      }
+      if (row.page === "about" && row.sectionKey === "why") {
+        content.aboutWhy = deepMerge(content.aboutWhy, row.content);
+      }
+      if (row.page === "about" && row.sectionKey === "approach") {
+        content.aboutApproach = deepMerge(content.aboutApproach, row.content);
       }
     }
   } catch {

@@ -1,137 +1,54 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
 import type { BrandStrategyContent, SiteSettings } from "@/lib/types";
-import { Breaks, Marked, startProjectHref } from "@/lib/text";
+import { startProjectHref } from "@/lib/text";
 import { SiteFooter } from "../SiteFooter";
 
-type MapPos = { x: number; y: number; t: string; b: string; odd?: boolean };
-
-const MAP_POS: MapPos[] = [
-  {
-    x: 32,
-    y: 64,
-    t: "The cluster",
-    b: "Most categories look like this: every brand claiming a slightly different adjective for the same idea, packed so tightly a customer cannot tell them apart. Being inside it is not a failure of execution. It is a failure of position.",
-  },
-  {
-    x: 39,
-    y: 70,
-    t: "The cluster",
-    b: "Two competitors can sit a millimetre apart on a map like this and spend years outspending each other to own the same word. The budget is real. The distance between them is not.",
-  },
-  {
-    x: 27,
-    y: 72,
-    t: "The cluster",
-    b: "The safest-looking spot on the map is the most crowded one. It feels like consensus because it is — which is exactly why it does not sell anything.",
-  },
-  {
-    x: 44,
-    y: 62,
-    t: "The cluster",
-    b: "Tidy, defensible, indistinguishable. This is where most strategy decks land, because the process rewarded agreement rather than argument.",
-  },
-  {
-    x: 35,
-    y: 77,
-    t: "The cluster",
-    b: "Being close to the category average is comfortable and cheap to approve. It is also the position that requires the largest media budget to be noticed at all.",
-  },
-  {
-    x: 46,
-    y: 55,
-    t: "Convention, well executed",
-    b: "Conventional positioning done properly. It works when you have the largest budget in the category and can simply be seen more often than everyone else. For everyone else it is an expensive way to be forgotten.",
-  },
-  {
-    x: 20,
-    y: 40,
-    t: "Loud, not owned",
-    b: "High distinctiveness inside category convention: a brand shouting the same claim more energetically. It buys short-term attention and leaves nothing behind when the spend stops.",
-  },
-  {
-    x: 64,
-    y: 76,
-    t: "Different, about nothing",
-    b: "Distinctive execution on an empty idea. It gets noticed and then fails to mean anything, so attention never converts into preference. Novelty is not a position.",
-  },
-  {
-    x: 71,
-    y: 46,
-    t: "Nearly there",
-    b: "Genuine territory, half committed to. Usually a brand that found the right idea and then softened it in review until it was comfortable enough to approve.",
-  },
-  {
-    x: 51,
-    y: 31,
-    t: "Borrowed territory",
-    b: "A position that belongs to someone else in an adjacent category. It reads as fresh for about a year, until the comparison becomes the story.",
-  },
-  {
-    x: 82,
-    y: 20,
-    odd: true,
-    t: "The departure",
-    b: "Own territory, high distinctiveness, and a reason to be there that competitors cannot copy by editing their adjectives. It is harder to defend in a meeting, which is precisely why it is still available. This is the position we are hired to find.",
-  },
-];
-
-const DEFAULT_MAP = { t: MAP_POS[0].t, b: MAP_POS[0].b };
-
-const SUBNAV = [
-  { href: "#heard", label: "What we hear" },
-  { href: "#what", label: "What it covers" },
-  { href: "#map", label: "Where it lands" },
-  { href: "#how", label: "How it runs" },
-  { href: "#get", label: "What you get" },
-  { href: "#connects", label: "Where it connects" },
-  { href: "#faq", label: "Questions" },
-];
-
-function layBars(host: HTMLElement) {
-  const want = Math.max(7, Math.min(17, Math.round(window.innerWidth / 86)));
-  if (host.children.length === want) return;
-  host.innerHTML = "";
-  for (let i = 0; i < want; i++) {
-    const b = document.createElement("b");
-    if (i === want - 3) b.className = "odd";
-    host.appendChild(b);
-  }
+function PinkMarks({ text }: { text: string }) {
+  const parts = text.split(/(\*[^*]+\*)/g);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.startsWith("*") && part.endsWith("*") ? (
+          <span key={i} className="pink">
+            {part.slice(1, -1)}
+          </span>
+        ) : (
+          <span key={i}>{part}</span>
+        ),
+      )}
+    </>
+  );
 }
 
-function wireDisclosure(scope: HTMLElement, itemSel: string, bodySel: string, single: boolean, reduce: boolean) {
-  scope.querySelectorAll<HTMLElement>(itemSel).forEach((item) => {
-    const btn = item.querySelector<HTMLButtonElement>("button");
-    const body = item.querySelector<HTMLElement>(bodySel);
-    if (!btn || !body) return;
-    btn.addEventListener("click", () => {
-      const open = item.hasAttribute("open");
-      if (single) {
-        scope.querySelectorAll<HTMLElement>(itemSel).forEach((other) => {
-          if (other === item) return;
-          other.removeAttribute("open");
-          const ob = other.querySelector<HTMLElement>(bodySel);
-          const obBtn = other.querySelector("button");
-          if (ob) gsap.to(ob, { height: 0, duration: reduce ? 0 : 0.42, ease: "power2.out" });
-          obBtn?.setAttribute("aria-expanded", "false");
-        });
-      }
-      if (open) {
-        item.removeAttribute("open");
-        btn.setAttribute("aria-expanded", "false");
-        gsap.to(body, { height: 0, duration: reduce ? 0 : 0.42, ease: "power2.out" });
-      } else {
-        item.setAttribute("open", "");
-        btn.setAttribute("aria-expanded", "true");
-        gsap.set(body, { height: "auto" });
-        const h = body.offsetHeight;
-        gsap.fromTo(body, { height: 0 }, { height: h, duration: reduce ? 0 : 0.48, ease: "power2.out" });
-      }
-    });
-  });
+type ClaimItem = {
+  el: HTMLSpanElement;
+  w: number;
+  h: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  gx: number;
+  gy: number;
+  odd: boolean;
+  plainW?: number;
+  plainText?: string;
+  oddW?: number;
+  revealed?: boolean;
+  ex?: number;
+  ey?: number;
+};
+
+function clamp(v: number, a: number, b: number) {
+  return v < a ? a : v > b ? b : v;
+}
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+function ease(t: number) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
 export function BrandStrategyScene({
@@ -141,511 +58,366 @@ export function BrandStrategyScene({
   page: BrandStrategyContent;
   settings: SiteSettings;
 }) {
-  const root = useRef<HTMLElement>(null);
-  const [mapRead, setMapRead] = useState(DEFAULT_MAP);
-  const [mapOn, setMapOn] = useState<number | null>(null);
+  const rootRef = useRef<HTMLElement | null>(null);
+  const [lit, setLit] = useState(false);
+  const [cycleWord, setCycleWord] = useState(page.cycleWords[0] || "innovative");
+  const [cycleClass, setCycleClass] = useState("");
 
-  useLayoutEffect(() => {
-    const el = root.current;
-    if (!el || typeof window === "undefined") return;
-    gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.config({ ignoreMobileResize: true });
+  useEffect(() => {
+    requestAnimationFrame(() => setLit(true));
+  }, []);
+
+  useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const words = page.cycleWords?.length ? page.cycleWords : ["innovative"];
+    if (reduce || words.length < 2) return;
 
-    const setNavH = () => {
-      const nav = document.getElementById("nav");
-      if (nav) document.documentElement.style.setProperty("--navh", `${nav.offsetHeight}px`);
-    };
-    setNavH();
+    let ci = 0;
+    const id = window.setInterval(() => {
+      setCycleClass("cut");
+      window.setTimeout(() => {
+        ci = (ci + 1) % words.length;
+        setCycleClass("wipe");
+        window.setTimeout(() => {
+          setCycleWord(words[ci]!);
+          setCycleClass("");
+        }, 170);
+      }, 620);
+    }, 2100);
+    return () => clearInterval(id);
+  }, [page.cycleWords]);
 
-    const bars = el.querySelector<HTMLElement>("#bspBars");
-    if (bars) layBars(bars);
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
 
-    const dels = el.querySelector<HTMLElement>("#dels");
-    const faqs = el.querySelector<HTMLElement>("#faqs");
-    if (dels) wireDisclosure(dels, ".del", ".del__body", true, reduce);
-    if (faqs) wireDisclosure(faqs, ".faq", ".faq__body", false, reduce);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+    const stage = root.querySelector<HTMLElement>("#bspStage");
+    const scroller = root.querySelector<HTMLElement>("#bspScroller");
+    const prog = root.querySelector<HTMLElement>("#bspProg");
+    const hint = root.querySelector<HTMLElement>("#bspHint");
+    const caps = Array.from(root.querySelectorAll<HTMLElement>(".bsp-cap"));
+    const list = root.querySelector<HTMLElement>("#bspDoList");
+    if (!stage || !scroller || !prog) return;
 
-    const ctx = gsap.context(() => {
-      if (reduce) {
-        gsap.set(el.querySelectorAll(".bsp-reveal, .bsp-line > span, #bspBars b"), {
-          clearProps: "all",
-          opacity: 1,
-          y: 0,
-          scaleY: 1,
-          rotate: 0,
+    let claims = (page.claims?.length ? page.claims : []).slice();
+    const small = window.matchMedia("(max-width:760px)").matches;
+    if (small) {
+      claims = claims.slice().sort((a, b) => a.length - b.length).slice(0, 18);
+    }
+    const COUNT = small ? Math.min(18, claims.length) : claims.length;
+    const COLS = small ? 3 : 5;
+    let items: ClaimItem[] = [];
+    let W = 0;
+    let H = 0;
+    const pointer = { x: -9999, y: -9999 };
+    let p = 0;
+    let raf = 0;
+    let rb: number | undefined;
+
+    function build() {
+      stage!.querySelectorAll(".bsp-claim").forEach((n) => n.remove());
+      items = [];
+      W = stage!.clientWidth;
+      H = stage!.clientHeight;
+      const rows = Math.ceil(COUNT / COLS);
+      const padX = Math.max(28, W * 0.07);
+      const padY = Math.max(120, H * 0.2);
+      const cw = (W - padX * 2) / COLS;
+      const ch = (H - padY - H * 0.34) / rows;
+      for (let i = 0; i < COUNT; i++) {
+        const el = document.createElement("span");
+        el.className = "bsp-claim";
+        el.textContent = claims[i % claims.length]!;
+        el.setAttribute("aria-hidden", "true");
+        stage!.appendChild(el);
+        const r = el.getBoundingClientRect();
+        const gx = padX + (i % COLS) * cw + cw / 2;
+        const gy = padY + Math.floor(i / COLS) * ch + ch / 2;
+        items.push({
+          el,
+          w: r.width,
+          h: r.height,
+          x: Math.random() * (W - r.width) + r.width / 2,
+          y: Math.random() * (H * 0.6 - r.height) + H * 0.16,
+          vx: (Math.random() - 0.5) * 0.34,
+          vy: (Math.random() - 0.5) * 0.34,
+          gx,
+          gy,
+          odd: false,
         });
-        el.querySelector("#hero")?.classList.add("lit");
-        return;
       }
+      if (!items.length) return;
+      const oddIdx = Math.min(
+        items.length - 1,
+        COLS * Math.floor(Math.ceil(COUNT / COLS) / 2) + Math.floor(COLS / 2),
+      );
+      const o = items[oddIdx]!;
+      o.odd = true;
+      o.plainW = o.w;
+      o.plainText = o.el.textContent || "";
+      o.el.classList.add("odd");
+      o.el.textContent = "Unclaimed";
+      const r2 = o.el.getBoundingClientRect();
+      o.oddW = r2.width;
+      o.h = r2.height;
+      o.el.classList.remove("odd");
+      o.el.textContent = o.plainText;
+      o.revealed = false;
+      o.w = o.plainW;
+      o.ex = W - Math.max(40, W * 0.14) - o.oddW / 2;
+      o.ey = Math.max(150, H * 0.24);
+    }
 
-      const hero = el.querySelector("#hero");
-      const barNodes = bars ? gsap.utils.toArray<HTMLElement>("#bspBars b") : [];
-      const lines = gsap.utils.toArray<HTMLElement>(".bsp-line > span", hero || el);
-      const enter = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      if (barNodes.length) {
-        gsap.set(barNodes, { scaleY: 0, transformOrigin: "bottom center" });
-        enter.to(
-          barNodes,
-          {
-            scaleY: 1,
-            duration: 0.9,
-            stagger: 0.035,
-            ease: "power2.out",
-            onComplete() {
-              const odd = bars?.querySelector("b.odd");
-              if (odd) gsap.to(odd, { rotation: 9, duration: 0.55, ease: "power2.out" });
-            },
-          },
-          0.1,
-        );
-      }
-      if (lines.length) {
-        gsap.set(lines, { yPercent: 110 });
-        enter.to(lines, { yPercent: 0, duration: 1.05, stagger: 0.1 }, 0.2);
-      }
-      enter.add(() => hero?.classList.add("lit"), 0.55);
-      enter.from(".bsp-crumb, .bsp-tick, .hero__row", { y: 18, opacity: 0, duration: 0.7, stagger: 0.08 }, 0.55);
-
-      gsap.utils.toArray<HTMLElement>(".bsp-reveal").forEach((node) => {
-        const delay = Number(node.dataset.d || 0) * 0.08;
-        gsap.from(node, {
-          y: 28,
-          opacity: 0,
-          duration: 0.85,
-          delay,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: node,
-            start: "top 86%",
-            toggleActions: "play none none none",
-          },
-        });
+    function readScroll() {
+      const r = scroller!.getBoundingClientRect();
+      const span = scroller!.offsetHeight - window.innerHeight;
+      p = span > 0 ? clamp(-r.top / span, 0, 1) : 0;
+      prog!.style.width = `${p * 100}%`;
+      const phase = p < 0.3 ? 0 : p < 0.66 ? 1 : 2;
+      caps.forEach((c, i) => {
+        c.classList.toggle("on", i === phase && r.top < window.innerHeight * 0.6 && r.bottom > 0);
       });
+      if (hint) hint.style.opacity = p < 0.22 ? "1" : "0";
+    }
 
-      gsap.utils.toArray<HTMLElement>(".hq").forEach((row, i) => {
-        gsap.from(row, {
-          x: i % 2 === 0 ? -36 : 36,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: { trigger: row, start: "top 88%", toggleActions: "play none none none" },
-        });
-      });
-
-      gsap.from(".ws", {
-        y: 40,
-        opacity: 0,
-        duration: 0.75,
-        stagger: 0.08,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".work", start: "top 78%", toggleActions: "play none none none" },
-      });
-
-      const mapStage = el.querySelector(".map__stage");
-      if (mapStage) {
-        gsap.from(".map__stage", {
-          scale: 0.96,
-          opacity: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: { trigger: "#map", start: "top 70%", toggleActions: "play none none none" },
-        });
-        gsap.from(".dot", {
-          scale: 0,
-          opacity: 0,
-          duration: 0.45,
-          stagger: 0.04,
-          ease: "back.out(1.6)",
-          scrollTrigger: { trigger: ".map__stage", start: "top 75%", toggleActions: "play none none none" },
-        });
-        const odd = mapStage.querySelector(".dot--odd");
-        if (odd) {
-          gsap.fromTo(
-            odd,
-            { boxShadow: "0 0 0 0 rgba(244,115,126,0.0)" },
-            {
-              boxShadow: "0 0 0 10px rgba(244,115,126,0.18)",
-              duration: 1.4,
-              repeat: 1,
-              yoyo: true,
-              ease: "sine.inOut",
-              scrollTrigger: { trigger: odd, start: "top 80%", toggleActions: "play none none none" },
-            },
-          );
-        }
-      }
-
-      gsap.from(".step", {
-        y: 32,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".steps", start: "top 80%", toggleActions: "play none none none" },
-      });
-
-      gsap.from(".del", {
-        y: 20,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.06,
-        ease: "power2.out",
-        scrollTrigger: { trigger: "#dels", start: "top 82%", toggleActions: "play none none none" },
-      });
-
-      gsap.from(".cc", {
-        y: 36,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".conn", start: "top 80%", toggleActions: "play none none none" },
-      });
-
-      gsap.from(".faq", {
-        y: 18,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.06,
-        ease: "power2.out",
-        scrollTrigger: { trigger: "#faqs", start: "top 85%", toggleActions: "play none none none" },
-      });
-
-      gsap.from("#start .cta__h .bsp-line > span", {
-        yPercent: 100,
-        duration: 0.9,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: "#start", start: "top 75%", toggleActions: "play none none none" },
-      });
-
-      const links = gsap.utils.toArray<HTMLAnchorElement>("#subnavIn a");
-      const targets = links.map((a) => el.querySelector(a.getAttribute("href") || ""));
-      ScrollTrigger.create({
-        start: 0,
-        end: "max",
-        onUpdate() {
-          const probe = window.innerHeight * 0.35;
-          let best = -1;
-          let bestTop = -Infinity;
-          targets.forEach((t, i) => {
-            if (!t) return;
-            const top = t.getBoundingClientRect().top;
-            if (top <= probe && top > bestTop) {
-              bestTop = top;
-              best = i;
-            }
-          });
-          links.forEach((a, i) => {
-            const on = i === best;
-            a.classList.toggle("on", on);
-            if (on) a.setAttribute("aria-current", "true");
-            else a.removeAttribute("aria-current");
-          });
-          if (best > -1) {
-            const bar = el.querySelector<HTMLElement>("#subnavIn");
-            const active = links[best];
-            if (bar && active) {
-              const l = active.offsetLeft;
-              const r = l + active.offsetWidth;
-              if (l < bar.scrollLeft || r > bar.scrollLeft + bar.clientWidth) {
-                bar.scrollTo({ left: Math.max(0, l - 24), behavior: "smooth" });
+    function frame() {
+      if (!document.hidden) {
+        const vis = stage!.getBoundingClientRect();
+        if (vis.bottom > 0 && vis.top < window.innerHeight) {
+          const gridT = clamp((p - 0.24) / 0.16, 0, 1);
+          const outT = clamp((p - 0.66) / 0.26, 0, 1);
+          const gT = ease(gridT);
+          const oT = ease(outT);
+          for (let i = 0; i < items.length; i++) {
+            const it = items[i]!;
+            if (gT < 1) {
+              it.x += it.vx;
+              it.y += it.vy;
+              if (it.x < it.w / 2 || it.x > W - it.w / 2) it.vx *= -1;
+              if (it.y < it.h / 2 + 90 || it.y > H - it.h / 2 - H * 0.34) it.vy *= -1;
+              if (pointer.x > -9000) {
+                const dx = it.x - pointer.x;
+                const dy = it.y - pointer.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 170 && d > 0.1) {
+                  const f = (1 - d / 170) * 5.5;
+                  it.x += (dx / d) * f;
+                  it.y += (dy / d) * f;
+                }
               }
             }
+            let tx = lerp(it.x, it.gx, gT);
+            let ty = lerp(it.y, it.gy, gT);
+            let op = 1;
+            let rot = 0;
+            let sc = 1;
+            if (it.odd) {
+              const want = oT > 0.015;
+              if (want !== it.revealed) {
+                it.revealed = want;
+                it.el.classList.toggle("odd", want);
+                it.el.textContent = want ? "Unclaimed" : it.plainText || "";
+                it.w = want ? it.oddW || it.w : it.plainW || it.w;
+              }
+              tx = lerp(tx, it.ex || tx, oT);
+              ty = lerp(ty, it.ey || ty, oT);
+              rot = oT * -8;
+              sc = 1 + oT * 0.42;
+            } else {
+              op = 1 - oT * 0.76;
+            }
+            it.el.style.opacity = String(op);
+            it.el.style.transform = `translate(${tx - it.w / 2}px,${ty - it.h / 2}px) rotate(${rot}deg) scale(${sc})`;
           }
-        },
-      });
-    }, el);
+        }
+      }
+      raf = requestAnimationFrame(frame);
+    }
 
-    let resizeT: ReturnType<typeof setTimeout> | undefined;
+    build();
+
     const onResize = () => {
-      clearTimeout(resizeT);
-      resizeT = setTimeout(() => {
-        setNavH();
-        if (bars) layBars(bars);
-        ScrollTrigger.refresh();
-      }, 220);
+      clearTimeout(rb);
+      rb = window.setTimeout(build, 250);
     };
     window.addEventListener("resize", onResize);
 
-    return () => {
-      window.removeEventListener("resize", onResize);
-      clearTimeout(resizeT);
-      ctx.revert();
-    };
-  }, []);
+    let onMove: ((e: PointerEvent) => void) | undefined;
+    let onLeave: (() => void) | undefined;
+    if (fine && !reduce) {
+      onMove = (e: PointerEvent) => {
+        const r = stage!.getBoundingClientRect();
+        pointer.x = e.clientX - r.left;
+        pointer.y = e.clientY - r.top;
+      };
+      onLeave = () => {
+        pointer.x = pointer.y = -9999;
+      };
+      stage.addEventListener("pointermove", onMove);
+      stage.addEventListener("pointerleave", onLeave);
+    }
 
-  const showMap = (index: number) => {
-    const p = MAP_POS[index];
-    setMapOn(index);
-    setMapRead({ t: p.t, b: p.b });
-  };
+    let onListEnter: (() => void) | undefined;
+    let onListLeave: (() => void) | undefined;
+    if (list && fine) {
+      onListEnter = () => list.classList.add("dim");
+      onListLeave = () => list.classList.remove("dim");
+      list.addEventListener("pointerenter", onListEnter);
+      list.addEventListener("pointerleave", onListLeave);
+    }
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!reduce) readScroll();
+      ticking = false;
+    };
+    const onScrollTick = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScrollTick, { passive: true });
+
+    if (reduce) {
+      p = 1;
+      readScroll();
+      for (let k = 0; k < items.length; k++) {
+        const it2 = items[k]!;
+        const fx = it2.odd ? it2.ex || it2.gx : it2.gx;
+        const fy = it2.odd ? it2.ey || it2.gy : it2.gy;
+        if (it2.odd) {
+          it2.el.classList.add("odd");
+          it2.el.textContent = "Unclaimed";
+          it2.w = it2.oddW || it2.w;
+        }
+        it2.el.style.opacity = it2.odd ? "1" : "0.24";
+        it2.el.style.transform = `translate(${fx - it2.w / 2}px,${fy - it2.h / 2}px)${it2.odd ? " scale(1.4)" : ""}`;
+      }
+      caps[2]?.classList.add("on");
+    } else {
+      readScroll();
+      raf = requestAnimationFrame(frame);
+    }
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScrollTick);
+      if (onMove) stage.removeEventListener("pointermove", onMove);
+      if (onLeave) stage.removeEventListener("pointerleave", onLeave);
+      if (list && onListEnter) list.removeEventListener("pointerenter", onListEnter);
+      if (list && onListLeave) list.removeEventListener("pointerleave", onListLeave);
+      clearTimeout(rb);
+      stage.querySelectorAll(".bsp-claim").forEach((n) => n.remove());
+    };
+  }, [page.claims]);
+
+  const mail = `mailto:${settings.primaryEmail}?subject=${encodeURIComponent("Brand & Strategy — 13th Pencil")}`;
 
   return (
-    <main className="bsp" ref={root} id="top">
-      <section className="hero panel panel--ink bsp-hero" id="hero">
-        <div className="hero__bars" id="bspBars" aria-hidden="true" />
-        <div className="wrap hero__inner">
-          <nav className="crumb bsp-crumb" aria-label="Breadcrumb">
-            <a href="/">13th Pencil</a>
-            <span aria-hidden="true">/</span>
+    <main
+      className="bsp"
+      id="top"
+      ref={(node) => {
+        rootRef.current = node;
+      }}
+    >
+      <section className={`bsp-hero panel panel--ink${lit ? " lit" : ""}`} id="hero">
+        <div className="wrap">
+          <p className="bsp-eyebrow">
             <a href="/#capabilities">Capabilities</a>
             <span aria-hidden="true">/</span>
             <b>
               {page.number} — {page.practiceName}
             </b>
-          </nav>
-          <h1 className="h1 hero__h">
-            <span className="bsp-line">
-              <span>{page.heroLine1}</span>
-            </span>
-            <span className="bsp-line">
-              <span>
-                {page.heroLine2Before}
-                <em>{page.heroEmphasis}</em>
-                {page.heroLine2After}
+          </p>
+          <h1>
+            <span className="bsp-l1">{page.heroLine1}</span>
+            <span className="bsp-l1">
+              {page.heroSaysPrefix}{" "}
+              <span className={`bsp-cyc ${cycleClass}`}>
+                <span className="bsp-cyc__w">{cycleWord}</span>
+                <span className="bsp-cyc__s" />
               </span>
             </span>
           </h1>
-          <p className="tick bsp-tick">{page.heroTick}</p>
-          <div className="hero__row">
-            <p className="hero__sub">{page.subcopy}</p>
-          </div>
+          <p className="bsp-hero__sub">{page.subcopy}</p>
+        </div>
+        <div className="bsp-scrollcue" aria-hidden="true">
+          <i />
+          <span>{page.scrollHint}</span>
         </div>
       </section>
 
-      <div className="subnav" id="subnav">
-        <div className="wrap subnav__in" id="subnavIn">
-          {SUBNAV.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
+      <div className="bsp-scroller" id="bspScroller">
+        <div className="bsp-stage" id="bspStage">
+          <div className="bsp-stage__prog" aria-hidden="true">
+            <i id="bspProg" />
+          </div>
+          <p className="bsp-stage__hint" id="bspHint" aria-hidden="true">
+            {page.stageHint}
+          </p>
+          <div className="bsp-stage__cap">
+            {(page.captions || []).map((cap, i) => (
+              <div key={i} className="bsp-cap" data-cap={i}>
+                <h2>
+                  <PinkMarks text={cap.heading} />
+                </h2>
+                <p>{cap.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <section className="sec panel panel--paper" id="heard">
+      <section className="bsp-do panel panel--paper" id="do">
         <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">
-              <Breaks text={page.heardHeading} />
-            </h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.heardNote}
-            </p>
-          </div>
-          <div className="heard">
-            {page.heard.map((item) => (
-              <div key={item.quote} className={item.marked ? "hq hq--mark" : "hq"}>
-                <p className="hq__q">
-                  <Marked text={item.quote} />
-                </p>
-                <span className="hq__a">{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec panel panel--ink" id="what">
-        <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">
-              <Breaks text={page.workHeading} />
-            </h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.workNote}
-            </p>
-          </div>
-          <div className="work">
-            {page.workstreams.map((ws) => (
-              <div key={ws.number} className={ws.odd ? "ws ws--odd" : "ws"}>
-                <span className="ws__n">{ws.number}</span>
-                <h3 className="ws__t">{ws.title}</h3>
-                <p className="ws__d">{ws.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec panel panel--paper" id="map">
-        <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">{page.mapHeading}</h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.mapNote}
-            </p>
-          </div>
-          <div className="map">
-            <div className="map__plot bsp-reveal">
-              <div className="map__ys" aria-hidden="true">
-                <span className="map__ylab map__ylab--hi">High distinctiveness</span>
-                <span className="map__ylab map__ylab--lo">Low distinctiveness</span>
-              </div>
-              <div
-                className="map__stage"
-                role="group"
-                aria-label="Positioning map. Select a position to read about it."
-                onMouseLeave={() => {
-                  setMapOn(null);
-                  setMapRead(DEFAULT_MAP);
-                }}
-              >
-                <span className="map__line map__line--h" aria-hidden="true" />
-                <span className="map__line map__line--v" aria-hidden="true" />
-                <span className="map__ring" aria-hidden="true" />
-                <span className="map__ringlab" aria-hidden="true">
-                  the cluster
+          <h2 className="bsp-do__h">{page.movesHeading}</h2>
+          <div className="bsp-do__list" id="bspDoList">
+            {(page.moves || []).map((move) => (
+              <a key={move.number + move.title} className="bsp-row" href="#start">
+                <span className="bsp-row__t">
+                  <span className="bsp-row__n">{move.number}</span>
+                  {move.title}
                 </span>
-                {MAP_POS.map((p, i) => (
-                  <button
-                    key={`${p.x}-${p.y}`}
-                    type="button"
-                    className={`dot${p.odd ? " dot--odd" : ""}${mapOn === i ? " is-on" : ""}`}
-                    style={{ left: `${p.x}%`, top: `${p.y}%` }}
-                    aria-label={p.t}
-                    onMouseEnter={() => showMap(i)}
-                    onFocus={() => showMap(i)}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      showMap(i);
-                    }}
-                  />
-                ))}
-                {MAP_POS.filter((p) => p.odd).map((p) => (
-                  <span key={`tag-${p.x}`} className="map__tag" style={{ left: `${p.x}%`, top: `${p.y}%` }}>
-                    the 13th position
-                  </span>
-                ))}
-              </div>
-              <div className="map__xlabs" aria-hidden="true">
-                <span>Category convention</span>
-                <span>Own territory</span>
-              </div>
-            </div>
-            <div className="map__side">
-              <div className="map__read" aria-live="polite">
-                <h3>{mapRead.t}</h3>
-                <p>{mapRead.b}</p>
-              </div>
-              <p className="map__hint">{page.mapHint}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec panel panel--ink" id="how">
-        <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">{page.howHeading}</h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.howNote}
-            </p>
-          </div>
-          <div className="steps">
-            {page.steps.map((step) => (
-              <div key={step.title} className="step">
-                <span className="step__n">{step.label}</span>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec panel panel--paper" id="get">
-        <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">{page.getHeading}</h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.getNote}
-            </p>
-          </div>
-          <div className="dels" id="dels">
-            {page.deliverables.map((del) => (
-              <div key={del.title} className="del">
-                <button type="button" className="del__btn" aria-expanded="false">
-                  <span className="del__t">{del.title}</span>
-                  <span className="del__ic" aria-hidden="true" />
-                </button>
-                <div className="del__body">
-                  <p>{del.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec panel panel--ink" id="connects">
-        <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">{page.connectsHeading}</h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.connectsNote}
-            </p>
-          </div>
-          <div className="conn">
-            {page.connects.map((cc) => (
-              <a key={cc.name} className="cc" href={cc.href}>
-                <span className="cc__n">{cc.number}</span>
-                <h3 className="cc__t">
-                  {cc.name} <span aria-hidden="true">→</span>
-                </h3>
-                <p className="cc__d">{cc.line}</p>
+                <span className="bsp-row__d">{move.detail}</span>
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="sec panel panel--ink bsp-faq" id="faq">
+      <section className="bsp-next panel panel--ink">
         <div className="wrap">
-          <div className="head">
-            <h2 className="h2 bsp-reveal">
-              <Breaks text={page.faqHeading} />
-            </h2>
-            <p className="note bsp-reveal" data-d="1">
-              {page.faqNote}
-            </p>
-          </div>
-          <div className="faqs" id="faqs">
-            {page.faqs.map((faq) => (
-              <div key={faq.question} className="faq">
-                <button type="button" className="faq__btn" aria-expanded="false">
-                  <span className="faq__q">{faq.question}</span>
-                  <span className="faq__ic" aria-hidden="true">
-                    +
-                  </span>
-                </button>
-                <div className="faq__body">
-                  <p>{faq.answer}</p>
-                </div>
-              </div>
+          <h2 className="bsp-next__h">{page.nextHeading}</h2>
+          <div className="bsp-next__g">
+            {(page.connects || []).map((cc) => (
+              <a key={cc.href} className="bsp-nx" href={cc.href}>
+                <span className="bsp-nx__t">{cc.name}</span>
+                <span className="bsp-nx__a" aria-hidden="true">
+                  →
+                </span>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="cta panel panel--ink" id="start">
+      <section className="bsp-cta panel panel--ink" id="start">
         <div className="wrap">
-          <h2 className="h1 cta__h">
-            <span className="bsp-line">
-              <span>{page.contactLine1}</span>
-            </span>
-            <span className="bsp-line">
-              <span>{page.contactLine2}</span>
-            </span>
+          <h2>
+            {page.contactLine1}
+            <br />
+            {page.contactLine2}
           </h2>
           <div className="cta-row">
             <a className="btn" href={startProjectHref}>
               {settings.ctaLabel}
             </a>
-            <a className="big-link" href={`mailto:${settings.primaryEmail}`}>
+            <a className="big-link" href={mail}>
               {settings.primaryEmail}
             </a>
           </div>

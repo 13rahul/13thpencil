@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { DIRECTION_LABELS, labelList, listLeads } from "@/lib/leads";
 
+export const dynamic = "force-dynamic";
+
 function when(date: Date) {
   return date.toLocaleString("en-GB", {
     day: "2-digit",

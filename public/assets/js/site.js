@@ -145,15 +145,21 @@
   }
 
   /* ---------- 7. NAV: colour follows the panel behind it ---------- */
-  var nav = $("#nav"), lastY = 0;
+  var nav = $("#siteHeader"), lastY = 0;
   var panels = $$(".panel");
+  var bspPage = !!document.querySelector("main.bsp");
   function navTone(){
     if(!nav) return;
+    /* Brand & Strategy keeps a dark header for the full scroll */
+    if(bspPage){
+      nav.classList.remove("is-on-paper");
+      return;
+    }
     var y = nav.getBoundingClientRect().bottom - 8;
     for(var i=0;i<panels.length;i++){
       var r = panels[i].getBoundingClientRect();
       if(r.top <= y && r.bottom >= y){
-        nav.classList.toggle("on-paper", panels[i].classList.contains("panel--paper"));
+        nav.classList.toggle("is-on-paper", panels[i].classList.contains("panel--paper"));
         break;
       }
     }
@@ -180,8 +186,8 @@
       path.style.strokeDashoffset = pathLen * (1 - prog);
     }
     if(nav){
-      nav.classList.toggle("hide", y > lastY + 6 && y > 600);
-      if(y < lastY - 6 || y < 600) nav.classList.remove("hide");
+      nav.classList.toggle("is-hidden", y > lastY + 6 && y > 600);
+      if(y < lastY - 6 || y < 600) nav.classList.remove("is-hidden");
     }
     lastY = y;
     navTone();
@@ -427,24 +433,24 @@
   }
 
   /* ---------- 13. MENU + THEME ---------- */
-  var burger = $("#burger"), menu = $("#menu");
+  var burger = $("#siteBurger"), menu = $("#siteMenu");
   if(burger && menu){
     burger.addEventListener("click", function(){
-      var open = menu.classList.toggle("open");
+      var open = menu.classList.toggle("is-open");
       burger.setAttribute("aria-expanded", String(open));
       burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       document.body.classList.toggle("is-locked", open);
-      if(nav) nav.classList.toggle("menu-open", open);
+      if(nav) nav.classList.toggle("is-menu-open", open);
     });
-    $$("#menu a").forEach(function(a){
+    $$("#siteMenu a").forEach(function(a){
       a.addEventListener("click", function(){
-        menu.classList.remove("open"); document.body.classList.remove("is-locked");
-        if(nav) nav.classList.remove("menu-open");
+        menu.classList.remove("is-open"); document.body.classList.remove("is-locked");
+        if(nav) nav.classList.remove("is-menu-open");
         burger.setAttribute("aria-expanded","false");
       });
     });
   }
-  var themeBtn = $("#themeBtn");
+  var themeBtn = $("#siteThemeBtn");
   if(themeBtn){
     themeBtn.addEventListener("click", function(){
       var cur = document.documentElement.getAttribute("data-theme");

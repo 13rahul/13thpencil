@@ -1,10 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { saveBrandStrategyAction } from "@/lib/actions";
 import { Field, TextInput } from "@/components/admin/Fields";
 import { SaveBar } from "@/components/admin/SaveBar";
 import type { BrandStrategyContent } from "@/lib/types";
+
+function Section({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
+  return (
+    <div className="admin__block">
+      <p>
+        <strong>{title}</strong>
+        {hint ? ` — ${hint}` : ""}
+      </p>
+      {children}
+    </div>
+  );
+}
 
 export function BrandStrategyForm({ initial }: { initial: BrandStrategyContent }) {
   const [data, setData] = useState(initial);
@@ -28,102 +40,181 @@ export function BrandStrategyForm({ initial }: { initial: BrandStrategyContent }
 
   return (
     <>
-      <p className="admin__lede">Copy for /capabilities/brand-and-strategy.</p>
-      <Field label="Browser title">
-        <TextInput value={data.metaTitle} onChange={(v) => setData({ ...data, metaTitle: v })} />
-      </Field>
-      <Field label="Meta description">
-        <TextInput multiline value={data.metaDescription} onChange={(v) => setData({ ...data, metaDescription: v })} />
-      </Field>
-      <Field label="Number">
-        <TextInput value={data.number} onChange={(v) => setData({ ...data, number: v })} />
-      </Field>
-      <Field label="Practice name">
-        <TextInput value={data.practiceName} onChange={(v) => setData({ ...data, practiceName: v })} />
-      </Field>
-      <Field label="Hero line 1">
-        <TextInput value={data.heroLine1} onChange={(v) => setData({ ...data, heroLine1: v })} />
-      </Field>
-      <Field label="Hero line 2 before">
-        <TextInput value={data.heroLine2Before} onChange={(v) => setData({ ...data, heroLine2Before: v })} />
-      </Field>
-      <Field label="Hero emphasis">
-        <TextInput value={data.heroEmphasis} onChange={(v) => setData({ ...data, heroEmphasis: v })} />
-      </Field>
-      <Field label="Hero line 2 after">
-        <TextInput value={data.heroLine2After} onChange={(v) => setData({ ...data, heroLine2After: v })} />
-      </Field>
-      <Field label="Hero tick">
-        <TextInput value={data.heroTick} onChange={(v) => setData({ ...data, heroTick: v })} />
-      </Field>
-      <Field label="Subcopy">
-        <TextInput multiline value={data.subcopy} onChange={(v) => setData({ ...data, subcopy: v })} />
-      </Field>
-      <Field label="Heard heading (use \\n for breaks)">
-        <TextInput multiline value={data.heardHeading} onChange={(v) => setData({ ...data, heardHeading: v })} />
-      </Field>
-      <Field label="Heard note">
-        <TextInput multiline value={data.heardNote} onChange={(v) => setData({ ...data, heardNote: v })} />
-      </Field>
-      {(data.heard || []).map((item, index) => (
-        <div className="admin__block" key={index}>
-          <Field label={`Heard ${index + 1} quote`}>
-            <TextInput
-              multiline
-              value={item.quote}
-              onChange={(v) => {
-                const heard = data.heard.slice();
-                heard[index] = { ...item, quote: v };
-                setData({ ...data, heard });
-              }}
-            />
-          </Field>
-          <Field label="Label">
-            <TextInput
-              value={item.label}
-              onChange={(v) => {
-                const heard = data.heard.slice();
-                heard[index] = { ...item, label: v };
-                setData({ ...data, heard });
-              }}
-            />
-          </Field>
-        </div>
-      ))}
-      <Field label="Workstreams heading">
-        <TextInput multiline value={data.workHeading} onChange={(v) => setData({ ...data, workHeading: v })} />
-      </Field>
-      {(data.workstreams || []).map((ws, index) => (
-        <div className="admin__block" key={index}>
-          <Field label={`Stream ${ws.number}`}>
-            <TextInput
-              value={ws.title}
-              onChange={(v) => {
-                const workstreams = data.workstreams.slice();
-                workstreams[index] = { ...ws, title: v };
-                setData({ ...data, workstreams });
-              }}
-            />
-          </Field>
-          <Field label="Body">
-            <TextInput
-              multiline
-              value={ws.body}
-              onChange={(v) => {
-                const workstreams = data.workstreams.slice();
-                workstreams[index] = { ...ws, body: v };
-                setData({ ...data, workstreams });
-              }}
-            />
-          </Field>
-        </div>
-      ))}
-      <Field label="CTA line 1">
-        <TextInput value={data.contactLine1} onChange={(v) => setData({ ...data, contactLine1: v })} />
-      </Field>
-      <Field label="CTA line 2">
-        <TextInput value={data.contactLine2} onChange={(v) => setData({ ...data, contactLine2: v })} />
-      </Field>
+      <p className="admin__lede">
+        Public copy for /capabilities/brand-and-strategy. Wrap a word in *asterisks* to paint it coral in a caption.
+      </p>
+
+      <Section title="SEO" hint="browser title and search description">
+        <Field label="Browser title">
+          <TextInput value={data.metaTitle} onChange={(v) => setData({ ...data, metaTitle: v })} />
+        </Field>
+        <Field label="Meta description">
+          <TextInput multiline value={data.metaDescription} onChange={(v) => setData({ ...data, metaDescription: v })} />
+        </Field>
+      </Section>
+
+      <Section title="Hero" hint="kinetic opening">
+        <Field label="Number">
+          <TextInput value={data.number} onChange={(v) => setData({ ...data, number: v })} />
+        </Field>
+        <Field label="Practice name">
+          <TextInput value={data.practiceName} onChange={(v) => setData({ ...data, practiceName: v })} />
+        </Field>
+        <Field label="Hero line 1">
+          <TextInput value={data.heroLine1} onChange={(v) => setData({ ...data, heroLine1: v })} />
+        </Field>
+        <Field label="Says prefix">
+          <TextInput value={data.heroSaysPrefix} onChange={(v) => setData({ ...data, heroSaysPrefix: v })} />
+        </Field>
+        <Field label="Cycling adjectives (one per line)">
+          <TextInput
+            multiline
+            value={(data.cycleWords || []).join("\n")}
+            onChange={(v) =>
+              setData({
+                ...data,
+                cycleWords: v
+                  .split("\n")
+                  .map((s) => s.trim())
+                  .filter(Boolean),
+              })
+            }
+          />
+        </Field>
+        <Field label="Subcopy">
+          <TextInput multiline value={data.subcopy} onChange={(v) => setData({ ...data, subcopy: v })} />
+        </Field>
+        <Field label="Scroll hint">
+          <TextInput value={data.scrollHint} onChange={(v) => setData({ ...data, scrollHint: v })} />
+        </Field>
+      </Section>
+
+      <Section title="The field" hint="scroll stage claims and captions">
+        <Field label="Claim words (one per line)">
+          <TextInput
+            multiline
+            value={(data.claims || []).join("\n")}
+            onChange={(v) =>
+              setData({
+                ...data,
+                claims: v
+                  .split("\n")
+                  .map((s) => s.trim())
+                  .filter(Boolean),
+              })
+            }
+          />
+        </Field>
+        <Field label="Stage hint">
+          <TextInput value={data.stageHint} onChange={(v) => setData({ ...data, stageHint: v })} />
+        </Field>
+        {(data.captions || []).map((cap, index) => (
+          <div key={index}>
+            <Field label={`Caption ${index + 1} heading`}>
+              <TextInput
+                value={cap.heading}
+                onChange={(v) => {
+                  const captions = data.captions.slice();
+                  captions[index] = { ...cap, heading: v };
+                  setData({ ...data, captions });
+                }}
+              />
+            </Field>
+            <Field label={`Caption ${index + 1} body`}>
+              <TextInput
+                multiline
+                value={cap.body}
+                onChange={(v) => {
+                  const captions = data.captions.slice();
+                  captions[index] = { ...cap, body: v };
+                  setData({ ...data, captions });
+                }}
+              />
+            </Field>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="Five moves">
+        <Field label="Heading">
+          <TextInput value={data.movesHeading} onChange={(v) => setData({ ...data, movesHeading: v })} />
+        </Field>
+        {(data.moves || []).map((move, index) => (
+          <div key={index}>
+            <Field label={`Move ${index + 1} number`}>
+              <TextInput
+                value={move.number}
+                onChange={(v) => {
+                  const moves = data.moves.slice();
+                  moves[index] = { ...move, number: v };
+                  setData({ ...data, moves });
+                }}
+              />
+            </Field>
+            <Field label={`Move ${index + 1} title`}>
+              <TextInput
+                value={move.title}
+                onChange={(v) => {
+                  const moves = data.moves.slice();
+                  moves[index] = { ...move, title: v };
+                  setData({ ...data, moves });
+                }}
+              />
+            </Field>
+            <Field label={`Move ${index + 1} detail`}>
+              <TextInput
+                multiline
+                value={move.detail}
+                onChange={(v) => {
+                  const moves = data.moves.slice();
+                  moves[index] = { ...move, detail: v };
+                  setData({ ...data, moves });
+                }}
+              />
+            </Field>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="Next" hint="capability hand-offs">
+        <Field label="Heading">
+          <TextInput value={data.nextHeading} onChange={(v) => setData({ ...data, nextHeading: v })} />
+        </Field>
+        {(data.connects || []).map((cc, index) => (
+          <div key={index}>
+            <Field label={`Link ${index + 1} name`}>
+              <TextInput
+                value={cc.name}
+                onChange={(v) => {
+                  const connects = data.connects.slice();
+                  connects[index] = { ...cc, name: v };
+                  setData({ ...data, connects });
+                }}
+              />
+            </Field>
+            <Field label={`Link ${index + 1} href`}>
+              <TextInput
+                value={cc.href}
+                onChange={(v) => {
+                  const connects = data.connects.slice();
+                  connects[index] = { ...cc, href: v };
+                  setData({ ...data, connects });
+                }}
+              />
+            </Field>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="CTA">
+        <Field label="Contact line 1">
+          <TextInput value={data.contactLine1} onChange={(v) => setData({ ...data, contactLine1: v })} />
+        </Field>
+        <Field label="Contact line 2">
+          <TextInput value={data.contactLine2} onChange={(v) => setData({ ...data, contactLine2: v })} />
+        </Field>
+      </Section>
+
       <SaveBar saving={saving} message={message} error={error} onSave={save} />
     </>
   );

@@ -39,6 +39,19 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         >
           Brand &amp; Strategy
         </Link>
+        <p className="admin__group">About</p>
+        <Link href="/admin/about/our-story" className={itemClass("/admin/about/our-story", true)}>
+          Our Story
+        </Link>
+        <Link
+          href="/admin/about/why-13th-pencil"
+          className={itemClass("/admin/about/why-13th-pencil", true)}
+        >
+          Why 13th Pencil
+        </Link>
+        <Link href="/admin/about/our-approach" className={itemClass("/admin/about/our-approach", true)}>
+          Our Approach
+        </Link>
         <Link href="/admin/not-found" className={itemClass("/admin/not-found", true)}>
           404 page
         </Link>

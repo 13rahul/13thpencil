@@ -1,11 +1,70 @@
+import type { ReactNode } from "react";
 import type { SiteSettings } from "@/lib/types";
+import { ABOUT_LINKS } from "./about/about-links";
+import { AboutNavItem } from "./AboutNavItem";
 import { Lockup } from "./Lockup";
 
 function href(path: string) {
   return path.startsWith("#") ? `/${path}` : path;
 }
 
+function isCapabilities(label: string) {
+  return /capabilities/i.test(label);
+}
+
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
+  const desktopLinks: ReactNode[] = [];
+  let aboutInDesktop = false;
+  for (const item of settings.navItems) {
+    if (!aboutInDesktop && isCapabilities(item.label)) {
+      desktopLinks.push(<AboutNavItem key="about" />);
+      aboutInDesktop = true;
+    }
+    desktopLinks.push(
+      <a key={item.href} href={href(item.href)}>
+        {item.label}
+      </a>,
+    );
+  }
+  if (!aboutInDesktop) desktopLinks.unshift(<AboutNavItem key="about" />);
+
+  const mobileLinks: ReactNode[] = [];
+  let aboutInMobile = false;
+  for (const item of settings.navItems) {
+    if (!aboutInMobile && isCapabilities(item.label)) {
+      mobileLinks.push(
+        <a key="about" href="/about/our-story">
+          About
+        </a>,
+      );
+      for (const link of ABOUT_LINKS) {
+        mobileLinks.push(
+          <a key={link.href} className="site-menu__sub" href={link.href}>
+            {link.label}
+          </a>,
+        );
+      }
+      aboutInMobile = true;
+    }
+    mobileLinks.push(
+      <a key={item.href} href={href(item.href)}>
+        {item.label}
+      </a>,
+    );
+  }
+  if (!aboutInMobile) {
+    mobileLinks.unshift(
+      <a key="about" href="/about/our-story">
+        About
+      </a>,
+      ...ABOUT_LINKS.map((link) => (
+        <a key={link.href} className="site-menu__sub" href={link.href}>
+          {link.label}
+        </a>
+      )),
+    );
+  }
+
   return (
     <>
       <canvas className="trail" id="trail" aria-hidden="true" />
@@ -15,40 +74,38 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
         <span className="rail__tip" id="railTip" />
       </div>
 
-      <header className="nav" id="nav">
-        <a className="nav__logo" href="/#top" aria-label="13th Pencil, home">
+      <header className="site-header" id="siteHeader">
+        <a className="site-header__logo" href="/#top" aria-label="13th Pencil, home">
           <Lockup />
         </a>
-        <div className="nav__right">
-          <nav className="nav__links" aria-label="Primary">
-            {settings.navItems.map((item) => (
-              <a key={item.href} href={href(item.href)}>
-                {item.label}
-              </a>
-            ))}
+        <div className="site-header__right">
+          <nav className="site-header__links" aria-label="Primary">
+            {desktopLinks}
           </nav>
-          <a className="nav__cta" href="/start-a-project">
+          <a className="site-header__cta" href="/start-a-project">
             {settings.ctaLabel}
           </a>
-          <button className="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+          <button
+            className="site-header__burger"
+            id="siteBurger"
+            aria-expanded="false"
+            aria-controls="siteMenu"
+            aria-label="Open menu"
+          >
             <span />
           </button>
         </div>
       </header>
 
-      <div className="menu" id="menu">
-        {settings.navItems.map((item) => (
-          <a key={item.href} href={href(item.href)}>
-            {item.label}
-          </a>
-        ))}
-        <a className="menu__cta" href="/start-a-project">
+      <div className="site-menu" id="siteMenu">
+        {mobileLinks}
+        <a className="site-menu__cta" href="/start-a-project">
           {settings.ctaLabel}
         </a>
-        <p className="menu__foot">
+        <p className="site-menu__meta">
           <a href={`mailto:${settings.primaryEmail}`}>{settings.primaryEmail}</a>
         </p>
-        <p className="menu__desc">{settings.menuDesc}</p>
+        <p className="site-menu__desc">{settings.menuDesc}</p>
       </div>
     </>
   );

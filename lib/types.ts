@@ -118,27 +118,20 @@ export type PathStep = {
   body: string;
 };
 
-export type BrandStrategyHeard = {
-  quote: string;
-  label: string;
-  marked?: boolean;
+export type BrandStrategyCaption = {
+  heading: string;
+  body: string;
 };
 
-export type BrandStrategyStream = {
+export type BrandStrategyMove = {
   number: string;
   title: string;
-  body: string;
-  odd?: boolean;
+  detail: string;
 };
 
-export type BrandStrategyDeliverable = {
-  title: string;
-  body: string;
-};
-
-export type BrandStrategyFaq = {
-  question: string;
-  answer: string;
+export type BrandStrategyConnect = {
+  name: string;
+  href: string;
 };
 
 export type BrandStrategyContent = {
@@ -147,32 +140,17 @@ export type BrandStrategyContent = {
   number: string;
   practiceName: string;
   heroLine1: string;
-  heroLine2Before: string;
-  heroEmphasis: string;
-  heroLine2After: string;
-  heroTick: string;
+  heroSaysPrefix: string;
+  cycleWords: string[];
   subcopy: string;
-  heardHeading: string;
-  heardNote: string;
-  heard: BrandStrategyHeard[];
-  workHeading: string;
-  workNote: string;
-  workstreams: BrandStrategyStream[];
-  mapHeading: string;
-  mapNote: string;
-  mapHint: string;
-  howHeading: string;
-  howNote: string;
-  steps: PathStep[];
-  getHeading: string;
-  getNote: string;
-  deliverables: BrandStrategyDeliverable[];
-  connectsHeading: string;
-  connectsNote: string;
-  connects: PracticeLink[];
-  faqHeading: string;
-  faqNote: string;
-  faqs: BrandStrategyFaq[];
+  scrollHint: string;
+  claims: string[];
+  stageHint: string;
+  captions: BrandStrategyCaption[];
+  movesHeading: string;
+  moves: BrandStrategyMove[];
+  nextHeading: string;
+  connects: BrandStrategyConnect[];
   contactLine1: string;
   contactLine2: string;
 };
@@ -217,6 +195,87 @@ export type NotFoundContent = {
   footerLine: string;
 };
 
+export type AboutArtwork = {
+  caption: string;
+  alt: string;
+};
+
+export type AboutOurStoryContent = {
+  metaTitle: string;
+  metaDescription: string;
+  crumbLabel: string;
+  heroLine1: string;
+  heroLine2: string;
+  heroSub: string;
+  videoAriaLabel: string;
+  letterFrom: string;
+  letterParagraphs: string[];
+  letterClosing: string;
+  signLabel: string;
+  madeHeading: string;
+  madeLede: string;
+  artworks: AboutArtwork[];
+  madeNote: string;
+  pagerLabel: string;
+  pagerTitle: string;
+  pagerHref: string;
+  ctaHeading: string;
+};
+
+export type AboutTrioItem = {
+  number: string;
+  title: string;
+  body: string;
+};
+
+export type AboutWhyContent = {
+  metaTitle: string;
+  metaDescription: string;
+  crumbLabel: string;
+  genLabel: string;
+  genInitialLine: string;
+  genButton: string;
+  genCountIdle: string;
+  turnHeading: string;
+  turnLeft1: string;
+  turnLeft2: string;
+  turnRight1: string;
+  turnNote: string;
+  trio: AboutTrioItem[];
+  artCaption: string;
+  artAlt: string;
+  pagerLabel: string;
+  pagerTitle: string;
+  pagerHref: string;
+  ctaHeading: string;
+};
+
+export type AboutBuyItem = {
+  key: string;
+  title: string;
+  body: string;
+};
+
+export type AboutApproachContent = {
+  metaTitle: string;
+  metaDescription: string;
+  crumbLabel: string;
+  heroHeading: string;
+  heroHint: string;
+  posterEyebrow: string;
+  posterLine1: string;
+  posterLine2: string;
+  posterFooter: string;
+  sliderStartLabel: string;
+  sliderEndLabel: string;
+  buysHeading: string;
+  buys: AboutBuyItem[];
+  pagerLabel: string;
+  pagerTitle: string;
+  pagerHref: string;
+  ctaHeading: string;
+};
+
 export type SiteContent = {
   settings: SiteSettings;
   hero: HeroContent;
@@ -231,6 +290,9 @@ export type SiteContent = {
   contact: ContactContent;
   notFound: NotFoundContent;
   brandStrategy: BrandStrategyContent;
+  aboutOurStory: AboutOurStoryContent;
+  aboutWhy: AboutWhyContent;
+  aboutApproach: AboutApproachContent;
 };
 
 export type HomeSectionKey =

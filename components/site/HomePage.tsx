@@ -21,7 +21,7 @@ export function HomePage({ content }: { content: SiteContent }) {
 
       <SiteHeader settings={settings} />
 
-      <main id="top">
+      <main className="home" id="top">
         <section className="hero panel panel--ink" id="hero">
           <div className="hero__bars" id="heroBars" aria-hidden="true" />
           <div className="wrap hero__inner">

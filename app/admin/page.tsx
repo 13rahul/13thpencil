@@ -21,7 +21,19 @@ export default function AdminDashboard() {
         </Link>
         <Link className="admin__card" href="/admin/capabilities/brand-and-strategy">
           <strong>Brand &amp; Strategy</strong>
-          <span>Practice page: hero, when people call, verbs, method, thinking.</span>
+          <span>Hero cycle, claim field, five moves, next links and CTA.</span>
+        </Link>
+        <Link className="admin__card" href="/admin/about/our-story">
+          <strong>About — Our Story</strong>
+          <span>Film hero, founder letter and made-by-us section.</span>
+        </Link>
+        <Link className="admin__card" href="/admin/about/why-13th-pencil">
+          <strong>About — Why 13th Pencil</strong>
+          <span>Generator labels, turn copy and trio cards.</span>
+        </Link>
+        <Link className="admin__card" href="/admin/about/our-approach">
+          <strong>About — Our Approach</strong>
+          <span>Lab poster copy, buys cards and CTA.</span>
         </Link>
         <Link className="admin__card" href="/admin/not-found">
           <strong>404 page</strong>

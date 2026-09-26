@@ -81,3 +81,30 @@ export async function saveNotFoundAction(raw: unknown) {
   revalidatePath("/admin/not-found");
   return { ok: true };
 }
+
+export async function saveAboutOurStoryAction(raw: unknown) {
+  await requireAdmin();
+  if (!raw || typeof raw !== "object") throw new Error("Invalid content");
+  await saveSection("about", "ourStory", raw);
+  revalidatePath("/about/our-story");
+  revalidatePath("/admin/about/our-story");
+  return { ok: true };
+}
+
+export async function saveAboutWhyAction(raw: unknown) {
+  await requireAdmin();
+  if (!raw || typeof raw !== "object") throw new Error("Invalid content");
+  await saveSection("about", "why", raw);
+  revalidatePath("/about/why-13th-pencil");
+  revalidatePath("/admin/about/why-13th-pencil");
+  return { ok: true };
+}
+
+export async function saveAboutApproachAction(raw: unknown) {
+  await requireAdmin();
+  if (!raw || typeof raw !== "object") throw new Error("Invalid content");
+  await saveSection("about", "approach", raw);
+  revalidatePath("/about/our-approach");
+  revalidatePath("/admin/about/our-approach");
+  return { ok: true };
+}
