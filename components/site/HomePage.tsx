@@ -195,14 +195,9 @@ export function HomePage({ content }: { content: SiteContent }) {
               {work.tiles.map((tile) => (
                 <a key={tile.title} className={`tile tile--${tile.variant}`} href={tile.link || "#contact"}>
                   <span className="tile__f">{tile.format}</span>
-                  <span className="tile__ph">
-                    {tile.status}
-                    <em>{tile.description}</em>
-                  </span>
-                  <span className="tile__meta">
-                    <span className="tile__t">{tile.title}</span>
-                    <span className="tile__k">{tile.kind}</span>
-                  </span>
+                  <span className="tile__t">{tile.title}</span>
+                  <span className="tile__d">{tile.description}</span>
+                  <span className="tile__k">{tile.kind}</span>
                 </a>
               ))}
             </div>

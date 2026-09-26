@@ -8,8 +8,19 @@ export function AboutNavItem() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number>(0);
   const menuId = useId();
   const onAbout = pathname?.startsWith("/about") ?? false;
+
+  function openMenu() {
+    window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  }
+
+  function scheduleClose() {
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(false), 160);
+  }
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
@@ -23,6 +34,7 @@ export function AboutNavItem() {
     return () => {
       document.removeEventListener("mousedown", onDoc);
       document.removeEventListener("keydown", onKey);
+      window.clearTimeout(closeTimer.current);
     };
   }, []);
 
@@ -30,8 +42,8 @@ export function AboutNavItem() {
     <div
       className={`site-header__item${open ? " is-open" : ""}${onAbout ? " is-current" : ""}`}
       ref={rootRef}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={openMenu}
+      onMouseLeave={scheduleClose}
     >
       <a
         href="/about/our-story"
@@ -39,22 +51,24 @@ export function AboutNavItem() {
         aria-haspopup="true"
         aria-expanded={open}
         aria-controls={menuId}
-        onFocus={() => setOpen(true)}
+        onFocus={openMenu}
       >
         About
       </a>
       <div className="site-header__drop" id={menuId} role="menu">
-        {ABOUT_LINKS.map((link) => (
-          <a
-            key={link.href}
-            role="menuitem"
-            href={link.href}
-            aria-current={pathname === link.href ? "page" : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {link.label}
-          </a>
-        ))}
+        <div className="site-header__drop-in">
+          {ABOUT_LINKS.map((link) => (
+            <a
+              key={link.href}
+              role="menuitem"
+              href={link.href}
+              aria-current={pathname === link.href ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );

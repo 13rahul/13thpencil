@@ -201,20 +201,16 @@
   /* ---------- 9. CURSOR + GRAPHITE TRAIL ---------- */
   var dot = $("#cursor"), cv = $("#trail");
   if(fine && !reduce && dot && cv){
-    var ctx = cv.getContext("2d"), dpr = Math.min(2, window.devicePixelRatio||1);
-    var px = -100, py = -100, mx = -100, my = -100, drawing = false;
+    var ctx = cv.getContext("2d"), dpr = Math.min(1.25, window.devicePixelRatio||1);
+    var px = -100, py = -100, mx = -100, my = -100, drawing = false, trailRaf = 0, idleTimer = 0;
     function sizeTrail(){ cv.width = innerWidth*dpr; cv.height = innerHeight*dpr; ctx.scale(dpr,dpr); }
     sizeTrail();
     window.addEventListener("resize", function(){ ctx.setTransform(1,0,0,1,0,0); sizeTrail(); });
-    document.addEventListener("mousemove", function(e){
-      mx = e.clientX; my = e.clientY; drawing = true;
-      dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
-    });
-    var lacquer = css("--lacquer") || "#F5B301";
-    (function loop(){
-      if(document.hidden){ requestAnimationFrame(loop); return; }
+    function trailLoop(){
+      trailRaf = 0;
+      if(document.hidden) return;
       ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0,0,0,.055)";
+      ctx.fillStyle = "rgba(0,0,0,.08)";
       ctx.fillRect(0,0,innerWidth,innerHeight);
       ctx.globalCompositeOperation = "source-over";
       if(drawing && px > -50){
@@ -224,8 +220,16 @@
         ctx.globalAlpha = 1;
       }
       px = mx; py = my;
-      requestAnimationFrame(loop);
-    })();
+      if(drawing) trailRaf = requestAnimationFrame(trailLoop);
+    }
+    var lacquer = css("--lacquer") || "#F5B301";
+    document.addEventListener("mousemove", function(e){
+      mx = e.clientX; my = e.clientY; drawing = true;
+      dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
+      if(!trailRaf) trailRaf = requestAnimationFrame(trailLoop);
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function(){ drawing = false; }, 240);
+    });
     $$("a, button").forEach(function(a){
       a.addEventListener("mouseenter", function(){ dot.classList.add("big"); });
       a.addEventListener("mouseleave", function(){ dot.classList.remove("big"); });

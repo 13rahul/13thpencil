@@ -54,7 +54,7 @@ export default async function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsContent) }}
       />
       <HomePage content={content} />
-      <Script src="/assets/js/site.js?v=38" strategy="afterInteractive" />
+      <Script src="/assets/js/site.js?v=41" strategy="afterInteractive" />
     </>
   );
 }

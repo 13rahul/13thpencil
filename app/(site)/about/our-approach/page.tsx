@@ -35,7 +35,7 @@ export default async function OurApproachRoute() {
   return (
     <>
       <AboutApproachPage content={content} />
-      <Script src="/assets/js/site.js?v=38" strategy="afterInteractive" />
+      <Script src="/assets/js/site.js?v=41" strategy="afterInteractive" />
     </>
   );
 }

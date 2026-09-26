@@ -51,7 +51,7 @@ export default async function BrandAndStrategyRoute() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsContent) }}
       />
       <BrandStrategyPage content={content} />
-      <Script src="/assets/js/site.js?v=38" strategy="afterInteractive" />
+      <Script src="/assets/js/site.js?v=41" strategy="afterInteractive" />
     </>
   );
 }

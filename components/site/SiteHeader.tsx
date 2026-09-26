@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { SiteSettings } from "@/lib/types";
-import { ABOUT_LINKS } from "./about/about-links";
+import { AboutMobileGroup } from "./AboutMobileGroup";
 import { AboutNavItem } from "./AboutNavItem";
 import { Lockup } from "./Lockup";
 
@@ -32,18 +32,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
   let aboutInMobile = false;
   for (const item of settings.navItems) {
     if (!aboutInMobile && isCapabilities(item.label)) {
-      mobileLinks.push(
-        <a key="about" href="/about/our-story">
-          About
-        </a>,
-      );
-      for (const link of ABOUT_LINKS) {
-        mobileLinks.push(
-          <a key={link.href} className="site-menu__sub" href={link.href}>
-            {link.label}
-          </a>,
-        );
-      }
+      mobileLinks.push(<AboutMobileGroup key="about" />);
       aboutInMobile = true;
     }
     mobileLinks.push(
@@ -53,16 +42,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
     );
   }
   if (!aboutInMobile) {
-    mobileLinks.unshift(
-      <a key="about" href="/about/our-story">
-        About
-      </a>,
-      ...ABOUT_LINKS.map((link) => (
-        <a key={link.href} className="site-menu__sub" href={link.href}>
-          {link.label}
-        </a>
-      )),
-    );
+    mobileLinks.unshift(<AboutMobileGroup key="about" />);
   }
 
   return (
