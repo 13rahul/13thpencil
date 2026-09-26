@@ -12,10 +12,15 @@ function isCapabilities(label: string) {
   return /capabilities/i.test(label);
 }
 
+function isThinking(item: { href: string }) {
+  return item.href === "#work" || item.href === "/#work";
+}
+
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
+  const navItems = settings.navItems.filter((item) => !isThinking(item));
   const desktopLinks: ReactNode[] = [];
   let aboutInDesktop = false;
-  for (const item of settings.navItems) {
+  for (const item of navItems) {
     if (!aboutInDesktop && isCapabilities(item.label)) {
       desktopLinks.push(<AboutNavItem key="about" />);
       aboutInDesktop = true;
@@ -30,7 +35,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
 
   const mobileLinks: ReactNode[] = [];
   let aboutInMobile = false;
-  for (const item of settings.navItems) {
+  for (const item of navItems) {
     if (!aboutInMobile && isCapabilities(item.label)) {
       mobileLinks.push(<AboutMobileGroup key="about" />);
       aboutInMobile = true;

@@ -5,7 +5,7 @@ import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 
 export function HomePage({ content }: { content: SiteContent }) {
-  const { settings, hero, erase, principle, capabilities, comein, work, process, studio, contact } =
+  const { settings, hero, erase, principle, capabilities, comein, process, studio, contact } =
     content;
   const firstCap = capabilities.items[0];
 
@@ -178,27 +178,6 @@ export function HomePage({ content }: { content: SiteContent }) {
                     {item.answerDetail}
                   </span>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="work panel panel--paper" id="work">
-          <div className="wrap">
-            <div className="principle__head">
-              <h2 className="h2 rv">{work.heading}</h2>
-              <p className="note rv" data-d="1">
-                {work.intro}
-              </p>
-            </div>
-            <div className="work__grid" id="workGrid">
-              {work.tiles.map((tile) => (
-                <a key={tile.title} className={`tile tile--${tile.variant}`} href={tile.link || "#contact"}>
-                  <span className="tile__f">{tile.format}</span>
-                  <span className="tile__t">{tile.title}</span>
-                  <span className="tile__d">{tile.description}</span>
-                  <span className="tile__k">{tile.kind}</span>
-                </a>
               ))}
             </div>
           </div>
