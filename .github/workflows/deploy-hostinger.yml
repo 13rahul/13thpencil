@@ -57,7 +57,8 @@ jobs:
             test -d "$APP_ROOT"
             rm -rf "$APP_ROOT/.next"
             cp -a "$SRC/.next" "$APP_ROOT/.next"
-            cp -a "$SRC/public" "$APP_ROOT/public"
+            mkdir -p "$APP_ROOT/public"
+            cp -a "$SRC/public/." "$APP_ROOT/public/"
             mkdir -p "$APP_ROOT/tmp"
             date > "$APP_ROOT/tmp/restart.txt"
             echo DEPLOY_OK
