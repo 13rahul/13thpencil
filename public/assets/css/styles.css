@@ -223,7 +223,8 @@ p{margin:0 0 1.1em;max-width:62ch}
 .hero.lit .hero__bars b{transform:scaleY(1)}
 .hero__bars b.thirteen{background:var(--eraser);height:62%;width:clamp(3px,.6vw,7px)}
 .hero.lit .hero__bars b.thirteen{transform:rotate(9deg) scaleY(1)}
-.hero__inner{position:relative;z-index:2}
+.hero__inner{position:relative;z-index:2;container-type:inline-size}
+.hero .display{font-size:clamp(2.35rem,9.2cqi,10.5rem)}
 .hero__h{margin-bottom:clamp(20px,3vh,40px)}
 .hero__h .ln{display:block;overflow:hidden;padding:.14em 0 .18em}
 .hero__h .ln > span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease-out);white-space:nowrap}
