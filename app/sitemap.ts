@@ -12,7 +12,7 @@ const PATHS: { path: string; priority: number }[] = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteUrl();
-  const lastModified = new Date();
+  const lastModified = new Date().toISOString().slice(0, 10);
   return PATHS.map(({ path, priority }) => ({
     url: path === "/" ? base : `${base}${path}`,
     lastModified,
