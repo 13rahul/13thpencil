@@ -21,6 +21,13 @@ const nextConfig = {
       { source: "/admin/:path*", headers: noindex },
       { source: "/login", headers: noindex },
       { source: "/api/:path*", headers: noindex },
+      {
+        source: "/sitemap.xml",
+        headers: [
+          { key: "Content-Type", value: "application/xml; charset=utf-8" },
+          { key: "Cache-Control", value: "public, max-age=3600, must-revalidate" },
+        ],
+      },
     ];
   },
 };
