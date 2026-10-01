@@ -180,7 +180,7 @@ export function OurStoryScene({
               );
             })}
           </div>
-          <p className="note made__note rv" data-d="2">
+          <p className="note made__note notebook rv" data-d="2">
             {page.madeNote}
           </p>
         </div>
