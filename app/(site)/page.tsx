@@ -5,16 +5,21 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
+function siteOrigin(url: string) {
+  return url.replace(/\/$/, "");
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getSiteContent();
+  const canonical = siteOrigin(settings.canonicalUrl);
   return {
     title: settings.metaTitle,
     description: settings.metaDescription,
-    alternates: { canonical: settings.canonicalUrl },
+    alternates: { canonical },
     openGraph: {
       title: settings.ogTitle,
       description: settings.ogDescription,
-      url: settings.canonicalUrl,
+      url: canonical,
       siteName: settings.siteName,
       locale: "en",
       type: "website",
@@ -38,6 +43,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const content = await getSiteContent();
+  const canonical = siteOrigin(content.settings.canonicalUrl);
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: content.settings.siteName,
+    url: canonical,
+    email: content.settings.primaryEmail,
+    description: content.settings.metaDescription,
+  };
   const jsContent = {
     marqueeWords: content.marquee.words,
     captions: Object.fromEntries(
@@ -48,6 +62,10 @@ export default async function Page() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+      />
       <script
         id="site-content"
         type="application/json"

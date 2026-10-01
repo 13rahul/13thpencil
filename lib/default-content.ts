@@ -10,7 +10,7 @@ export const defaultContent: SiteContent = {
     ogDescription:
       "A creative and innovation company working across brand and strategy, creative, AI and innovation, experiences and digital growth.",
     ogImage: "https://13thpencil.com/assets/img/og-image.png",
-    canonicalUrl: "https://13thpencil.com/",
+    canonicalUrl: "https://13thpencil.com",
     themeColor: "#181A1C",
     primaryEmail: "hello@13thpencil.com",
     careersEmail: "people@13thpencil.com",
