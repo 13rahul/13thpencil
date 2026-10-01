@@ -58,9 +58,9 @@ jobs:
             rm -rf "$APP_ROOT/.next"
             cp -a "$SRC/.next" "$APP_ROOT/.next"
             mkdir -p "$APP_ROOT/public"
-            rm -f "$SRC/public/robots.txt" "$SRC/public/sitemap.xml"
+            rm -f "$SRC/public/robots.txt"
             cp -a "$SRC/public/." "$APP_ROOT/public/"
-            rm -f "$APP_ROOT/public/robots.txt" "$APP_ROOT/public/sitemap.xml"
+            rm -f "$APP_ROOT/public/robots.txt"
             mkdir -p "$APP_ROOT/tmp"
             date > "$APP_ROOT/tmp/restart.txt"
             echo DEPLOY_OK
