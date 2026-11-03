@@ -79,12 +79,7 @@ export function OurStoryScene({
     const video = videoRef.current;
     if (!video) return;
     video.load();
-    const play = video.play();
-    if (play && play.catch) {
-      play.then(() => setPlaying(true)).catch(() => setPlaying(false));
-    } else {
-      setPlaying(true);
-    }
+    video.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
   }, [filmReady]);
 
   function toggleFilm() {
