@@ -1,0 +1,14 @@
+/*
+Theme Name: 13th Pencil Blog
+Theme URI: https://13thpencil.com
+Description: Astra child theme matching the 13th Pencil main site — paper/ink palette, Bricolage + Newsreader, shared header and footer chrome. Blog reading stays on Astra.
+Author: 13th Pencil
+Author URI: https://13thpencil.com
+Template: astra
+Version: 1.5.0
+Requires at least: 6.0
+Requires PHP: 7.4
+Text Domain: 13thpencil-blog
+*/
+
+/* Brand styles load from assets/css/blog.css via functions.php */

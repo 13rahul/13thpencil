@@ -8,8 +8,8 @@ import { AboutSubnav } from "./AboutSubnav";
 import { EmMarks } from "./TextMarks";
 
 const ART_SRC = [
-  { webp: "/assets/img/wall.webp", jpg: "/assets/img/wall.jpg" },
-  { webp: "/assets/img/collage.webp", jpg: "/assets/img/collage.jpg" },
+  { webp: "/assets/img/wall.webp", jpg: "/assets/img/wall.jpg", w: 1600, h: 900 },
+  { webp: "/assets/img/collage.webp", jpg: "/assets/img/collage.jpg", w: 1600, h: 900 },
 ];
 
 export function OurStoryScene({
@@ -20,7 +20,8 @@ export function OurStoryScene({
   page: AboutOurStoryContent;
 }) {
   const [lit, setLit] = useState(false);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
+  const [filmReady, setFilmReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const letterRef = useRef<HTMLElement | null>(null);
   const signRef = useRef<HTMLDivElement | null>(null);
@@ -28,32 +29,31 @@ export function OurStoryScene({
   useEffect(() => {
     setLit(true);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const video = videoRef.current;
-    if (video) {
-      if (reduce) {
-        try {
-          video.pause();
-        } catch {
-          /* poster */
-        }
-        setPlaying(false);
-      } else {
-        const play = video.play();
-        if (play && play.catch) play.catch(() => setPlaying(false));
-      }
-    }
-
     const letter = letterRef.current;
     const sign = signRef.current;
-    if (!letter || !sign) return;
-
-    const lines = Array.from(letter.querySelectorAll<HTMLElement>(".l"));
     if (reduce) {
-      lines.forEach((l) => l.classList.add("in"));
-      sign.classList.add("in");
+      if (letter) letter.querySelectorAll<HTMLElement>(".l").forEach((l) => l.classList.add("in"));
+      if (sign) sign.classList.add("in");
       return;
     }
 
+    let idleId = 0;
+    let timeoutId = 0;
+    const arm = () => setFilmReady(true);
+    if (typeof requestIdleCallback === "function") {
+      idleId = requestIdleCallback(arm, { timeout: 1400 });
+    } else {
+      timeoutId = window.setTimeout(arm, 400);
+    }
+
+    if (!letter || !sign) {
+      return () => {
+        if (idleId && typeof cancelIdleCallback === "function") cancelIdleCallback(idleId);
+        if (timeoutId) window.clearTimeout(timeoutId);
+      };
+    }
+
+    const lines = Array.from(letter.querySelectorAll<HTMLElement>(".l"));
     const io = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -67,15 +67,35 @@ export function OurStoryScene({
       { threshold: 0.3 },
     );
     io.observe(letter);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      if (idleId && typeof cancelIdleCallback === "function") cancelIdleCallback(idleId);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!filmReady) return;
+    const video = videoRef.current;
+    if (!video) return;
+    video.load();
+    const play = video.play();
+    if (play && play.catch) {
+      play.then(() => setPlaying(true)).catch(() => setPlaying(false));
+    } else {
+      setPlaying(true);
+    }
+  }, [filmReady]);
 
   function toggleFilm() {
     const video = videoRef.current;
     if (!video) return;
+    if (!filmReady) {
+      setFilmReady(true);
+      return;
+    }
     if (video.paused) {
-      video.play().catch(() => undefined);
-      setPlaying(true);
+      video.play().then(() => setPlaying(true)).catch(() => undefined);
     } else {
       video.pause();
       setPlaying(false);
@@ -88,18 +108,33 @@ export function OurStoryScene({
     <main className="about about-story" id="top">
       <section className={`filmhero panel panel--ink${lit ? " lit" : ""}`} id="hero">
         <div className="filmhero__media">
+          <img
+            className="filmhero__poster"
+            src="/assets/video/poster.webp"
+            alt=""
+            width={1600}
+            height={900}
+            fetchPriority="high"
+            decoding="async"
+          />
           <video
             ref={videoRef}
             id="heroVid"
             playsInline
             muted
             loop
-            preload="metadata"
-            poster="/assets/video/poster.jpg"
+            preload="none"
+            poster="/assets/video/poster.webp"
+            width={1600}
+            height={900}
             aria-label={page.videoAriaLabel}
           >
-            <source src="/assets/video/13thpencil-film.webm" type="video/webm" />
-            <source src="/assets/video/13thpencil-film.mp4" type="video/mp4" />
+            {filmReady ? (
+              <>
+                <source src="/assets/video/13thpencil-film.mp4" type="video/mp4" />
+                <source src="/assets/video/13thpencil-film.webm" type="video/webm" />
+              </>
+            ) : null}
           </video>
         </div>
         <div className="filmhero__scrim" aria-hidden="true" />
@@ -173,7 +208,14 @@ export function OurStoryScene({
                 <figure key={art.caption} className="made__i rv" data-d={i || undefined}>
                   <picture>
                     <source srcSet={src.webp} type="image/webp" />
-                    <img src={src.jpg} alt={art.alt} loading="lazy" decoding="async" />
+                    <img
+                      src={src.jpg}
+                      alt={art.alt}
+                      width={src.w}
+                      height={src.h}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </picture>
                   <figcaption>{art.caption}</figcaption>
                 </figure>

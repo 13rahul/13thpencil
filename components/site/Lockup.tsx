@@ -11,7 +11,7 @@ export function Lockup() {
           <svg className="wm__one" viewBox="0 0 30 78" aria-hidden="true">
             <path d="M4 0h22v58l-11 20L4 58z" />
           </svg>
-          3<span className="wm__th">th</span>
+          <span className="sr">1</span>3<span className="wm__th">th</span>
         </span>
         <span>Pencil</span>
       </span>

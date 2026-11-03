@@ -1,6 +1,5 @@
 import type { SiteContent } from "@/lib/types";
 import { Breaks, enquiryMailto, Marked } from "@/lib/text";
-import { Lockup } from "./Lockup";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 
@@ -11,13 +10,9 @@ export function HomePage({ content }: { content: SiteContent }) {
 
   return (
     <>
-      <div className="loader" id="loader" aria-hidden="true">
-        <div className="loader__strokes" id="loaderStrokes" />
-        <div className="loader__cap annot">{settings.loaderCaption}</div>
-        <div className="loader__logo" id="loaderLogo">
-          <Lockup />
-        </div>
-      </div>
+      <noscript>
+        <style>{`.hero__h .ln>span{transform:none}.hero__h em::after{transform:scaleX(1)}.rv{opacity:1;transform:none}`}</style>
+      </noscript>
 
       <SiteHeader settings={settings} />
 

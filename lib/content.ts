@@ -1,7 +1,10 @@
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { defaultContent } from "./default-content";
 import { prisma } from "./db";
 import { deepMerge } from "./merge";
 import type { HomeSectionKey, SiteContent } from "./types";
+
+export const SITE_CONTENT_TAG = "site-content";
 
 const HOME_KEYS: HomeSectionKey[] = [
   "hero",
@@ -32,7 +35,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number) {
   });
 }
 
-export async function getSiteContent(): Promise<SiteContent> {
+export async function loadSiteContent(): Promise<SiteContent> {
   const content: SiteContent = structuredClone(defaultContent);
 
   try {
@@ -78,6 +81,24 @@ export async function getSiteContent(): Promise<SiteContent> {
   }
 
   return content;
+}
+
+const cachedSiteContent = unstable_cache(loadSiteContent, ["site-content"], {
+  revalidate: 60,
+  tags: [SITE_CONTENT_TAG],
+});
+
+export function getSiteContent() {
+  return cachedSiteContent();
+}
+
+export function revalidateSiteContent() {
+  revalidateTag(SITE_CONTENT_TAG);
+  revalidatePath("/");
+  revalidatePath("/about/our-story");
+  revalidatePath("/about/why-13th-pencil");
+  revalidatePath("/about/our-approach");
+  revalidatePath("/capabilities/brand-and-strategy");
 }
 
 export async function saveSettings(content: SiteContent["settings"]) {

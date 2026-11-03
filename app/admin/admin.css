@@ -1,6 +1,29 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/bricolage.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("/assets/fonts/newsreader.woff2") format("woff2");
+  font-weight: 300 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("/assets/fonts/newsreader-italic.woff2") format("woff2");
+  font-weight: 300 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 .admin,
 .login {
   --ink: #181a1c;
+  --ink-2: #23272b;
   --paper: #ede5d6;
   --paper-2: #e2d8c4;
   --lacquer: #f5b301;
@@ -9,6 +32,7 @@
   --mute: #5c6268;
   --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --f-text: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 100vh;
   margin: 0;
   background: var(--paper);
@@ -52,14 +76,149 @@
 .login {
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 28px;
   padding: 24px;
+  background: var(--ink);
+  color: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+
+.login__strokes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px, 1.6vw, 18px);
+  padding: 0 6vw 10vh;
+  pointer-events: none;
+}
+
+.login__strokes i {
+  display: block;
+  width: clamp(3px, 0.5vw, 6px);
+  height: 0;
+  background: rgba(237, 229, 214, 0.2);
+  transform-origin: bottom center;
+  animation: login-stroke-rise 1.05s var(--ease-out) forwards;
+}
+
+.login__strokes i:nth-child(1) { animation-delay: 0.04s; }
+.login__strokes i:nth-child(2) { animation-delay: 0.09s; }
+.login__strokes i:nth-child(3) { animation-delay: 0.14s; }
+.login__strokes i:nth-child(4) { animation-delay: 0.19s; }
+.login__strokes i:nth-child(5) { animation-delay: 0.24s; }
+.login__strokes i:nth-child(6) { animation-delay: 0.29s; }
+.login__strokes i:nth-child(7) { animation-delay: 0.34s; }
+.login__strokes i:nth-child(8) { animation-delay: 0.39s; }
+.login__strokes i:nth-child(9) { animation-delay: 0.44s; }
+.login__strokes i:nth-child(10) { animation-delay: 0.49s; }
+.login__strokes i:nth-child(11) { animation-delay: 0.54s; }
+.login__strokes i:nth-child(12) { animation-delay: 0.59s; }
+.login__strokes i.thirteen {
+  background: var(--eraser);
+  animation-name: login-stroke-thirteen;
+  animation-delay: 0.64s;
+}
+
+@keyframes login-stroke-rise {
+  to { height: 26vh; }
+}
+
+@keyframes login-stroke-thirteen {
+  to {
+    height: 34vh;
+    transform: rotate(13deg);
+  }
 }
 
 .login__card {
+  position: relative;
+  z-index: 1;
   width: min(440px, 100%);
-  background: #fffdf8;
-  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
   padding: 40px 32px 32px;
+}
+
+.login__brand {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 22px;
+  color: var(--ink);
+  font-size: 1.55rem;
+}
+
+.login__brand .lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.login__brand .mark {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  overflow: visible;
+}
+
+.login__brand .mark .frame {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  opacity: 0.38;
+}
+
+.login__brand .mark .shaft {
+  fill: currentColor;
+}
+
+.login__brand .mark .lead {
+  fill: none;
+  stroke: var(--eraser);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.login__brand .wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.34em;
+  font-family: var(--f-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.login__brand .wm__num {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.login__brand .wm__one {
+  width: 0.3em;
+  height: 0.78em;
+  align-self: center;
+  margin-right: 0.06em;
+  overflow: visible;
+}
+
+.login__brand .wm__one path {
+  fill: currentColor;
+}
+
+.login__brand .wm__th {
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transform: translateY(0.12em);
+  margin-left: 0.06em;
 }
 
 .login__kicker {
@@ -67,6 +226,29 @@
   font-style: italic;
   color: var(--mute);
   margin: 0 0 8px;
+}
+
+.login__credit {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(237, 229, 214, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login__strokes i {
+    animation: none;
+    height: 26vh;
+  }
+  .login__strokes i.thirteen {
+    height: 34vh;
+    transform: rotate(13deg);
+  }
 }
 
 .login__title {

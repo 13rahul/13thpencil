@@ -1,0 +1,57 @@
+PassengerAppRoot /home/u258786982/domains/13thpencil.com/hbuilds/current/nodejs
+PassengerAppType node
+PassengerNodejs /opt/alt/alt-nodejs20/root/bin/node
+PassengerStartupFile server.js
+PassengerBaseURI /
+PassengerRestartDir /home/u258786982/domains/13thpencil.com/hbuilds/current/nodejs/tmp
+SetEnv NODE_OPTIONS "--require /home/u258786982/domains/13thpencil.com/hbuilds/config/preload-timestamp.js"
+SetEnv LSNODE_CONSOLE_LOG console.log
+SetEnv TOKIO_WORKER_THREADS 2
+
+# Block secret and VCS files if Apache/LiteSpeed ever serves this folder
+<FilesMatch "^(\.env|\.env\..+|\.git|\.gitignore|\.htaccess)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(\.env|\.env\..+)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# Compression (Hostinger CDN already brotli-encodes HTML/CSS/JS; this is the origin fallback)
+# Do not gzip/brotli woff2 — it is already compressed.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType application/x-javascript "access plus 7 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType video/webm "access plus 30 days"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+  </FilesMatch>
+</IfModule>
+
+# Serve the sitemap as static XML. Node was returning application/xml without a charset,
+# which Search Console and some fetchers reject.
+<Files "sitemap.xml">
+  PassengerEnabled off
+  ForceType text/xml
+  Header always set Content-Type "text/xml; charset=UTF-8"
+</Files>

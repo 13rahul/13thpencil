@@ -1,55 +1,15 @@
-import type { ReactNode } from "react";
 import type { SiteSettings } from "@/lib/types";
-import { AboutMobileGroup } from "./AboutMobileGroup";
-import { AboutNavItem } from "./AboutNavItem";
 import { Lockup } from "./Lockup";
 
-function href(path: string) {
-  return path.startsWith("#") ? `/${path}` : path;
-}
-
-function isCapabilities(label: string) {
-  return /capabilities/i.test(label);
-}
-
-function isThinking(item: { href: string }) {
-  return item.href === "#work" || item.href === "/#work";
-}
+const links = [
+  { href: "/#capabilities", label: "Capabilities" },
+  { href: "/work", label: "Work" },
+  { href: "/about/our-story", label: "About" },
+  { href: "/insights", label: "Insights" },
+  { href: "/contact", label: "Contact" },
+];
 
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
-  const navItems = settings.navItems.filter((item) => !isThinking(item));
-  const desktopLinks: ReactNode[] = [];
-  let aboutInDesktop = false;
-  for (const item of navItems) {
-    if (!aboutInDesktop && isCapabilities(item.label)) {
-      desktopLinks.push(<AboutNavItem key="about" />);
-      aboutInDesktop = true;
-    }
-    desktopLinks.push(
-      <a key={item.href} href={href(item.href)}>
-        {item.label}
-      </a>,
-    );
-  }
-  if (!aboutInDesktop) desktopLinks.unshift(<AboutNavItem key="about" />);
-
-  const mobileLinks: ReactNode[] = [];
-  let aboutInMobile = false;
-  for (const item of navItems) {
-    if (!aboutInMobile && isCapabilities(item.label)) {
-      mobileLinks.push(<AboutMobileGroup key="about" />);
-      aboutInMobile = true;
-    }
-    mobileLinks.push(
-      <a key={item.href} href={href(item.href)}>
-        {item.label}
-      </a>,
-    );
-  }
-  if (!aboutInMobile) {
-    mobileLinks.unshift(<AboutMobileGroup key="about" />);
-  }
-
   return (
     <>
       <canvas className="trail" id="trail" aria-hidden="true" />
@@ -60,12 +20,16 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
       </div>
 
       <header className="site-header" id="siteHeader">
-        <a className="site-header__logo" href="/#top" aria-label="13th Pencil, home">
+        <a className="site-header__logo" href="/" aria-label="13th Pencil, home">
           <Lockup />
         </a>
         <div className="site-header__right">
           <nav className="site-header__links" aria-label="Primary">
-            {desktopLinks}
+            {links.map((item) => (
+              <a key={item.href} href={item.href}>
+                {item.label}
+              </a>
+            ))}
           </nav>
           <a className="site-header__cta" href="/start-a-project">
             {settings.ctaLabel}
@@ -83,7 +47,11 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
       </header>
 
       <div className="site-menu" id="siteMenu">
-        {mobileLinks}
+        {links.map((item) => (
+          <a key={item.href} href={item.href}>
+            {item.label}
+          </a>
+        ))}
         <a className="site-menu__cta" href="/start-a-project">
           {settings.ctaLabel}
         </a>

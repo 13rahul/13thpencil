@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getSessionUser } from "./auth";
-import { saveSection, saveSettings } from "./content";
+import { revalidateSiteContent, saveSection, saveSettings } from "./content";
 import type { HomeSectionKey } from "./types";
 
 async function requireAdmin() {
@@ -40,8 +40,7 @@ export async function saveSettingsAction(raw: unknown) {
   await requireAdmin();
   const data = settingsSchema.parse(raw);
   await saveSettings(data);
-  revalidatePath("/");
-  revalidatePath("/capabilities/brand-and-strategy");
+  revalidateSiteContent();
   revalidatePath("/admin");
   return { ok: true };
 }
@@ -50,7 +49,7 @@ export async function saveHomeSectionAction(sectionKey: HomeSectionKey, raw: unk
   await requireAdmin();
   if (!raw || typeof raw !== "object") throw new Error("Invalid content");
   await saveSection("home", sectionKey, raw);
-  revalidatePath("/");
+  revalidateSiteContent();
   revalidatePath(`/admin/home/${sectionKey}`);
   return { ok: true };
 }
@@ -59,8 +58,7 @@ export async function saveBrandStrategyAction(raw: unknown) {
   await requireAdmin();
   if (!raw || typeof raw !== "object") throw new Error("Invalid content");
   await saveSection("capabilities", "brandStrategy", raw);
-  revalidatePath("/");
-  revalidatePath("/capabilities/brand-and-strategy");
+  revalidateSiteContent();
   revalidatePath("/admin/capabilities/brand-and-strategy");
   return { ok: true };
 }
@@ -77,7 +75,7 @@ export async function saveNotFoundAction(raw: unknown) {
     })
     .parse(raw);
   await saveSection("site", "notFound", data);
-  revalidatePath("/");
+  revalidateSiteContent();
   revalidatePath("/admin/not-found");
   return { ok: true };
 }
@@ -86,7 +84,7 @@ export async function saveAboutOurStoryAction(raw: unknown) {
   await requireAdmin();
   if (!raw || typeof raw !== "object") throw new Error("Invalid content");
   await saveSection("about", "ourStory", raw);
-  revalidatePath("/about/our-story");
+  revalidateSiteContent();
   revalidatePath("/admin/about/our-story");
   return { ok: true };
 }
@@ -95,7 +93,7 @@ export async function saveAboutWhyAction(raw: unknown) {
   await requireAdmin();
   if (!raw || typeof raw !== "object") throw new Error("Invalid content");
   await saveSection("about", "why", raw);
-  revalidatePath("/about/why-13th-pencil");
+  revalidateSiteContent();
   revalidatePath("/admin/about/why-13th-pencil");
   return { ok: true };
 }
@@ -104,7 +102,7 @@ export async function saveAboutApproachAction(raw: unknown) {
   await requireAdmin();
   if (!raw || typeof raw !== "object") throw new Error("Invalid content");
   await saveSection("about", "approach", raw);
-  revalidatePath("/about/our-approach");
+  revalidateSiteContent();
   revalidatePath("/admin/about/our-approach");
   return { ok: true };
 }

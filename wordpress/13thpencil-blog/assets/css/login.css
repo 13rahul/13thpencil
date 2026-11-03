@@ -1,0 +1,324 @@
+/* 13th Pencil — wp-login.php */
+
+:root {
+  --paper: #ede5d6;
+  --paper-2: #e2d8c4;
+  --ink: #181a1c;
+  --ink-2: #23272b;
+  --grey: #5c6268;
+  --lacquer: #f5b301;
+  --eraser: #f4737e;
+  --eraser-deep: #ae3450;
+  --rule: rgba(237, 229, 214, 0.18);
+  --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-text: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.login.tpb-login {
+  background: var(--ink) !important;
+  color: var(--paper);
+  font-family: var(--f-text);
+  min-height: 100vh;
+}
+
+body.login.tpb-login #login {
+  position: relative;
+  z-index: 2;
+  width: min(420px, calc(100% - 40px));
+  padding: 12vh 0 48px;
+}
+
+.tpb-login-strokes {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px, 1.6vw, 18px);
+  padding: 0 6vw 10vh;
+  pointer-events: none;
+}
+
+.tpb-login-strokes i {
+  display: block;
+  width: clamp(3px, 0.5vw, 6px);
+  height: 0;
+  background: rgba(237, 229, 214, 0.2);
+  transform-origin: bottom center;
+  animation: tpb-stroke-rise 1.05s var(--ease-out) forwards;
+}
+
+.tpb-login-strokes i:nth-child(1) { animation-delay: 0.04s; }
+.tpb-login-strokes i:nth-child(2) { animation-delay: 0.09s; }
+.tpb-login-strokes i:nth-child(3) { animation-delay: 0.14s; }
+.tpb-login-strokes i:nth-child(4) { animation-delay: 0.19s; }
+.tpb-login-strokes i:nth-child(5) { animation-delay: 0.24s; }
+.tpb-login-strokes i:nth-child(6) { animation-delay: 0.29s; }
+.tpb-login-strokes i:nth-child(7) { animation-delay: 0.34s; }
+.tpb-login-strokes i:nth-child(8) { animation-delay: 0.39s; }
+.tpb-login-strokes i:nth-child(9) { animation-delay: 0.44s; }
+.tpb-login-strokes i:nth-child(10) { animation-delay: 0.49s; }
+.tpb-login-strokes i:nth-child(11) { animation-delay: 0.54s; }
+.tpb-login-strokes i:nth-child(12) { animation-delay: 0.59s; }
+.tpb-login-strokes i:nth-child(13),
+.tpb-login-strokes i.thirteen {
+  background: var(--eraser);
+  animation-name: tpb-stroke-thirteen;
+  animation-delay: 0.64s;
+}
+
+@keyframes tpb-stroke-rise {
+  to { height: 26vh; }
+}
+
+@keyframes tpb-stroke-thirteen {
+  to {
+    height: 34vh;
+    transform: rotate(13deg);
+  }
+}
+
+body.login.tpb-login .wp-login-logo,
+body.login.tpb-login h1.wp-login-logo,
+body.login.tpb-login #login > h1 {
+  display: none !important;
+}
+
+.tpb-login-brand {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 28px;
+  color: var(--paper);
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.tpb-login-brand .lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.tpb-login-brand .mark {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  overflow: visible;
+}
+
+.tpb-login-brand .mark .frame {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  opacity: 0.38;
+}
+
+.tpb-login-brand .mark .shaft {
+  fill: currentColor;
+}
+
+.tpb-login-brand .mark .lead {
+  fill: none;
+  stroke: var(--eraser);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.tpb-login-brand .wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.34em;
+  font-family: var(--f-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tpb-login-brand .wm__num {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.tpb-login-brand .wm__one {
+  width: 0.3em;
+  height: 0.78em;
+  align-self: center;
+  margin-right: 0.06em;
+  overflow: visible;
+}
+
+.tpb-login-brand .wm__one path {
+  fill: currentColor;
+}
+
+.tpb-login-brand .wm__th {
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transform: translateY(0.12em);
+  margin-left: 0.06em;
+}
+
+body.login.tpb-login #loginform,
+body.login.tpb-login #lostpasswordform,
+body.login.tpb-login #resetpassform,
+body.login.tpb-login #registerform {
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  box-shadow: none;
+  padding: 32px 28px 28px;
+}
+
+body.login.tpb-login label,
+body.login.tpb-login .user-pass-wrap label {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+body.login.tpb-login input[type="text"],
+body.login.tpb-login input[type="password"],
+body.login.tpb-login input[type="email"],
+body.login.tpb-login input[type="number"] {
+  background: #fffdf8 !important;
+  border: 1px solid rgba(24, 26, 28, 0.16) !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+  font-family: var(--f-display);
+  font-size: 1rem;
+  padding: 12px 14px;
+  box-shadow: none !important;
+}
+
+body.login.tpb-login input:focus {
+  border-color: var(--lacquer) !important;
+  outline: 2px solid var(--lacquer);
+  outline-offset: 2px;
+}
+
+body.login.tpb-login .button.wp-hide-pw {
+  color: var(--grey) !important;
+}
+
+body.login.tpb-login .forgetmenot {
+  font-family: var(--f-display);
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+body.login.tpb-login .forgetmenot label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+body.login.tpb-login #wp-submit,
+body.login.tpb-login .button.button-primary {
+  background: var(--ink) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--paper) !important;
+  font-family: var(--f-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 22px;
+}
+
+body.login.tpb-login #wp-submit:hover,
+body.login.tpb-login .button.button-primary:hover {
+  background: var(--ink-2) !important;
+}
+
+body.login.tpb-login #nav,
+body.login.tpb-login #backtoblog {
+  padding: 0;
+  margin: 18px 0 0;
+  text-align: center;
+}
+
+body.login.tpb-login #nav a,
+body.login.tpb-login #backtoblog a,
+body.login.tpb-login .privacy-policy-link,
+body.login.tpb-login .language-switcher label {
+  color: rgba(237, 229, 214, 0.72) !important;
+  font-family: var(--f-display);
+  font-size: 0.88rem;
+}
+
+body.login.tpb-login #nav a:hover,
+body.login.tpb-login #backtoblog a:hover,
+body.login.tpb-login .privacy-policy-link:hover {
+  color: var(--lacquer) !important;
+}
+
+body.login.tpb-login .message,
+body.login.tpb-login .success,
+body.login.tpb-login #login_error {
+  background: var(--paper);
+  border-left: 3px solid var(--lacquer);
+  box-shadow: none;
+  color: var(--ink);
+  font-family: var(--f-text);
+}
+
+body.login.tpb-login #login_error {
+  border-left-color: var(--eraser);
+}
+
+body.login.tpb-login .language-switcher {
+  margin-top: 28px;
+}
+
+body.login.tpb-login .language-switcher select {
+  background: var(--ink-2);
+  color: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+}
+
+.tpb-login-credit {
+  position: relative;
+  z-index: 2;
+  margin: 36px 0 24px;
+  text-align: center;
+  font-family: var(--f-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(237, 229, 214, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpb-login-strokes i {
+    animation: none;
+    height: 26vh;
+  }
+  .tpb-login-strokes i.thirteen {
+    height: 34vh;
+    transform: rotate(13deg);
+  }
+}
+
+@media (max-width: 640px) {
+  body.login.tpb-login #login {
+    padding-top: 10vh;
+  }
+  .tpb-login-strokes {
+    padding-bottom: 6vh;
+  }
+}

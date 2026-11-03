@@ -1,16 +1,17 @@
-import Script from "next/script";
 import { AboutApproachPage } from "@/components/site/AboutApproachPage";
+import { JsonLd, breadcrumbJsonLd, organizationJsonLd } from "@/components/site/JsonLd";
 import { getSiteContent } from "@/lib/content";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings, aboutApproach: page } = await getSiteContent();
   const url = new URL("/about/our-approach", settings.canonicalUrl).toString();
   return {
-    title: page.metaTitle,
-    description: page.metaDescription,
+    title: "Our Approach: How We Work | 13th Pencil",
+    description:
+      "How 13th Pencil works: discover the challenge behind the brief, create a clear direction and bring it to life, from strategy to launch.",
     alternates: { canonical: url },
     openGraph: {
       title: page.metaTitle,
@@ -32,10 +33,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function OurApproachRoute() {
   const content = await getSiteContent();
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about/our-story" },
+    { name: content.aboutApproach.crumbLabel, path: "/about/our-approach" },
+  ];
   return (
     <>
+      <JsonLd data={organizationJsonLd(content.settings)} />
+      <JsonLd data={breadcrumbJsonLd(content.settings.canonicalUrl, crumbs)} />
       <AboutApproachPage content={content} />
-      <Script src="/assets/js/site.js?v=41" strategy="afterInteractive" />
     </>
   );
 }

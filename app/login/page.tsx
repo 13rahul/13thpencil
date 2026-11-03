@@ -1,8 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Lockup } from "@/components/site/Lockup";
 import "../admin/admin.css";
 
 function LoginForm() {
@@ -38,8 +38,16 @@ function LoginForm() {
 
   return (
     <div className="login">
+      <div className="login__strokes" aria-hidden="true">
+        {Array.from({ length: 13 }, (_, i) => (
+          <i key={i} className={i === 12 ? "thirteen" : undefined} />
+        ))}
+      </div>
       <form className="login__card" onSubmit={onSubmit}>
-        <p className="login__kicker">13th Pencil</p>
+        <div className="login__brand">
+          <Lockup />
+        </div>
+        <p className="login__kicker">Studio CMS</p>
         <h1 className="login__title">Log in to the studio.</h1>
         {error ? <div className="login__error">{error}</div> : null}
         <label className="login__label" htmlFor="email">
@@ -70,6 +78,7 @@ function LoginForm() {
           {loading ? "Logging in…" : "Log in"}
         </button>
       </form>
+      <p className="login__credit">Developed by Fundaking Media</p>
     </div>
   );
 }

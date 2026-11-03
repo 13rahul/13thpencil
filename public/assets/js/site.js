@@ -35,38 +35,119 @@
     ctx.globalAlpha = 1;
   }
 
-  /* ---------- 1. INTRO: twelve behave, the thirteenth doesn't ---------- */
+  /* ---------- 1. INTRO: 13 strokes follow real load percent ---------- */
   var loader = $("#loader"), strokes = $("#loaderStrokes");
-  if(loader && strokes){
+  if(loader && strokes && !document.documentElement.classList.contains("skip-loader")){
     for(var i=0;i<13;i++){
       var s = document.createElement("i");
       if(i===12) s.className = "thirteen";
       strokes.appendChild(s);
     }
     var items = $$("#loaderStrokes i");
+    var pctEl = $("#loaderPct");
+    if(loader && !pctEl){
+      pctEl = document.createElement("div");
+      pctEl.id = "loaderPct";
+      pctEl.className = "loader__pct annot";
+      pctEl.setAttribute("aria-hidden", "true");
+      loader.appendChild(pctEl);
+    }
+    loader.setAttribute("role", "progressbar");
+    loader.setAttribute("aria-valuemin", "0");
+    loader.setAttribute("aria-valuemax", "100");
+    loader.setAttribute("aria-label", "Loading");
+    var ended = false, finishing = false, started = Date.now(), shown = 0;
+    var fontReady = 0, winReady = 0;
+
     function endIntro(){
+      if(ended) return;
+      ended = true;
+      items[12] && items[12].classList.add("go");
+      var logo = $("#loaderLogo");
+      if(logo) logo.classList.add("in");
+      strokes.style.transition = "opacity .45s";
+      strokes.style.opacity = ".14";
       loader.classList.add("is-done");
       document.body.classList.remove("is-locked");
       setTimeout(function(){ loader.hidden = true; }, 1100);
       if(hero) hero.classList.add("lit");
     }
+
+    function eagerImgs(){
+      return $$("img").filter(function(img){
+        return img.getAttribute("loading") !== "lazy";
+      });
+    }
+
+    function rawPercent(){
+      var imgs = eagerImgs();
+      var imgP = 1;
+      if(imgs.length){
+        var n = 0;
+        imgs.forEach(function(img){ if(img.complete) n++; });
+        imgP = n / imgs.length;
+      }
+      var ready = document.readyState === "complete" ? 1 : document.readyState === "interactive" ? 0.65 : 0.25;
+      return Math.min(1, ready * 0.22 + fontReady * 0.28 + imgP * 0.28 + winReady * 0.22);
+    }
+
+    function paint(p){
+      shown = Math.max(shown, p);
+      var filled = shown * 13;
+      items.forEach(function(el, idx){
+        var h = Math.max(0, Math.min(1, filled - idx));
+        el.style.height = (h * 100) + "%";
+        if(h > 0.08) el.classList.add("on");
+      });
+      var pct = Math.round(shown * 100);
+      loader.setAttribute("aria-valuenow", String(pct));
+      if(pctEl) pctEl.textContent = pct + "%";
+      if(shown >= 0.55){
+        var logo = $("#loaderLogo");
+        if(logo) logo.classList.add("in");
+      }
+    }
+
+    function tick(){
+      if(ended || finishing) return;
+      paint(rawPercent());
+      var waited = Date.now() - started;
+      if(shown >= 1 && waited >= 420){
+        finishing = true;
+        setTimeout(endIntro, 280);
+        return;
+      }
+      if(waited > 9000) endIntro();
+    }
+
     if(reduce){
       loader.hidden = true; if(hero) hero.classList.add("lit");
     }else{
       document.body.classList.add("is-locked");
-      items.forEach(function(el,idx){
-        setTimeout(function(){
-          el.classList.add("on");
-          if(idx===12) setTimeout(function(){ el.classList.add("go"); }, 260);
-        }, 60 + idx*55);
+      paint(0.08);
+      if(document.readyState === "complete"){
+        winReady = 1;
+        fontReady = 1;
+      }
+      if(document.fonts && document.fonts.ready){
+        document.fonts.ready.then(function(){ fontReady = 1; tick(); });
+      }else{
+        fontReady = 1;
+      }
+      eagerImgs().forEach(function(img){
+        if(!img.complete){
+          img.addEventListener("load", tick, {once:true});
+          img.addEventListener("error", tick, {once:true});
+        }
       });
-      setTimeout(function(){
-        strokes.style.transition = "opacity .5s"; strokes.style.opacity = ".14";
-        var logo = $("#loaderLogo");
-        if(logo) logo.classList.add("in");
-      }, 1180);
-      setTimeout(endIntro, 2250);
+      document.addEventListener("DOMContentLoaded", tick);
+      window.addEventListener("load", function(){ winReady = 1; fontReady = 1; tick(); });
       window.addEventListener("keydown", function(e){ if(e.key==="Escape") endIntro(); });
+      var pulse = setInterval(function(){
+        if(ended){ clearInterval(pulse); return; }
+        tick();
+      }, 80);
+      tick();
     }
   }else if(hero){
     hero.classList.add("lit");
@@ -259,8 +340,11 @@
     sizeCanvas();
     window.addEventListener("resize", sizeCanvas);
     window.addEventListener("load", sizeCanvas);
-    var stageVisible = true;
-    new IntersectionObserver(function(en){ stageVisible = en[0].isIntersecting; },{threshold:.02}).observe(stage);
+    var stageVisible = true, capRaf = 0;
+    new IntersectionObserver(function(en){
+      stageVisible = !!(en[0] && en[0].isIntersecting);
+      if(stageVisible && !capRaf) capRaf = requestAnimationFrame(draw);
+    },{threshold:.02}).observe(stage);
 
     var nodes = [];
     var nodeCount = small ? 22 : 40;
@@ -273,7 +357,8 @@
     });
 
     function draw(){
-      if(!stageVisible || document.hidden){ requestAnimationFrame(draw); return; }
+      capRaf = 0;
+      if(!stageVisible || document.hidden){ return; }
       t++;
       var ink = getComputedStyle(stage).getPropertyValue("--stage-ink").trim() || "#EDE5D6";
       var lac = css("--lacquer"), era = css("--eraser");
@@ -366,16 +451,16 @@
         c.stroke();
       }
       c.globalAlpha = 1;
-      if(!reduce || t < 100) requestAnimationFrame(draw);
+      if(!reduce || t < 100) capRaf = requestAnimationFrame(draw);
     }
-    requestAnimationFrame(draw);
+    capRaf = requestAnimationFrame(draw);
 
     function setCap(name){
       cap = name; t = 0; scrib = []; ripples = [];
       caps.forEach(function(el){ el.setAttribute("aria-selected", String(el.dataset.cap === name)); });
       var capCaption = $("#capCaption");
       if(capCaption) capCaption.textContent = captions[name];
-      if(reduce) requestAnimationFrame(draw);
+      if(reduce) capRaf = requestAnimationFrame(draw);
     }
     caps.forEach(function(el){
       el.addEventListener("click", function(e){
@@ -462,4 +547,28 @@
       navTone();
     });
   }
+
+  /* ---------- BLOG in primary nav (until the next Next deploy) ---------- */
+  (function ensureBlogNav(){
+    var BLOG = "https://blog.13thpencil.com";
+    function hasBlog(root){
+      return !!(root && root.querySelector('a[href*="blog.13thpencil"]'));
+    }
+    var nav = $(".site-header__links");
+    if(nav && !hasBlog(nav)){
+      var a = document.createElement("a");
+      a.href = BLOG;
+      a.textContent = "Blog";
+      nav.appendChild(a);
+    }
+    var menu = $("#siteMenu");
+    if(menu && !hasBlog(menu)){
+      var m = document.createElement("a");
+      m.href = BLOG;
+      m.textContent = "Blog";
+      var cta = menu.querySelector(".site-menu__cta");
+      if(cta) menu.insertBefore(m, cta);
+      else menu.appendChild(m);
+    }
+  })();
 })();

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Insights: Notes on Creativity, Taste and AI | 13th Pencil</title>
+<meta name="description" content="Short notes from 13th Pencil on creativity, taste, brand strategy and the use of AI in creative work, and on the distance past the first workable answer.">
+<link rel="canonical" href="https://13thpencil.com/insights">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="13th Pencil">
+<meta property="og:title" content="Insights: Notes on Creativity, Taste and AI | 13th Pencil">
+<meta property="og:description" content="Four short notes on the distance past the first answer.">
+<meta property="og:url" content="https://13thpencil.com/insights">
+<meta property="og:image" content="https://13thpencil.com/assets/media/lookup-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#181A1C">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://13thpencil.com/#org","name":"13th Pencil","url":"https://13thpencil.com/","email":"hello@13thpencil.com","logo":"https://13thpencil.com/assets/brand/logo-512.png","description":"13th Pencil is a creative and innovation company working across brand strategy, creative studio work, AI and innovation, and brand experiences.","slogan":"Twelve is a pattern. Thirteen is a decision.","address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"alternateName":"13th Pencil Bangalore","knowsAbout":["Brand strategy","Brand identity design","Art direction","Brand film","AI creative production","Brand experience design","Packaging design","Healthcare branding"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://13thpencil.com/insights#page","url":"https://13thpencil.com/insights","name":"Thinking | 13th Pencil","description":"Short notes from 13th Pencil on creativity, taste, brand strategy and the use of AI in creative work, and on the distance past the first workable answer.","inLanguage":"en","isPartOf":{"@type":"WebSite","@id":"https://13thpencil.com/#site","name":"13th Pencil","url":"https://13thpencil.com/"},"publisher":{"@id":"https://13thpencil.com/#org"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://13thpencil.com/"},{"@type":"ListItem","position":2,"name":"Thinking","item":"https://13thpencil.com/insights"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does AI make creative work less valuable?","acceptedAnswer":{"@type":"Answer","text":"It makes average work cheaper, which makes the difference between average and excellent more visible, and more valuable."}},{"@type":"Question","name":"What is taste in branding?","acceptedAnswer":{"@type":"Answer","text":"The habit of rejecting work that is merely fine, and the patience to keep going until it feels inevitable. It shows up in what gets cut as much as in what gets made."}},{"@type":"Question","name":"Can I use these ideas in my own team?","acceptedAnswer":{"@type":"Answer","text":"Please do. If they start a conversation you would like help finishing, write to hello@13thpencil.com."}}]}</script>
+<style>
+/* ============================================================
+   13TH PENCIL — Brand & Strategy
+   Tokens identical to the approved site. In production, delete this
+   :root block and link assets/css/styles.css instead.
+   ============================================================ */
+:root{
+  --paper:#EDE5D6; --paper-2:#E2D8C4;
+  --ink:#181A1C; --ink-2:#23272B;
+  --grey:#5C6268; --lacquer:#F5B301;
+  --eraser:#F4737E; --eraser-deep:#AE3450;
+  --rule:rgba(24,26,28,.16); --rule-on-ink:rgba(237,229,214,.18);
+  --dim:#CFC8BB; --dim-2:#A7ADB4; --stroke:#3A3F45;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-text:"Newsreader","Iowan Old Style",Georgia,serif;
+  --pad:clamp(20px,5vw,84px);
+  --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131416; --paper-2:#1B1E21; --ink:#EDE5D6; --ink-2:#DDD2BC;
+    --grey:#8D9299; --rule:rgba(237,229,214,.18); --rule-on-ink:rgba(24,26,28,.16);
+    --eraser-deep:#F4737E; --dim:#43494F; --dim-2:#565D64; --stroke:#CFC6B4;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131416; --paper-2:#1B1E21; --ink:#EDE5D6; --ink-2:#DDD2BC;
+  --grey:#8D9299; --rule:rgba(237,229,214,.18); --rule-on-ink:rgba(24,26,28,.16);
+  --eraser-deep:#F4737E; --dim:#43494F; --dim-2:#565D64; --stroke:#CFC6B4;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--f-text);
+  font-size:clamp(17px,1.05vw,18.5px);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.is-locked{overflow:hidden}
+svg{display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--lacquer);outline-offset:4px;border-radius:2px}
+::selection{background:var(--eraser);color:#181A1C}
+h1,h2,h3{font-family:var(--f-display);font-weight:800;margin:0;line-height:.9;letter-spacing:-.04em}
+.wrap{max-width:1500px;margin:0 auto;width:100%}
+.panel{position:relative;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ---------- identity + nav (unchanged from the approved site) ---------- */
+.mark{width:1em;height:1em;flex:none;overflow:visible}
+.mark .frame{fill:none;stroke:currentColor;stroke-width:5;opacity:.38}
+.mark .shaft{fill:currentColor}
+.mark .lead{fill:none;stroke:var(--eraser);stroke-width:8;stroke-linecap:round}
+.wordmark{display:inline-flex;align-items:baseline;gap:.34em;font-family:var(--f-display);
+  font-weight:800;letter-spacing:-.04em;line-height:1;text-transform:uppercase;white-space:nowrap}
+.wm__num{display:inline-flex;align-items:flex-start}
+.wm__one{width:.30em;height:.78em;align-self:center;margin-right:.06em;overflow:visible}
+.wm__one path{fill:currentColor}
+.wm__th{font-size:.42em;font-weight:600;letter-spacing:.02em;transform:translateY(.12em);margin-left:.06em}
+.lockup{display:inline-flex;align-items:center;gap:.5em}
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:clamp(14px,1.6vw,22px) var(--pad);
+  color:var(--paper);transition:transform .5s var(--ease),background .4s}
+.nav.solid{background:rgba(24,26,28,.9);backdrop-filter:blur(10px)}
+.nav.hide{transform:translateY(-110%)}
+.nav__logo{display:inline-flex;align-items:center;font-size:clamp(15px,1.35vw,19px);flex:none}
+.nav__right{display:flex;align-items:center;gap:clamp(12px,1.8vw,30px)}
+.nav__links{display:flex;align-items:center;gap:clamp(16px,2vw,34px);font-family:var(--f-display);
+  font-weight:600;font-size:.9rem;letter-spacing:-.01em}
+.nav__links a{position:relative;padding:4px 0}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;
+  background:var(--lacquer);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-out)}
+.nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav__cta{border:1px solid currentColor;border-radius:100px;padding:.52em 1.1em;
+  font-family:var(--f-display);font-weight:600;font-size:.9rem;transition:background .3s,color .3s,border-color .3s}
+.nav__cta:hover{background:var(--lacquer);border-color:var(--lacquer);color:#181A1C}
+.nav__burger{display:none;width:40px;height:40px;align-items:center;justify-content:center}
+.nav__burger span{display:block;width:22px;height:0;border-top:2px solid currentColor;position:relative}
+.nav__burger span::before,.nav__burger span::after{content:"";position:absolute;left:0;width:22px;border-top:2px solid currentColor}
+.nav__burger span::before{top:-7px}.nav__burger span::after{top:5px}
+@media (max-width:900px){.nav__links{display:none}.nav__burger{display:flex}}
+@media (max-width:640px){
+  .nav{gap:10px;padding-left:18px;padding-right:18px}
+  .nav__logo{font-size:14px}.lockup{gap:.42em}.nav__right{gap:10px}
+  .nav__cta{font-size:.8rem;padding:.5em .82em}.nav__burger{width:34px;height:34px}
+}
+@media (max-width:420px){
+  .nav{gap:8px;padding-left:15px;padding-right:15px}
+  .nav__logo{font-size:12.4px}.lockup{gap:.38em}.nav__right{gap:8px}
+  .nav__cta{font-size:.74rem;padding:.46em .7em;white-space:nowrap}
+  .nav__burger{width:30px;height:30px}
+  .nav__burger span,.nav__burger span::before,.nav__burger span::after{width:19px}
+}
+.menu{position:fixed;inset:0;z-index:59;background:var(--ink);display:flex;flex-direction:column;
+  justify-content:center;gap:.1em;padding:var(--pad);clip-path:inset(0 0 100% 0);
+  transition:clip-path .7s var(--ease-out);pointer-events:none}
+.menu.open{clip-path:inset(0 0 0 0);pointer-events:auto}
+.menu a{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,8.4vw,4.6rem);
+  line-height:1.04;letter-spacing:-.04em;text-transform:uppercase;padding:.1em 0;transition:color .3s,padding-left .4s var(--ease)}
+.menu a:hover{color:var(--lacquer);padding-left:.12em}
+.menu a.menu__cta{color:var(--eraser)}
+
+/* ---------- 5. CTA ---------- */
+.cta{padding-top:clamp(80px,14vh,180px);padding-bottom:clamp(44px,7vh,80px);background:var(--ink)}
+.cta h2{font-size:clamp(2.2rem,7vw,6.4rem);text-transform:uppercase;margin-bottom:clamp(28px,4vh,52px);max-width:15ch}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(16px,2.4vw,32px)}
+.btn{display:inline-flex;align-items:center;font-family:var(--f-display);font-weight:600;font-size:1.02rem;
+  background:var(--lacquer);color:#181A1C;padding:.92em 1.5em;border-radius:100px;
+  transition:transform .3s var(--ease-out),background .3s}
+.btn:hover{background:#FFC42E;transform:translateY(-2px)}
+.big-link{font-family:var(--f-display);font-weight:800;letter-spacing:-.03em;
+  font-size:clamp(1.15rem,2.4vw,1.9rem);border-bottom:3px solid var(--lacquer);padding-bottom:.08em;
+  transition:color .35s}
+.big-link:hover{color:var(--lacquer)}
+@media (max-width:560px){.btn{width:100%;justify-content:center}}
+.foot{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--rule-on-ink);margin-top:clamp(50px,8vh,96px);padding-top:24px;
+  color:var(--dim-2);font-size:.95rem}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .hero .l1,.hero__sub{opacity:1;transform:none;transition:none}
+  .scrollcue{opacity:1}.scrollcue i::after{animation:none}
+  .cap{transition:none}
+  .btn:hover{transform:none}
+  .claim{transition:none}
+}
+.sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* five nav items now: collapse to the burger a little earlier than the homepage did */
+@media (max-width:1080px){.nav__links{display:none}.nav__burger{display:flex}}
+.nav__links a[aria-current]::after{transform:scaleX(1)}
+.menu a[aria-current]{color:var(--eraser)}
+.cta__body{font-family:var(--f-text);font-size:clamp(1.08rem,1.4vw,1.26rem);line-height:1.58;color:var(--dim);max-width:44ch;margin:-.4em 0 clamp(26px,4vh,40px)}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  border-top:1px solid var(--rule-on-ink);padding-top:clamp(26px,4vh,42px);margin-bottom:clamp(40px,6vh,80px)}
+.pager__l{font-family:var(--f-text);font-style:italic;color:var(--dim-2);font-size:1rem}
+.pager__a{display:flex;align-items:baseline;gap:.5em;font-family:var(--f-display);font-weight:800;
+  letter-spacing:-.035em;font-size:clamp(1.25rem,2.8vw,2.2rem);transition:color .3s}
+.pager__a span{font-size:.7em;transition:transform .35s var(--ease-out)}
+.pager__a:hover{color:var(--eraser)}
+.pager__a:hover span{transform:translateX(7px)}
+.capnav{position:relative;z-index:5;margin-top:var(--navh,84px);
+  border-top:1px solid var(--rule-on-ink);
+  border-bottom:1px solid var(--rule-on-ink);background:var(--ink)}
+.capnav__in{display:flex;gap:clamp(16px,2.4vw,40px);overflow-x:auto;padding:0 var(--pad);
+  scrollbar-width:none;max-width:1500px;margin:0 auto}
+.capnav__in::-webkit-scrollbar{display:none}
+.capnav a{flex:none;position:relative;font-family:var(--f-display);font-weight:600;font-size:.92rem;
+  color:var(--dim-2);padding:18px 0;white-space:nowrap;transition:color .3s}
+.capnav a::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--eraser);
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease-out)}
+.capnav a:hover{color:var(--paper)}
+.capnav a[aria-current]{color:var(--paper)}
+.capnav a[aria-current]::after{transform:scaleX(1)}
+.makes{padding-top:clamp(70px,11vh,145px);padding-bottom:clamp(70px,11vh,145px);
+  background:var(--paper);color:var(--ink)}
+.makes h2{font-size:clamp(1.8rem,4.4vw,3.5rem);max-width:18ch;margin-bottom:clamp(28px,4.4vh,54px)}
+.makes__g{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--rule)}
+.makes__c{background:var(--paper);padding:clamp(22px,3.2vh,36px) clamp(18px,2vw,30px)}
+.makes__k{font-family:var(--f-display);font-weight:600;font-size:.8rem;letter-spacing:.08em;
+  color:var(--eraser-deep);display:block;margin-bottom:1em}
+.makes__c h3{font-family:var(--f-display);font-weight:800;font-size:clamp(1.08rem,1.55vw,1.4rem);
+  letter-spacing:-.03em;line-height:1.06;margin-bottom:.5em}
+.makes__c p{font-family:var(--f-text);font-size:1rem;line-height:1.5;color:var(--grey);margin:0;max-width:30ch}
+.eyebrow{display:flex;align-items:center;gap:.7em;font-family:var(--f-display);font-weight:600;
+  font-size:.9rem;color:var(--dim-2)}
+.eyebrow b{color:var(--lacquer);font-weight:600}
+.lede{font-family:var(--f-text);font-size:clamp(1.06rem,1.45vw,1.3rem);line-height:1.54;
+  color:var(--dim);max-width:34ch}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+.rv[data-d="1"]{transition-delay:.09s}.rv[data-d="2"]{transition-delay:.18s}.rv[data-d="3"]{transition-delay:.27s}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- media bands: a window that opens as it arrives ---------- */
+.mband{position:relative;margin:0;background:var(--ink)}
+.mband__frame{position:relative;width:100%;aspect-ratio:var(--ar,16/9);max-height:88svh;overflow:hidden;
+  background:var(--ink-2);clip-path:inset(8% 6% 8% 6%);transition:clip-path 1.5s cubic-bezier(.16,1,.3,1)}
+.mband.in .mband__frame{clip-path:inset(0 0 0 0)}
+.mband__frame video,.mband__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transform:scale(1.14);transition:transform 2.4s cubic-bezier(.16,1,.3,1)}
+.mband.in .mband__frame video,.mband.in .mband__frame img{transform:scale(1)}
+.mband__frame picture{position:absolute;inset:0}
+.mband__cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;align-items:baseline;
+  padding:clamp(14px,2.2vh,22px) var(--pad) 0;max-width:1500px;margin:0 auto}
+.mband__cap b{font-family:var(--f-display);font-weight:600;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim-2)}
+.mband__cap span{font-family:var(--f-text);font-style:italic;font-size:clamp(1rem,1.3vw,1.18rem);color:var(--dim);max-width:46ch}
+.vbtn{position:absolute;right:clamp(12px,2vw,26px);bottom:clamp(12px,2vw,26px);z-index:3;width:44px;height:44px;border-radius:50%;
+  background:rgba(24,26,28,.58);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;
+  border:1px solid rgba(237,229,214,.25);transition:background .3s}
+.vbtn:hover{background:rgba(24,26,28,.85)}
+.vbtn i{display:block;width:0;height:0;border-left:11px solid #EDE5D6;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.vbtn.on i{width:11px;height:13px;border:0;margin:0;background:linear-gradient(90deg,#EDE5D6 0 35%,transparent 35% 65%,#EDE5D6 65%)}
+@media (prefers-reduced-motion: reduce){
+  .mband__frame{clip-path:none;transition:none}
+  .mband__frame video,.mband__frame img{transform:none;transition:none}
+}
+
+/* ---------- in plain words + questions (crawlable, collapsed by default) ---------- */
+.seo{padding-top:clamp(70px,12vh,140px);padding-bottom:clamp(60px,10vh,120px);border-top:1px solid var(--rule-on-ink)}
+.seo__g{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(26px,5vw,90px)}
+.seo__l{position:sticky;top:calc(var(--navh,84px) + 28px);align-self:start}
+.seo__l h2{font-size:clamp(1.9rem,4vw,3.4rem);line-height:.96;letter-spacing:-.045em;margin-top:.5em;max-width:14ch}
+.seo__r > p{font-family:var(--f-text);font-size:clamp(1.06rem,1.4vw,1.26rem);line-height:1.6;color:var(--dim);margin:0 0 1em;max-width:60ch}
+.seo__r > p strong{font-weight:400;color:var(--paper)}
+.faq{margin-top:clamp(30px,5vh,56px);border-top:1px solid var(--rule-on-ink)}
+.faq__t{font-family:var(--f-display);font-weight:600;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lacquer);
+  margin:clamp(22px,3vh,30px) 0 6px}
+.faq details{border-bottom:1px solid var(--rule-on-ink)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;
+  padding:clamp(16px,2.4vh,22px) 0;font-family:var(--f-display);font-weight:800;font-size:clamp(1.06rem,1.6vw,1.34rem);
+  letter-spacing:-.025em;line-height:1.2;transition:color .3s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:14px;height:14px;
+  background:linear-gradient(currentColor,currentColor) center/14px 2px no-repeat,linear-gradient(currentColor,currentColor) center/2px 14px no-repeat;
+  transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--eraser)}
+.faq details > div{padding:0 0 clamp(18px,2.6vh,26px)}
+.faq details[open] > div{animation:faqIn .5s cubic-bezier(.16,1,.3,1)}
+@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.faq details p{font-family:var(--f-text);font-size:1.06rem;line-height:1.6;color:var(--dim);margin:0;max-width:62ch}
+@media (max-width:860px){.seo__g{grid-template-columns:1fr}.seo__l{position:static}}
+@media (prefers-reduced-motion: reduce){.faq details[open] > div{animation:none}}
+
+.sfoot{border-top:1px solid var(--rule-on-ink);margin-top:clamp(44px,7vh,90px);padding-top:clamp(30px,5vh,56px)}
+.sfoot__g{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.9fr);gap:clamp(22px,4vw,60px)}
+.sfoot__brand .lockup{font-size:1.25rem}
+.sfoot__brand p{margin:.9em 0 0;color:var(--dim);font-size:1rem;line-height:1.55;font-family:var(--f-text)}
+.sfoot__brand a.mail{display:inline-block;margin-top:.9em;border-bottom:1px solid var(--lacquer);font-family:var(--f-text)}
+.sfoot__h{font-family:var(--f-display);font-weight:600;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim-2);margin:0 0 1em}
+.sfoot nav{display:flex;flex-direction:column;gap:.55em;font-family:var(--f-display);font-weight:600;font-size:.98rem}
+.sfoot nav a{width:max-content;transition:color .3s}
+.sfoot nav a:hover{color:var(--lacquer)}
+.sfoot nav span{color:var(--dim-2)}
+.soon{display:inline-block;font-style:normal;font-family:var(--f-display);font-weight:600;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid currentColor;border-radius:99px;padding:.32em .7em;margin-left:.6em;vertical-align:middle;color:var(--dim-2)}
+.sfoot__base{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;margin-top:clamp(34px,6vh,60px);
+  padding-top:20px;border-top:1px solid var(--rule-on-ink);color:var(--dim-2);font-size:.92rem}
+@media (max-width:820px){.sfoot__g{grid-template-columns:1fr 1fr}.sfoot__brand{grid-column:1 / -1}}
+
+.ti{padding-top:calc(var(--navh,84px) + clamp(48px,9vh,110px));padding-bottom:clamp(40px,7vh,90px)}
+.ti h1{font-size:clamp(3.2rem,12.5vw,11rem);text-transform:uppercase;line-height:.82;margin:clamp(18px,3vh,30px) 0 clamp(20px,3vh,32px)}
+.ti h1 span{color:var(--eraser)}
+.ti__row{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:flex-end;justify-content:space-between}
+.ti__m{font-family:var(--f-display);font-weight:600;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim-2)}
+.ti__m b{color:var(--lacquer)}
+.toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(28px,5vh,56px);padding:0;list-style:none}
+.toc a{display:inline-flex;gap:.6em;align-items:baseline;font-family:var(--f-display);font-weight:600;font-size:.92rem;
+  padding:.62em 1em;border:1px solid var(--rule-on-ink);border-radius:99px;transition:border-color .3s,color .3s}
+.toc a b{color:var(--dim-2);font-size:.78em;transition:color .3s}
+.toc a:hover{border-color:var(--eraser);color:var(--eraser)}
+.toc a:hover b{color:var(--eraser)}
+
+.notes{padding-bottom:clamp(40px,8vh,100px)}
+.note{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:clamp(24px,5vw,90px);
+  padding:clamp(56px,11vh,130px) 0;border-top:1px solid var(--rule-on-ink);scroll-margin-top:var(--navh,84px)}
+.note__h{position:sticky;top:calc(var(--navh,84px) + 30px);align-self:start;display:flex;gap:18px;align-items:flex-start}
+.note__n{font-family:var(--f-display);font-weight:800;font-size:clamp(3.4rem,7vw,6.4rem);line-height:.8;
+  letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.4px var(--stroke);transition:color .6s,-webkit-text-stroke-color .6s}
+.note.on .note__n{color:var(--eraser);-webkit-text-stroke-color:var(--eraser)}
+.note__h h2{font-size:clamp(1.6rem,3.2vw,2.8rem);line-height:.98;letter-spacing:-.04em;max-width:13ch}
+.note__m{display:block;margin-top:.9em;font-family:var(--f-display);font-weight:600;font-size:.76rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim-2)}
+.note__b p{font-family:var(--f-text);font-size:clamp(1.18rem,1.75vw,1.62rem);line-height:1.5;margin:0;max-width:34ch}
+.note__b p+p{margin-top:1.05em}
+.w{opacity:var(--o,1);transition:opacity .25s linear}
+.js .w{--o:.28}
+mark{background:none;color:inherit;font-style:italic}
+mark .w{color:var(--paper)}
+.note__b mark{background-image:linear-gradient(var(--eraser),var(--eraser));background-repeat:no-repeat;
+  background-position:0 92%;background-size:var(--u,0%) 2px;transition:background-size 1.1s cubic-bezier(.16,1,.3,1)}
+.note.done mark{--u:100%}
+
+/* the pencil in the margin (desktop) */
+.rail{position:fixed;left:clamp(10px,1.6vw,28px);top:calc(var(--navh,84px) + 26px);bottom:36px;width:16px;
+  z-index:30;pointer-events:none;opacity:0;transition:opacity .5s;--p:0}
+.rail.on{opacity:1}
+.rail__track{position:absolute;left:7px;top:0;bottom:0;width:1px;background:var(--rule-on-ink)}
+.rail__ink{position:absolute;left:6px;top:0;width:3px;border-radius:2px;background:var(--eraser);height:calc(var(--p)*100%)}
+.rail__pen{position:absolute;left:0;top:calc(var(--p)*100%);width:16px;transform:translateY(-100%);
+  display:flex;flex-direction:column;align-items:center}
+.rail__end{width:14px;height:5px;background:var(--eraser);opacity:.85;border-radius:2px 2px 0 0}
+.rail__fer{width:14px;height:6px;background:var(--dim-2)}
+.rail__body{width:14px;height:calc(118px - var(--p)*82px);background:var(--lacquer)}
+.rail__cone{width:14px;height:16px;background:var(--paper-2);clip-path:polygon(0 0,100% 0,50% 100%)}
+.rail__cone{position:relative}
+.rail__cone::after{content:"";position:absolute;left:4px;bottom:0;width:6px;height:6px;background:var(--ink);
+  clip-path:polygon(0 0,100% 0,50% 100%)}
+/* mobile: the same pencil, lying down under the nav */
+.hbar{display:none}
+
+@media (max-width:1100px){
+  .rail{display:none}
+  .hbar{display:block;position:fixed;left:0;right:0;top:var(--navh,72px);height:12px;z-index:30;pointer-events:none;
+    opacity:0;transition:opacity .4s;--p:0}
+  .hbar.on{opacity:1}
+  .hbar__ink{position:absolute;left:0;top:5px;height:2px;background:var(--eraser);width:calc(var(--p)*100%)}
+  .hbar__pen{position:absolute;top:0;left:calc(var(--p)*100%);transform:translateX(-100%);display:flex;align-items:center;height:12px}
+  .hbar__body{height:8px;width:calc(70px - var(--p)*48px);background:var(--lacquer)}
+  .hbar__cone{width:11px;height:8px;background:var(--paper-2);clip-path:polygon(0 0,100% 50%,0 100%)}
+}
+@media (max-width:820px){
+  .note{grid-template-columns:1fr;gap:22px;padding:clamp(48px,8vh,80px) 0}
+  .note__h{position:static}
+  .note__n{font-size:3rem}
+}
+@media (prefers-reduced-motion: reduce){
+  .js .w{--o:1}.w{transition:none}
+  .note__b mark{--u:100%;transition:none}
+}
+
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav__logo" href="/" aria-label="13th Pencil, home">
+    <span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg><span class="sr">1</span>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span>
+  </a>
+  <div class="nav__right">
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/work">Work</a>
+      <a href="/about/our-story">About</a>
+      <a href="/insights" aria-current="page">Insights</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <a class="nav__cta" href="#start">Start a project</a>
+    <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="/#capabilities">Capabilities</a>
+  <a href="/work">Work</a>
+  <a href="/about/our-story">About</a>
+  <a href="/insights" aria-current="page">Insights</a>
+  <a href="/contact">Contact</a>
+  <a class="menu__cta" href="#start">Start a project</a>
+</div>
+
+
+<main>
+
+<section class="ti panel">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>Insights</b> Notes from the studio</p>
+    <h1 class="rv" data-d="1">In<span>sights</span>.</h1>
+    <div class="ti__row rv" data-d="2">
+      <p class="lede" style="margin:0">Four short notes on the distance past the first answer.</p>
+      <span class="ti__m"><b>04</b> notes &middot; 4 min</span>
+    </div>
+    <ol class="toc rv" data-d="3"><li><a href="#n1"><b>01</b>The first answer is free now</a></li><li><a href="#n2"><b>02</b>Taste is not a feeling</a></li><li><a href="#n3"><b>03</b>Why thirteen</a></li><li><a href="#n4"><b>04</b>Use the machines. Keep the judgement.</a></li></ol>
+  </div>
+</section>
+
+<figure class="mband" style="--ar:1206/894"><div class="mband__frame"><video muted loop playsinline preload="none" poster="/assets/media/lookup-poster.webp" data-sm="/assets/media/lookup-720" data-lg="/assets/media/lookup-1280" aria-label="Studio film: a man in glasses looks upward while translucent frames of a climber on a summit drift around him, crossed by red light"></video><button class="vbtn" type="button" aria-label="Play video"><i></i></button></div><figcaption class="mband__cap"><b>Studio film</b><span>Most of the job is looking past the first answer for long enough to find the next one.</span></figcaption></figure>
+<section class="notes panel" id="notes">
+  <div class="wrap">
+    <article class="note" id="n1">
+      <header class="note__h rv">
+        <span class="note__n" aria-hidden="true">01</span>
+        <div>
+          <h2>The first answer is free now</h2>
+          <span class="note__m">Note 01 &middot; 1 min</span>
+        </div>
+      </header>
+      <div class="note__b">
+        <p><span class="w">Not</span> <span class="w">long</span> <span class="w">ago</span> <span class="w">a</span> <span class="w">decent</span> <span class="w">first</span> <span class="w">draft</span> <span class="w">took</span> <span class="w">a</span> <span class="w">week</span> <span class="w">and</span> <span class="w">a</span> <span class="w">team.</span> <span class="w">Today</span> <span class="w">it</span> <span class="w">takes</span> <span class="w">a</span> <span class="w">sentence</span> <span class="w">and</span> <span class="w">a</span> <span class="w">few</span> <span class="w">seconds.</span></p>
+        <p><span class="w">That</span> <span class="w">is</span> <span class="w">not</span> <span class="w">a</span> <span class="w">threat</span> <span class="w">to</span> <span class="w">the</span> <span class="w">work.</span> <span class="w">It</span> <span class="w">is</span> <span class="w">a</span> <span class="w">change</span> <span class="w">in</span> <span class="w">where</span> <span class="w">the</span> <span class="w">work</span> <span class="w">lives.</span> <mark><span class="w">When</span> <span class="w">the</span> <span class="w">workable</span> <span class="w">version</span> <span class="w">costs</span> <span class="w">nothing,</span> <span class="w">it</span> <span class="w">stops</span> <span class="w">being</span> <span class="w">the</span> <span class="w">deliverable</span> <span class="w">and</span> <span class="w">becomes</span> <span class="w">the</span> <span class="w">starting</span> <span class="w">line.</span></mark></p>
+        <p><span class="w">Everything</span> <span class="w">worth</span> <span class="w">paying</span> <span class="w">for</span> <span class="w">happens</span> <span class="w">after</span> <span class="w">it:</span> <span class="w">the</span> <span class="w">cutting,</span> <span class="w">the</span> <span class="w">doubting,</span> <span class="w">the</span> <span class="w">second</span> <span class="w">and</span> <span class="w">third</span> <span class="w">pass</span> <span class="w">that</span> <span class="w">nobody</span> <span class="w">automates,</span> <span class="w">because</span> <span class="w">nobody</span> <span class="w">can</span> <span class="w">say</span> <span class="w">in</span> <span class="w">advance</span> <span class="w">what</span> <span class="w">they</span> <span class="w">are</span> <span class="w">looking</span> <span class="w">for.</span></p>
+      </div>
+    </article>
+    <article class="note" id="n2">
+      <header class="note__h rv">
+        <span class="note__n" aria-hidden="true">02</span>
+        <div>
+          <h2>Taste is not a feeling</h2>
+          <span class="note__m">Note 02 &middot; 1 min</span>
+        </div>
+      </header>
+      <div class="note__b">
+        <p><span class="w">People</span> <span class="w">talk</span> <span class="w">about</span> <span class="w">taste</span> <span class="w">as</span> <span class="w">if</span> <span class="w">it</span> <span class="w">were</span> <span class="w">a</span> <span class="w">mood.</span> <span class="w">It</span> <span class="w">is</span> <span class="w">closer</span> <span class="w">to</span> <span class="w">a</span> <span class="w">discipline.</span></p>
+        <p><mark><span class="w">Taste</span> <span class="w">is</span> <span class="w">the</span> <span class="w">habit</span> <span class="w">of</span> <span class="w">saying</span> <span class="w">no</span> <span class="w">to</span> <span class="w">things</span> <span class="w">that</span> <span class="w">are</span> <span class="w">fine.</span></mark> <span class="w">Most</span> <span class="w">work</span> <span class="w">fails</span> <span class="w">quietly,</span> <span class="w">not</span> <span class="w">because</span> <span class="w">it</span> <span class="w">is</span> <span class="w">wrong</span> <span class="w">but</span> <span class="w">because</span> <span class="w">it</span> <span class="w">is</span> <span class="w">acceptable.</span></p>
+        <p><span class="w">The</span> <span class="w">job</span> <span class="w">is</span> <span class="w">noticing</span> <span class="w">the</span> <span class="w">gap</span> <span class="w">between</span> <span class="w">acceptable</span> <span class="w">and</span> <span class="w">inevitable,</span> <span class="w">and</span> <span class="w">spending</span> <span class="w">another</span> <span class="w">day</span> <span class="w">on</span> <span class="w">a</span> <span class="w">difference</span> <span class="w">most</span> <span class="w">people</span> <span class="w">will</span> <span class="w">never</span> <span class="w">see.</span> <span class="w">They</span> <span class="w">will</span> <span class="w">feel</span> <span class="w">it,</span> <span class="w">though.</span> <span class="w">That</span> <span class="w">is</span> <span class="w">the</span> <span class="w">point.</span></p>
+      </div>
+    </article>
+    <article class="note" id="n3">
+      <header class="note__h rv">
+        <span class="note__n" aria-hidden="true">03</span>
+        <div>
+          <h2>Why thirteen</h2>
+          <span class="note__m">Note 03 &middot; 1 min</span>
+        </div>
+      </header>
+      <div class="note__b">
+        <p><span class="w">Ask</span> <span class="w">twelve</span> <span class="w">people</span> <span class="w">for</span> <span class="w">an</span> <span class="w">idea</span> <span class="w">and</span> <span class="w">you</span> <span class="w">will</span> <span class="w">get</span> <span class="w">twelve</span> <span class="w">versions</span> <span class="w">of</span> <span class="w">the</span> <span class="w">same</span> <span class="w">one.</span></p>
+        <p><span class="w">That</span> <span class="w">is</span> <span class="w">not</span> <span class="w">a</span> <span class="w">failure</span> <span class="w">of</span> <span class="w">imagination.</span> <span class="w">It</span> <span class="w">is</span> <span class="w">what</span> <span class="w">happens</span> <span class="w">when</span> <span class="w">everyone</span> <span class="w">starts</span> <span class="w">from</span> <span class="w">the</span> <span class="w">same</span> <span class="w">place.</span></p>
+        <p><mark><span class="w">The</span> <span class="w">thirteenth</span> <span class="w">idea</span> <span class="w">only</span> <span class="w">arrives</span> <span class="w">after</span> <span class="w">the</span> <span class="w">obvious</span> <span class="w">ones</span> <span class="w">have</span> <span class="w">been</span> <span class="w">said</span> <span class="w">out</span> <span class="w">loud</span> <span class="w">and</span> <span class="w">set</span> <span class="w">aside.</span></mark> <span class="w">We</span> <span class="w">named</span> <span class="w">the</span> <span class="w">studio</span> <span class="w">after</span> <span class="w">it,</span> <span class="w">because</span> <span class="w">it</span> <span class="w">is</span> <span class="w">the</span> <span class="w">part</span> <span class="w">of</span> <span class="w">the</span> <span class="w">job</span> <span class="w">we</span> <span class="w">think</span> <span class="w">is</span> <span class="w">worth</span> <span class="w">doing.</span></p>
+      </div>
+    </article>
+    <article class="note" id="n4">
+      <header class="note__h rv">
+        <span class="note__n" aria-hidden="true">04</span>
+        <div>
+          <h2>Use the machines. Keep the judgement.</h2>
+          <span class="note__m">Note 04 &middot; 1 min</span>
+        </div>
+      </header>
+      <div class="note__b">
+        <p><span class="w">These</span> <span class="w">tools</span> <span class="w">draft,</span> <span class="w">vary</span> <span class="w">and</span> <span class="w">tidy,</span> <span class="w">and</span> <span class="w">we</span> <span class="w">use</span> <span class="w">them</span> <span class="w">without</span> <span class="w">embarrassment.</span></p>
+        <p><span class="w">What</span> <span class="w">they</span> <span class="w">do</span> <span class="w">not</span> <span class="w">do</span> <span class="w">is</span> <span class="w">decide.</span> <span class="w">They</span> <span class="w">cannot</span> <span class="w">tell</span> <span class="w">you</span> <span class="w">which</span> <span class="w">of</span> <span class="w">forty</span> <span class="w">options</span> <span class="w">will</span> <span class="w">still</span> <span class="w">feel</span> <span class="w">right</span> <span class="w">in</span> <span class="w">two</span> <span class="w">years,</span> <span class="w">or</span> <span class="w">which</span> <span class="w">one</span> <span class="w">makes</span> <span class="w">a</span> <span class="w">stranger</span> <span class="w">stop</span> <span class="w">for</span> <span class="w">reasons</span> <span class="w">they</span> <span class="w">could</span> <span class="w">not</span> <span class="w">explain.</span></p>
+        <p><mark><span class="w">That</span> <span class="w">call</span> <span class="w">stays</span> <span class="w">with</span> <span class="w">people.</span></mark> <span class="w">Pretending</span> <span class="w">otherwise,</span> <span class="w">in</span> <span class="w">either</span> <span class="w">direction,</span> <span class="w">is</span> <span class="w">how</span> <span class="w">work</span> <span class="w">ends</span> <span class="w">up</span> <span class="w">looking</span> <span class="w">like</span> <span class="w">everyone</span> <span class="w">else&rsquo;s.</span></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<section class="seo panel" aria-labelledby="seoH">
+  <div class="wrap seo__g">
+    <div class="seo__l rv"><p class="eyebrow"><b>&bull;</b> In plain words</p><h2 id="seoH">What these notes are about.</h2></div>
+    <div class="seo__r rv" data-d="1">
+        <p>These are short pieces on how we think about <strong>creativity, taste and brand building</strong> now that a workable first draft takes seconds. They are written for founders, marketers and designers trying to work out where human judgement still earns its place.</p>
+        <p>We add a note when we have something worth saying, not on a schedule.</p>
+        <div class="faq">
+          <h3 class="faq__t">Questions people ask</h3>
+          <details><summary>Does AI make creative work less valuable?</summary><div><p>It makes average work cheaper, which makes the difference between average and excellent more visible, and more valuable.</p></div></details>
+          <details><summary>What is taste in branding?</summary><div><p>The habit of rejecting work that is merely fine, and the patience to keep going until it feels inevitable. It shows up in what gets cut as much as in what gets made.</p></div></details>
+          <details><summary>Can I use these ideas in my own team?</summary><div><p>Please do. If they start a conversation you would like help finishing, write to hello@13thpencil.com.</p></div></details>
+        </div>
+    </div>
+  </div>
+</section>
+<div class="rail" id="rail" aria-hidden="true">
+  <div class="rail__track"></div><div class="rail__ink"></div>
+  <div class="rail__pen"><div class="rail__end"></div><div class="rail__fer"></div><div class="rail__body"></div><div class="rail__cone"></div></div>
+</div>
+<div class="hbar" id="hbar" aria-hidden="true">
+  <div class="hbar__ink"></div><div class="hbar__pen"><div class="hbar__body"></div><div class="hbar__cone"></div></div>
+</div>
+
+<!-- ========== 5. CTA ========== -->
+<section class="cta panel" id="start">
+  <div class="wrap">
+    <h2>Bring us the question<br>everyone answered<br>too quickly.</h2>
+    <div class="cta-row">
+      <a class="btn" href="/start-a-project">Start a project</a>
+      <a class="big-link" href="mailto:hello@13thpencil.com?subject=Thinking%20%7C%2013th%20Pencil">hello@13thpencil.com</a>
+    </div>
+    <footer class="sfoot">
+      <div class="sfoot__g">
+        <div class="sfoot__brand">
+          <a href="/" aria-label="13th Pencil, home"><span class="lockup">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect class="frame" x="9" y="9" width="82" height="82"/>
+        <path class="shaft" d="M32 20h17v40l-8.5 15L32 60z"/>
+        <path class="lead" d="M41 78c14 7 27 2 49-14"/>
+      </svg>
+      <span class="wordmark">
+        <span class="wm__num"><svg class="wm__one" viewBox="0 0 30 78" aria-hidden="true"><path d="M4 0h22v58l-11 20L4 58z"/></svg><span class="sr">1</span>3<span class="wm__th">th</span></span>
+        <span>Pencil</span>
+      </span>
+    </span></a>
+          <p>13th Pencil &middot; A Creative &amp; Innovation Company</p>
+          <p>Bangalore, India</p>
+          <a class="mail" href="mailto:hello@13thpencil.com">hello@13thpencil.com</a>
+        </div>
+        <nav aria-label="Footer">
+          <p class="sfoot__h">Navigate</p>
+          <a href="/">Home</a><a href="/#capabilities">Capabilities</a><a href="/work">Work</a>
+          <a href="/about/our-story">About</a><a href="/principle">Principle</a><a href="/insights">Insights</a><a href="/contact">Contact</a>
+        </nav>
+        <nav aria-label="Capabilities">
+          <p class="sfoot__h">Capabilities</p>
+          <a href="/capabilities/brand-and-strategy">Brand &amp; Strategy</a>
+          <a href="/capabilities/creative-studio">Creative Studio</a>
+          <a href="/capabilities/ai-and-innovation">AI &amp; Innovation</a>
+          <a href="/capabilities/experiences">Experiences</a>
+          <span>Digital Growth <i class="soon">Coming soon</i></span>
+        </nav>
+      </div>
+      <div class="sfoot__base">
+        <span>&copy; 2026 13th Pencil. All rights reserved.</span>
+        <button id="themeBtn" style="border-bottom:1px solid currentColor">Invert</button>
+      </div>
+    </footer>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(s,c){return (c||document).querySelector(s);};
+  var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
+  var io=new IntersectionObserver(function(e){e.forEach(function(x){
+    if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},
+    {threshold:.15,rootMargin:"0px 0px -6% 0px"});
+  $$(".rv").forEach(function(n){io.observe(n);});
+  var nav=$("#nav"),lastY=0,tick=false;
+  function navh(){document.documentElement.style.setProperty("--navh",nav.offsetHeight+"px");}
+  navh();window.addEventListener("resize",navh);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(navh);
+  function s(){var y=window.scrollY||window.pageYOffset;
+    nav.classList.toggle("solid",y>60);
+    nav.classList.toggle("hide",y>lastY+6&&y>600);
+    if(y<lastY-6||y<600)nav.classList.remove("hide");
+    lastY=y;tick=false;}
+  window.addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(s);}},{passive:true});s();
+  var b=$("#burger"),m=$("#menu");
+  if(b&&m){b.addEventListener("click",function(){
+    var o=m.classList.toggle("open");b.setAttribute("aria-expanded",String(o));
+    b.setAttribute("aria-label",o?"Close menu":"Open menu");
+    document.body.classList.toggle("is-locked",o);});
+    $$("a",m).forEach(function(a){a.addEventListener("click",function(){
+      m.classList.remove("open");document.body.classList.remove("is-locked");
+      b.setAttribute("aria-expanded","false");});});
+    window.addEventListener("keydown",function(e){
+      if(e.key==="Escape"&&m.classList.contains("open"))b.click();});}
+  var t=$("#themeBtn");
+  if(t)t.addEventListener("click",function(){
+    var c=document.documentElement.getAttribute("data-theme");
+    document.documentElement.setAttribute("data-theme",c==="dark"?"light":"dark");});
+})();
+
+(function(){
+  "use strict";
+  var RM=matchMedia("(prefers-reduced-motion: reduce)").matches,
+      SD=!!(navigator.connection&&navigator.connection.saveData);
+  /* H.264 MP4 where the browser has it (Safari, Chrome, Edge, Firefox), VP9 WebM otherwise */
+  var EXT=document.createElement("video").canPlayType('video/mp4; codecs="avc1.640028"')?".mp4":".webm";
+  function load(v){if(v.getAttribute("data-on"))return;v.setAttribute("data-on","1");
+    v.src=(innerWidth<760?v.getAttribute("data-sm"):v.getAttribute("data-lg"))+EXT;}
+  var vids=[].slice.call(document.querySelectorAll("video[data-lg]"));
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    var v=e.target;
+    if(e.isIntersecting){
+      if(RM||SD||v.getAttribute("data-user")==="off")return;
+      load(v);var p=v.play();if(p&&p.catch)p.catch(function(){});
+    }else if(!v.paused){v.pause();}
+  });},{rootMargin:"160px 0px",threshold:0});
+  vids.forEach(function(v){
+    io.observe(v);
+    var b=v.parentNode.querySelector(".vbtn");if(!b)return;
+    b.addEventListener("click",function(){
+      load(v);
+      if(v.paused){v.removeAttribute("data-user");var p=v.play();if(p&&p.catch)p.catch(function(){});}
+      else{v.setAttribute("data-user","off");v.pause();}
+    });
+    v.addEventListener("play",function(){b.classList.add("on");b.setAttribute("aria-label","Pause video");});
+    v.addEventListener("pause",function(){b.classList.remove("on");b.setAttribute("aria-label","Play video");});
+  });
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add("in");io2.unobserve(e.target);}
+  });},{threshold:.18});
+  [].forEach.call(document.querySelectorAll(".mband"),function(m){io2.observe(m);});
+})();
+
+var Scrub=(function(){
+  "use strict";
+  var items=[],raf=0,last=0,
+      RM=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function cl(v){return v<0?0:v>1?1:v;}
+  function measure(it){
+    if(it.m){it.target=cl(it.m());return;}
+    var r=it.el.getBoundingClientRect(),vh=window.innerHeight,t=it.el.offsetHeight-vh;
+    it.target=t>0?cl(-r.top/t):(r.top<0?1:0);
+  }
+  function tick(now){
+    raf=0;var dt=last?Math.min(64,now-last):16.7;last=now;var moving=false;
+    for(var i=0;i<items.length;i++){
+      var it=items[i];measure(it);
+      var d=it.target-it.cur,k=1-Math.pow(1-it.k,dt/16.7);
+      if(RM||Math.abs(d)<0.0004){it.cur=it.target;}else{it.cur+=d*k;moving=true;}
+      if(it.cur!==it.prev){it.fn(it.cur);it.prev=it.cur;}
+    }
+    if(moving)raf=requestAnimationFrame(tick);else last=0;
+  }
+  function kick(){if(!raf)raf=requestAnimationFrame(tick);}
+  window.addEventListener("scroll",kick,{passive:true});
+  window.addEventListener("resize",kick);
+  window.addEventListener("load",kick);
+  return {
+    add:function(el,fn,k,m){if(!el)return;items.push({el:el,fn:fn,k:k||0.14,m:m,cur:0,target:0,prev:-1});kick();},
+    cl:cl,
+    seg:function(p,a,b){return cl((p-a)/(b-a));},
+    ease:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;},
+    rm:RM
+  };
+})();
+
+(function(){
+  "use strict";
+  var S=Scrub,root=document.documentElement;
+  if(!S.rm)root.classList.add("js");
+  var notes=document.getElementById("notes"),rail=document.getElementById("rail"),hbar=document.getElementById("hbar"),
+      W=[].slice.call(document.querySelectorAll(".w")),tops=[],arts=[].slice.call(document.querySelectorAll(".note"));
+
+  /* pencil progress through the notes, eased */
+  S.add(notes,function(p){
+    rail.style.setProperty("--p",p.toFixed(4));hbar.style.setProperty("--p",p.toFixed(4));
+  },.12,function(){
+    var r=notes.getBoundingClientRect(),vh=innerHeight;
+    return (vh*.5-r.top)/(r.height-vh*.3);
+  });
+
+  /* reading line: words brighten as it passes them */
+  function measure(){var y=scrollY;tops=W.map(function(w){return w.getBoundingClientRect().top+y;});}
+  var tick=false,lastLine=-1;
+  function read(){
+    tick=false;var vh=innerHeight,line=scrollY+vh*.74,band=vh*.1;
+    var r=notes.getBoundingClientRect(),inside=r.top<vh*.6&&r.bottom>vh*.4;
+    rail.classList.toggle("on",inside);hbar.classList.toggle("on",inside);
+    if(S.rm)return;
+    if(Math.abs(line-lastLine)<1)return;lastLine=line;
+    for(var i=0;i<W.length;i++){
+      var t=tops[i];if(t>line+band*2||t<line-vh*2){W[i].style.setProperty("--o",t<line?"1":".28");continue;}
+      var o=.28+.72*S.cl((line-t)/band);W[i].style.setProperty("--o",o.toFixed(2));
+    }
+  }
+  function kick(){if(!tick){tick=true;requestAnimationFrame(read);}}
+  addEventListener("scroll",kick,{passive:true});
+  addEventListener("resize",function(){measure();lastLine=-1;kick();});
+  measure();kick();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){measure();lastLine=-1;kick();});
+
+  /* note numbers light up while you are in them; the pull line underlines once read */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    e.target.classList.toggle("on",e.isIntersecting);
+  });},{rootMargin:"-40% 0px -45% 0px"});
+  arts.forEach(function(a){io.observe(a);});
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.closest(".note").classList.add("done");io2.unobserve(e.target);}
+  });},{rootMargin:"0px 0px -35% 0px"});
+  arts.forEach(function(a){var m=a.querySelector("mark");if(m)io2.observe(m);});
+})();
+</script>
+</body>
+</html>

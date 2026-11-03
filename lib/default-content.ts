@@ -26,6 +26,7 @@ export const defaultContent: SiteContent = {
       { label: "Where we help", href: "#comein" },
       { label: "Thinking", href: "#work" },
       { label: "Studio", href: "#studio" },
+      { label: "Blog", href: "https://blog.13thpencil.com" },
     ],
   },
   hero: {

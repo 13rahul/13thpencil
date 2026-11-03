@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { siteUrl } from "@/lib/site";
 
-const title = "Start a project — 13th Pencil";
-const description = "Bring us the brief. Name, direction, the messy version, and when it needs to exist.";
+const title = "Start a Project | 13th Pencil";
+const description = "Tell 13th Pencil about your brand, creative, AI or experience project in eight short questions.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const url = `${siteUrl()}/start-a-project`;
@@ -24,6 +24,7 @@ export default function BriefLayout({ children }: { children: ReactNode }) {
         href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Caveat:wght@500;700&family=Instrument+Serif:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet"
       />
+      <link rel="stylesheet" href="/assets/css/loader.css?v=1" />
       <link rel="stylesheet" href="/assets/css/brief.css?v=1" />
       {children}
     </>

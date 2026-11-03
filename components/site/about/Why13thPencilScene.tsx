@@ -170,7 +170,14 @@ export function Why13thPencilScene({
       <figure className="about-art about-art--tall">
         <picture>
           <source srcSet="/assets/img/collage.webp" type="image/webp" />
-          <img src="/assets/img/collage.jpg" alt={page.artAlt} loading="lazy" decoding="async" />
+          <img
+            src="/assets/img/collage.jpg"
+            alt={page.artAlt}
+            width={1600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+          />
         </picture>
         <figcaption className="about-art__cap">{page.artCaption}</figcaption>
       </figure>
