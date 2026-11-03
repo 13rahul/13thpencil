@@ -61,6 +61,11 @@ jobs:
             rm -f "$SRC/public/robots.txt"
             cp -a "$SRC/public/." "$APP_ROOT/public/"
             rm -f "$APP_ROOT/public/robots.txt"
+            # LiteSpeed serves nodejs/public/sitemap.xml ahead of public_html
+            # and drops the charset Google Search Console requires.
+            DOMAIN="$(dirname "$(dirname "$SRC")")"
+            cp -f "$SRC/public/sitemap.xml" "$DOMAIN/public_html/sitemap.xml"
+            rm -f "$APP_ROOT/public/sitemap.xml"
             mkdir -p "$APP_ROOT/tmp"
             date > "$APP_ROOT/tmp/restart.txt"
             echo DEPLOY_OK
