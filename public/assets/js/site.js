@@ -522,6 +522,43 @@
   }
 
   /* ---------- 13. MENU + THEME ---------- */
+  function closeNavDrops(except){
+    $$("[data-nav-drop].is-open").forEach(function(item){
+      if(except && item === except) return;
+      item.classList.remove("is-open");
+      var b = item.querySelector("[aria-expanded]");
+      if(b) b.setAttribute("aria-expanded", "false");
+    });
+  }
+  $$("[data-nav-drop]").forEach(function(item){
+    var btn = item.querySelector("button, .site-header__about, .nav__trigger");
+    if(!btn) return;
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var open = !item.classList.contains("is-open");
+      closeNavDrops(open ? item : null);
+      item.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+  document.addEventListener("click", function(e){
+    if(!e.target.closest("[data-nav-drop]")) closeNavDrops();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeNavDrops();
+  });
+  $$("[data-nav-fold]").forEach(function(fold){
+    var btn = fold.querySelector("button");
+    var list = fold.querySelector(".site-menu__about-list, .menu__fold-list");
+    if(!btn || !list) return;
+    btn.addEventListener("click", function(){
+      var open = !list.classList.contains("is-open");
+      list.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+
   var burger = $("#siteBurger"), menu = $("#siteMenu");
   if(burger && menu){
     burger.addEventListener("click", function(){
@@ -530,6 +567,13 @@
       burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       document.body.classList.toggle("is-locked", open);
       if(nav) nav.classList.toggle("is-menu-open", open);
+      if(!open){
+        $$("#siteMenu .site-menu__about-list.is-open").forEach(function(list){
+          list.classList.remove("is-open");
+          var b = list.parentElement && list.parentElement.querySelector("[aria-expanded]");
+          if(b) b.setAttribute("aria-expanded", "false");
+        });
+      }
     });
     $$("#siteMenu a").forEach(function(a){
       a.addEventListener("click", function(){

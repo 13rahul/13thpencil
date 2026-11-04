@@ -8,10 +8,10 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
 
   return (
     <>
-      <link rel="stylesheet" href="/assets/css/styles.css?v=55" />
+      <link rel="stylesheet" href="/assets/css/styles.css?v=56" />
       <SiteLoader caption={settings.loaderCaption} />
       {children}
-      <Script src="/assets/js/site.js?v=45" strategy="afterInteractive" />
+      <Script src="/assets/js/site.js?v=46" strategy="afterInteractive" />
     </>
   );
 }

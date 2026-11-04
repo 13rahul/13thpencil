@@ -149,6 +149,47 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;margin:0;line-height:.9;le
 .sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* five nav items now: collapse to the burger a little earlier than the homepage did */
+
+.nav__item{position:relative;display:flex;align-items:center}
+.nav__item:hover::before,.nav__item.is-open::before,.nav__item:focus-within::before{
+  content:"";position:absolute;left:-16px;right:-16px;top:100%;height:22px;z-index:69}
+.nav__trigger{position:relative;padding:4px 0;border:0;background:none;color:inherit;cursor:pointer;
+  font-family:var(--f-display);font-weight:600;font-size:.9rem;letter-spacing:-.01em;line-height:inherit}
+.nav__trigger::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--lacquer);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-out)}
+.nav__item:hover .nav__trigger::after,.nav__item:focus-within .nav__trigger::after,.nav__item.is-open .nav__trigger::after,.nav__item.is-current .nav__trigger::after{transform:scaleX(1);transform-origin:left}
+.nav__drop{position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:240px;padding:14px 0 10px;color:var(--paper);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s var(--ease),visibility .2s;z-index:70}
+.nav__drop-in{background:var(--ink);border:1px solid var(--rule-on-ink);box-shadow:0 18px 40px rgba(0,0,0,.28);padding:10px 0}
+.nav__item:hover .nav__drop,.nav__item:focus-within .nav__drop,.nav__item.is-open .nav__drop{opacity:1;visibility:visible;pointer-events:auto}
+.nav__drop a,.nav__drop .nav-soon{display:flex;align-items:center;gap:.55em;padding:.55em 1.1em;font-family:var(--f-display);font-weight:600;font-size:.88rem;
+  letter-spacing:-.01em;color:var(--dim-2);white-space:nowrap;transition:color .25s,background .25s}
+.nav__drop a::after{display:none}
+.nav__drop a:hover,.nav__drop a:focus-visible,.nav__drop a[aria-current]{color:var(--paper);background:rgba(237,229,214,.06)}
+.nav__drop .nav-soon{cursor:default}
+.nav__drop .nav-soon i{display:inline-block;font-style:normal;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid currentColor;border-radius:99px;padding:.28em .55em;line-height:1}
+@media (hover:none){
+  .nav__item:hover .nav__drop{opacity:0;visibility:hidden;pointer-events:none}
+  .nav__item.is-open .nav__drop,.nav__item:focus-within .nav__drop{opacity:1;visibility:visible;pointer-events:auto}
+}
+.menu__fold{display:flex;flex-direction:column}
+.menu__fold-btn{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;
+  font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,8.4vw,4.6rem);line-height:1.04;letter-spacing:-.04em;
+  text-transform:uppercase;padding:.1em 0;color:inherit;background:none;border:0;text-align:left;cursor:pointer}
+.menu__fold-btn:hover{color:var(--lacquer)}
+.menu__fold-btn.is-current{color:var(--lacquer)}
+.menu__fold-caret{display:inline-block;width:.42em;height:.42em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg) translateY(-.12em);transition:transform .25s var(--ease);flex-shrink:0}
+.menu__fold-btn[aria-expanded="true"] .menu__fold-caret{transform:rotate(-135deg) translateY(.08em)}
+.menu__fold-list{display:none;flex-direction:column;padding:.15em 0 .35em}
+.menu__fold-list.is-open{display:flex}
+.menu a.menu__sub,.menu span.menu__sub{font-size:clamp(1.05rem,3.4vw,1.6rem);color:var(--dim-2);padding-left:1.4em;text-transform:none;
+  font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.menu a.menu__sub:hover{color:var(--lacquer);padding-left:1.5em}
+.menu span.menu__soon{display:flex;align-items:center;flex-wrap:wrap;gap:.45em;cursor:default}
+.menu span.menu__soon i{display:inline-block;font-style:normal;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid currentColor;border-radius:99px;padding:.28em .55em;line-height:1}
+
 @media (max-width:1080px){.nav__links{display:none}.nav__burger{display:flex}}
 .nav__links a[aria-current]::after{transform:scaleX(1)}
 .menu a[aria-current]{color:var(--eraser)}
@@ -371,7 +412,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;margin:0;line-height:.9;le
   </a>
   <div class="nav__right">
     <nav class="nav__links" aria-label="Primary">
-      <a href="/#capabilities" aria-current="page">Capabilities</a>
+      <div class="nav__item is-current" data-nav-drop>
+        <button type="button" class="nav__trigger" aria-current="page" aria-expanded="false" aria-haspopup="true" aria-controls="capDrop">Capabilities</button>
+        <div class="nav__drop" id="capDrop">
+          <div class="nav__drop-in" role="menu">
+            <a role="menuitem" href="/capabilities/brand-and-strategy">Brand &amp; Strategy</a>
+            <a role="menuitem" href="/capabilities/creative-studio">Creative Studio</a>
+            <a role="menuitem" href="/capabilities/ai-and-innovation">AI &amp; Innovation</a>
+            <a role="menuitem" href="/capabilities/experiences" aria-current="page">Experiences</a>
+            <span class="nav-soon">Digital Growth <i>Coming soon</i></span>
+          </div>
+        </div>
+      </div>
       <a href="/work">Work</a>
       <a href="/about/our-story">About</a>
       <a href="/insights">Insights</a>
@@ -383,7 +435,16 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;margin:0;line-height:.9;le
 </header>
 
 <div class="menu" id="menu">
-  <a href="/#capabilities" aria-current="page">Capabilities</a>
+  <div class="menu__fold" data-nav-fold>
+    <button type="button" class="menu__fold-btn is-current" aria-expanded="false" aria-controls="capMenuList">Capabilities<span class="menu__fold-caret" aria-hidden="true"></span></button>
+    <div class="menu__fold-list" id="capMenuList">
+    <a class="menu__sub" href="/capabilities/brand-and-strategy">Brand &amp; Strategy</a>
+    <a class="menu__sub" href="/capabilities/creative-studio">Creative Studio</a>
+    <a class="menu__sub" href="/capabilities/ai-and-innovation">AI &amp; Innovation</a>
+    <a class="menu__sub" href="/capabilities/experiences" aria-current="page">Experiences</a>
+    <span class="menu__sub menu__soon">Digital Growth <i>Coming soon</i></span>
+    </div>
+  </div>
   <a href="/work">Work</a>
   <a href="/about/our-story">About</a>
   <a href="/insights">Insights</a>
@@ -573,6 +634,44 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;margin:0;line-height:.9;le
     if(y<lastY-6||y<600)nav.classList.remove("hide");
     lastY=y;tick=false;}
   window.addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(s);}},{passive:true});s();
+
+  function closeNavDrops(except){
+    Array.prototype.forEach.call(document.querySelectorAll("[data-nav-drop].is-open"), function(item){
+      if(except && item === except) return;
+      item.classList.remove("is-open");
+      var b = item.querySelector("[aria-expanded]");
+      if(b) b.setAttribute("aria-expanded", "false");
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-nav-drop]"), function(item){
+    var btn = item.querySelector("button");
+    if(!btn) return;
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var open = !item.classList.contains("is-open");
+      closeNavDrops(open ? item : null);
+      item.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+  document.addEventListener("click", function(e){
+    if(!e.target.closest("[data-nav-drop]")) closeNavDrops();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeNavDrops();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-nav-fold]"), function(fold){
+    var btn = fold.querySelector("button");
+    var list = fold.querySelector(".menu__fold-list");
+    if(!btn || !list) return;
+    btn.addEventListener("click", function(){
+      var open = !list.classList.contains("is-open");
+      list.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+
   var b=$("#burger"),m=$("#menu");
   if(b&&m){b.addEventListener("click",function(){
     var o=m.classList.toggle("open");b.setAttribute("aria-expanded",String(o));
