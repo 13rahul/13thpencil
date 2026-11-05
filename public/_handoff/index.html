@@ -303,26 +303,25 @@ p{margin:0 0 1.1em;max-width:62ch}
 
 /* ---------- work ---------- */
 .work{padding-top:clamp(80px,13vh,170px);padding-bottom:clamp(80px,13vh,170px)}
-.work__grid{--pack:0;display:grid;grid-template-columns:repeat(12,1fr);
-  gap:calc(10px + (1 - var(--pack)) * 20px);margin-top:clamp(36px,6vh,72px)}
-.tile{position:relative;display:block;overflow:hidden;border:1px solid var(--rule);
+.work__grid{--pack:0;position:relative;margin-top:clamp(36px,6vh,72px);min-height:240px}
+.tile{position:absolute;top:0;left:0;display:block;overflow:hidden;border:1px solid var(--rule);
   background-color:var(--paper-2);
   background-image:repeating-linear-gradient(115deg,transparent 0 9px,var(--rule) 9px 10px);
   --sx:0px;--sy:0px;--sr:0deg;
   transform:translate3d(var(--sx),var(--sy),0) rotate(var(--sr));
-  transition:border-color .4s;will-change:transform}
+  transition:border-color .4s;will-change:transform;box-sizing:border-box}
 .tile:hover{border-color:var(--ink)}
 .tile--f:hover{border-color:var(--eraser)}
-/* packed masonry spans — scatter is added with transforms while --pack is low */
-.tile--a{grid-column:1/7;aspect-ratio:4/3}
-.tile--b{grid-column:7/13;aspect-ratio:3/4}
-.tile--c{grid-column:1/5;aspect-ratio:1/1}
-.tile--d{grid-column:5/13;aspect-ratio:16/9}
-.tile--e{grid-column:1/8;aspect-ratio:5/4}
-.tile--f{grid-column:8/13;aspect-ratio:3/4;border-color:var(--eraser)}
+.tile--a{aspect-ratio:4/3}
+.tile--b{aspect-ratio:3/4}
+.tile--c{aspect-ratio:1/1}
+.tile--d{aspect-ratio:16/9}
+.tile--e{aspect-ratio:5/4}
+.tile--f{aspect-ratio:3/4;border-color:var(--eraser)}
 @media (max-width:820px){
-  .work__grid{grid-template-columns:1fr;gap:12px;--pack:1 !important}
-  .tile{grid-column:1/-1 !important;aspect-ratio:4/3;--sx:0px !important;--sy:0px !important;--sr:0deg !important}
+  .work__grid{display:flex;flex-direction:column;gap:12px;min-height:0;height:auto !important}
+  .tile{position:relative;inset:auto;width:100% !important;height:auto !important;
+    aspect-ratio:4/3;transform:none !important;--sx:0px !important;--sy:0px !important;--sr:0deg !important}
 }
 .tile__ph{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:.5em;text-align:center;padding:16px;
   color:var(--ph);font-family:var(--f-display);font-weight:600;font-size:.84rem;letter-spacing:.1em}
@@ -1224,59 +1223,108 @@ p{margin:0 0 1.1em;max-width:62ch}
     });
   });
 
-  /* ---------- 11. WORK TILES — scatter on entry, pack into masonry on scroll ---------- */
+  /* ---------- 11. WORK TILES — scatter on entry, pack into real masonry on scroll ---------- */
   (function(){
     var grid = $("#workGrid"), sec = $("#work");
     if(!grid || !sec) return;
     var tiles = $$(".tile", grid);
     if(!tiles.length) return;
+    var ratios = [4/3, 3/4, 1, 16/9, 5/4, 3/4];
     var scatters = [
-      {x:-36, y:28, r:-1.4},
-      {x:54, y:-48, r:1.8},
-      {x:-48, y:62, r:-2.1},
-      {x:42, y:36, r:1.2},
-      {x:-22, y:74, r:-1.6},
-      {x:68, y:-56, r:2.4}
+      {x:-42, y:36, r:-1.6},
+      {x:58, y:-52, r:2.0},
+      {x:-56, y:70, r:-2.2},
+      {x:48, y:44, r:1.4},
+      {x:-28, y:82, r:-1.8},
+      {x:72, y:-64, r:2.6}
     ];
-    var pack = 0, tiltOn = null, packing = false;
+    var pack = 0, tiltOn = null, packing = false, slots = [];
+    var mobile = window.matchMedia("(max-width:820px)");
+
+    function colCount(){
+      /* six tiles pack denser in two columns; three left a hollow middle */
+      return grid.clientWidth < 820 ? 1 : 2;
+    }
+
+    function masonry(gap){
+      var cols = colCount();
+      var width = grid.clientWidth;
+      var colW = (width - gap * (cols - 1)) / cols;
+      var colH = [];
+      for(var c = 0; c < cols; c++) colH[c] = 0;
+      var out = [];
+      tiles.forEach(function(tile, i){
+        var ar = ratios[i] || (4/3);
+        var h = colW / ar;
+        var col = 0, minH = colH[0];
+        for(var n = 1; n < cols; n++){
+          if(colH[n] < minH){ minH = colH[n]; col = n; }
+        }
+        out.push({x: col * (colW + gap), y: colH[col], w: colW, h: h});
+        colH[col] += h + gap;
+      });
+      var height = 0;
+      for(var m = 0; m < cols; m++) if(colH[m] > height) height = colH[m];
+      return {slots: out, height: Math.max(0, height - gap)};
+    }
+
+    function place(){
+      if(mobile.matches){
+        grid.style.height = "";
+        tiles.forEach(function(tile){
+          tile.style.left = "";
+          tile.style.top = "";
+          tile.style.width = "";
+          tile.style.height = "";
+          tile.style.setProperty("--sx", "0px");
+          tile.style.setProperty("--sy", "0px");
+          tile.style.setProperty("--sr", "0deg");
+          tile.style.transform = "";
+        });
+        return;
+      }
+      var layout = masonry(8);
+      slots = layout.slots;
+      grid.style.height = layout.height + "px";
+      tiles.forEach(function(tile, i){
+        var s = slots[i];
+        if(!s) return;
+        tile.style.left = s.x + "px";
+        tile.style.top = s.y + "px";
+        tile.style.width = s.w + "px";
+        tile.style.height = s.h + "px";
+      });
+    }
 
     function progress(){
       var gridBox = grid.getBoundingClientRect();
       var vh = window.innerHeight || 1;
-      /* stay scattered as the heading arrives; pack while the grid scrolls through the viewport */
       var start = vh * 0.78;
       var end = vh * 0.22;
       var raw = (start - gridBox.top) / (start - end);
       return Math.max(0, Math.min(1, raw));
     }
-    function easePack(t){
-      /* gentler than easeOut so mid-scroll still reads as settling */
-      return t * t * (3 - 2 * t);
-    }
+    function easePack(t){ return t * t * (3 - 2 * t); }
 
     function paint(){
       packing = false;
-      var p = reduce ? 1 : progress();
+      if(mobile.matches || reduce){
+        pack = 1;
+        grid.style.setProperty("--pack", "1");
+        place();
+        return;
+      }
+      place();
+      var p = progress();
       pack = easePack(p);
       grid.style.setProperty("--pack", pack.toFixed(4));
       var loose = 1 - pack;
       tiles.forEach(function(tile, i){
         var s = scatters[i] || {x:0,y:0,r:0};
-        if(reduce || window.matchMedia("(max-width:820px)").matches){
-          tile.style.setProperty("--sx", "0px");
-          tile.style.setProperty("--sy", "0px");
-          tile.style.setProperty("--sr", "0deg");
-          tile.style.transform = "";
-          return;
-        }
         tile.style.setProperty("--sx", (s.x * loose).toFixed(2) + "px");
         tile.style.setProperty("--sy", (s.y * loose).toFixed(2) + "px");
         tile.style.setProperty("--sr", (s.r * loose).toFixed(2) + "deg");
-        if(tiltOn === tile && pack > 0.82){
-          /* tilt kept by mousemove handler */
-        } else if(tiltOn !== tile){
-          tile.style.transform = "";
-        }
+        if(tiltOn !== tile) tile.style.transform = "";
       });
     }
 
@@ -1286,14 +1334,18 @@ p{margin:0 0 1.1em;max-width:62ch}
       requestAnimationFrame(paint);
     }
 
+    place();
     paint();
     window.addEventListener("scroll", onScroll, {passive:true});
-    window.addEventListener("resize", onScroll, {passive:true});
+    window.addEventListener("resize", function(){
+      place();
+      onScroll();
+    }, {passive:true});
 
     if(fine && !reduce){
       tiles.forEach(function(tile){
         tile.addEventListener("mousemove", function(e){
-          if(pack < 0.82) return;
+          if(pack < 0.82 || mobile.matches) return;
           tiltOn = tile;
           var r = tile.getBoundingClientRect();
           var rx = ((e.clientY - r.top)/r.height - .5) * -4;
