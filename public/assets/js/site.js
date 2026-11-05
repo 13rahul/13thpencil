@@ -311,9 +311,17 @@
       clearTimeout(idleTimer);
       idleTimer = setTimeout(function(){ drawing = false; }, 240);
     });
-    $$("a, button").forEach(function(a){
-      a.addEventListener("mouseenter", function(){ dot.classList.add("big"); });
-      a.addEventListener("mouseleave", function(){ dot.classList.remove("big"); });
+    document.addEventListener("mouseover", function(e){
+      var t = e.target && e.target.closest ? e.target.closest("a, button, [role='menuitem'], .nav__trigger, .site-header__about") : null;
+      if(t) dot.classList.add("big");
+    });
+    document.addEventListener("mouseout", function(e){
+      var t = e.target && e.target.closest ? e.target.closest("a, button, [role='menuitem'], .nav__trigger, .site-header__about") : null;
+      if(!t) return;
+      var next = e.relatedTarget;
+      if(next && t.contains(next)) return;
+      if(next && next.closest && next.closest("a, button, [role='menuitem'], .nav__trigger, .site-header__about")) return;
+      dot.classList.remove("big");
     });
   }
 
