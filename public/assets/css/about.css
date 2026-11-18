@@ -82,14 +82,19 @@
 
 .about-story .letter{padding-top:clamp(70px,11vh,140px);padding-bottom:clamp(70px,11vh,140px);
   background:var(--paper);color:var(--ink);overflow:visible}
+.about-story .letter__quote,
 .about-story .letter__paper{
-  max-width:760px;padding:0 0 0 clamp(22px,3.2vw,36px);
-  border-left:3px solid var(--eraser);
+  max-width:760px;margin:0;padding:0 0 0 clamp(22px,3.2vw,36px);
+  border:0;border-left:3px solid var(--eraser);
+  background:transparent !important;background-image:none !important;
+  box-shadow:none !important;transform:none !important;
 }
 .about-story .letter p{margin:0 0 1.05em;max-width:42ch}
 .about-story .letter p:last-of-type{margin-bottom:0}
-.about-story .letter p:not(.letter__from){font-family:var(--f-text);font-weight:400;
-  font-size:clamp(1.12rem,1.7vw,1.42rem);line-height:1.55;color:var(--ink)}
+.about-story .letter p:not(.letter__from){
+  font-family:var(--f-text) !important;font-weight:400;
+  font-size:clamp(1.12rem,1.7vw,1.42rem) !important;line-height:1.55 !important;
+  color:var(--ink) !important;overflow-wrap:normal;word-break:normal}
 .about-story .letter__from{font-family:var(--f-display);font-weight:600;font-size:.78rem;letter-spacing:.16em;
   color:var(--grey);margin:0 0 clamp(18px,2.6vh,28px);text-transform:uppercase;max-width:none}
 .about-story .letter p.small{font-size:clamp(1.06rem,1.5vw,1.28rem);color:var(--grey);font-style:italic}
@@ -114,14 +119,17 @@
 .about-story .made__i:hover img{transform:scale(1.045)}
 .about-story .made__i figcaption{position:absolute;left:16px;bottom:14px;font-family:var(--f-display);font-weight:600;
   font-size:.8rem;letter-spacing:.08em;color:#EDE5D6;text-shadow:0 1px 12px rgba(16,18,20,.9)}
-.about-story .made__note{
-  margin-top:clamp(28px,4vh,48px);max-width:36ch;padding:0 0 0 1.15em;
-  border-left:3px solid var(--lacquer);
-  font-family:var(--f-text);font-style:italic;font-weight:400;
-  font-size:clamp(1.08rem,1.55vw,1.28rem);line-height:1.5;color:var(--dim);
+.about-story .made__note,
+.about-story .notebook{
+  margin-top:clamp(28px,4vh,48px);max-width:36ch;padding:0 0 0 1.15em !important;
+  border:0;border-left:3px solid var(--lacquer);
+  background:transparent !important;background-image:none !important;
+  box-shadow:none !important;transform:none !important;
+  font-family:var(--f-text) !important;font-style:italic;font-weight:400;
+  font-size:clamp(1.08rem,1.55vw,1.28rem) !important;line-height:1.5 !important;color:var(--dim) !important;
 }
 @media (max-width:700px){
-  .about-story .letter__paper{padding-left:clamp(16px,4vw,24px)}
+  .about-story .letter__quote,.about-story .letter__paper{padding-left:clamp(16px,4vw,24px)}
 }
 
 /* ========== WHY 13TH PENCIL ========== */

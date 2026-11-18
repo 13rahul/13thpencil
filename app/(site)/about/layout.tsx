@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export default function AboutLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <link rel="stylesheet" href="/assets/css/about.css?v=7" />
+      <link rel="stylesheet" href="/assets/css/about.css?v=8" />
       {children}
     </>
   );

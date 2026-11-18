@@ -166,7 +166,7 @@ export function OurStoryScene({
         }}
       >
         <div className="wrap">
-          <div className="letter__paper">
+          <blockquote className="letter__quote">
             <p className="letter__from l">{page.letterFrom}</p>
             {(page.letterParagraphs || []).map((para, i) => (
               <p key={i} className="l">
@@ -188,7 +188,7 @@ export function OurStoryScene({
               </svg>
               <span>{page.signLabel}</span>
             </div>
-          </div>
+          </blockquote>
         </div>
       </section>
 
