@@ -80,16 +80,16 @@
 .about-story .vidbtn:hover{color:var(--paper);border-color:var(--paper)}
 @media (max-width:640px){.about-story .vidbtn{display:none}}
 
-.about-story .letter{padding-top:clamp(70px,11vh,140px);padding-bottom:clamp(70px,11vh,140px);
+.about-story .letter{padding-top:clamp(56px,9vh,110px);padding-bottom:clamp(56px,9vh,110px);
   background:var(--paper);color:var(--ink);overflow:visible}
 .about-story .letter__quote,
 .about-story .letter__paper{
-  max-width:760px;margin:0;padding:0 0 0 clamp(22px,3.2vw,36px);
+  max-width:68ch;margin:0;padding:0 0 0 clamp(22px,3.2vw,36px);
   border:0;border-left:3px solid var(--eraser);
   background:transparent !important;background-image:none !important;
   box-shadow:none !important;transform:none !important;
 }
-.about-story .letter p{margin:0 0 1.05em;max-width:42ch}
+.about-story .letter p{margin:0 0 1.05em;max-width:none}
 .about-story .letter p:last-of-type{margin-bottom:0}
 .about-story .letter p:not(.letter__from){
   font-family:var(--f-text) !important;font-weight:400;
@@ -98,9 +98,7 @@
 .about-story .letter__from{font-family:var(--f-display);font-weight:600;font-size:.78rem;letter-spacing:.16em;
   color:var(--grey);margin:0 0 clamp(18px,2.6vh,28px);text-transform:uppercase;max-width:none}
 .about-story .letter p.small{font-size:clamp(1.06rem,1.5vw,1.28rem);color:var(--grey);font-style:italic}
-.about-story .letter .l{display:block;opacity:0;transform:translateY(14px);
-  transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
-.about-story .letter .l.in{opacity:1;transform:none}
+.about-story .letter .l{display:block;opacity:1;transform:none}
 .about-story .letter em{font-style:italic;color:var(--eraser-deep)}
 .about-story .sign{margin-top:clamp(28px,4.2vh,48px);display:flex;align-items:center;gap:20px}
 .about-story .sign svg{width:clamp(88px,11vw,124px);height:auto;overflow:visible}
@@ -245,7 +243,6 @@
 @media (prefers-reduced-motion: reduce){
   .about-story .filmhero h1 .ln>span,
   .about-story .filmhero__sub,
-  .about-story .letter .l,
   .about-why .gen__line.flip,
   .about-why .gen__marks b{transition:none;animation:none;opacity:1;transform:none}
   .about-story .filmhero h1 .ln>span{transform:none}

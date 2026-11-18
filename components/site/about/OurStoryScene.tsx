@@ -29,46 +29,19 @@ export function OurStoryScene({
   useEffect(() => {
     setLit(true);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const letter = letterRef.current;
     const sign = signRef.current;
-    if (reduce) {
-      if (letter) letter.querySelectorAll<HTMLElement>(".l").forEach((l) => l.classList.add("in"));
-      if (sign) sign.classList.add("in");
-      return;
-    }
+    if (sign) sign.classList.add("in");
 
     let idleId = 0;
     let timeoutId = 0;
+    if (reduce) return;
     const arm = () => setFilmReady(true);
     if (typeof requestIdleCallback === "function") {
       idleId = requestIdleCallback(arm, { timeout: 1400 });
     } else {
       timeoutId = window.setTimeout(arm, 400);
     }
-
-    if (!letter || !sign) {
-      return () => {
-        if (idleId && typeof cancelIdleCallback === "function") cancelIdleCallback(idleId);
-        if (timeoutId) window.clearTimeout(timeoutId);
-      };
-    }
-
-    const lines = Array.from(letter.querySelectorAll<HTMLElement>(".l"));
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          lines.forEach((l, i) => {
-            window.setTimeout(() => l.classList.add("in"), 140 + i * 420);
-          });
-          window.setTimeout(() => sign.classList.add("in"), 140 + lines.length * 420);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(letter);
     return () => {
-      io.disconnect();
       if (idleId && typeof cancelIdleCallback === "function") cancelIdleCallback(idleId);
       if (timeoutId) window.clearTimeout(timeoutId);
     };
