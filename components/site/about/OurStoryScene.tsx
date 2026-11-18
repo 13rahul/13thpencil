@@ -23,7 +23,6 @@ export function OurStoryScene({
   const [playing, setPlaying] = useState(false);
   const [filmReady, setFilmReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const letterRef = useRef<HTMLElement | null>(null);
   const signRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -131,13 +130,7 @@ export function OurStoryScene({
 
       <AboutSubnav current="/about/our-story" />
 
-      <section
-        className="letter panel panel--paper"
-        id="letter"
-        ref={(node) => {
-          letterRef.current = node;
-        }}
-      >
+      <section className="letter panel panel--paper" id="letter">
         <div className="wrap">
           <blockquote className="letter__quote">
             <p className="letter__from l">{page.letterFrom}</p>
