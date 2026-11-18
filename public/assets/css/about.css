@@ -84,12 +84,12 @@
   background:var(--paper);color:var(--ink);overflow:visible}
 .about-story .letter__quote,
 .about-story .letter__paper{
-  max-width:68ch;margin:0;padding:0 0 0 clamp(22px,3.2vw,36px);
+  max-width:none;width:100%;margin:0;padding:0 0 0 clamp(22px,3.2vw,36px);
   border:0;border-left:3px solid var(--eraser);
   background:transparent !important;background-image:none !important;
   box-shadow:none !important;transform:none !important;
 }
-.about-story .letter p{margin:0 0 1.05em;max-width:none}
+.about-story .letter p{margin:0 0 1.05em;max-width:min(72rem,100%)}
 .about-story .letter p:last-of-type{margin-bottom:0}
 .about-story .letter p:not(.letter__from){
   font-family:var(--f-text) !important;font-weight:400;
