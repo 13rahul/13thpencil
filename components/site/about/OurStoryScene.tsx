@@ -165,27 +165,29 @@ export function OurStoryScene({
           letterRef.current = node;
         }}
       >
-        <div className="letter__paper">
-          <p className="letter__from l">{page.letterFrom}</p>
-          {(page.letterParagraphs || []).map((para, i) => (
-            <p key={i} className="l">
-              <EmMarks text={para} />
-            </p>
-          ))}
-          <p className="l small">{page.letterClosing}</p>
-          <div
-            className="sign"
-            id="sign"
-            ref={(node) => {
-              signRef.current = node;
-            }}
-          >
-            <svg viewBox="0 0 220 120" role="img" aria-label="Signed P K">
-              <path d="M34 100C34 72 36 44 40 24c14-4 30-2 33 10 3 11-9 20-24 21-4 0-7 0-9-1" />
-              <path d="M112 22c-4 26-6 52-6 78" />
-              <path d="M178 26c-20 18-38 32-56 42 16 8 32 20 44 34" />
-            </svg>
-            <span>{page.signLabel}</span>
+        <div className="wrap">
+          <div className="letter__paper">
+            <p className="letter__from l">{page.letterFrom}</p>
+            {(page.letterParagraphs || []).map((para, i) => (
+              <p key={i} className="l">
+                <EmMarks text={para} />
+              </p>
+            ))}
+            <p className="l small">{page.letterClosing}</p>
+            <div
+              className="sign"
+              id="sign"
+              ref={(node) => {
+                signRef.current = node;
+              }}
+            >
+              <svg viewBox="0 0 220 120" role="img" aria-label="Signed P K">
+                <path d="M34 100C34 72 36 44 40 24c14-4 30-2 33 10 3 11-9 20-24 21-4 0-7 0-9-1" />
+                <path d="M112 22c-4 26-6 52-6 78" />
+                <path d="M178 26c-20 18-38 32-56 42 16 8 32 20 44 34" />
+              </svg>
+              <span>{page.signLabel}</span>
+            </div>
           </div>
         </div>
       </section>
@@ -217,7 +219,7 @@ export function OurStoryScene({
               );
             })}
           </div>
-          <p className="note made__note notebook rv" data-d="2">
+          <p className="made__note rv" data-d="2">
             {page.madeNote}
           </p>
         </div>
