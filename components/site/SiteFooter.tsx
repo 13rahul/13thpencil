@@ -4,6 +4,7 @@ import { Lockup } from "./Lockup";
 const navigate = [
   { href: "/", label: "Home" },
   { href: "/#capabilities", label: "Capabilities" },
+  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/work", label: "Work" },
   { href: "/about/our-story", label: "About" },
   { href: "/principle", label: "Principle" },
@@ -14,7 +15,6 @@ const navigate = [
 const capabilities = [
   { href: "/capabilities/brand-and-strategy", label: "Brand & Strategy" },
   { href: "/capabilities/creative-studio", label: "Creative Studio" },
-  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/capabilities/experiences", label: "Experiences" },
 ];
 

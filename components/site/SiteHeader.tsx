@@ -2,6 +2,7 @@ import type { SiteSettings } from "@/lib/types";
 import { Lockup } from "./Lockup";
 
 const links = [
+  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/work", label: "Work" },
   { href: "/about/our-story", label: "About" },
   { href: "/insights", label: "Insights" },
@@ -11,7 +12,6 @@ const links = [
 const capabilityLinks = [
   { href: "/capabilities/brand-and-strategy", label: "Brand & Strategy" },
   { href: "/capabilities/creative-studio", label: "Creative Studio" },
-  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/capabilities/experiences", label: "Experiences" },
 ];
 
