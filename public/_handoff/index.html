@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="13th Pencil">
 <meta property="og:image" content="https://13thpencil.com/assets/img/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var u=navigator.userAgent;var seen=false;try{seen=sessionStorage.getItem("13p-loader-seen")==="1"}catch(e){}if(seen||/Googlebot|Google-InspectionTool|Chrome-Lighthouse|bingbot|BingPreview|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|Applebot|Yandex|Baiduspider|Pingdom|GTmetrix/i.test(u)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("skip-loader")}}catch(e){}})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://13thpencil.com/#org","name":"13th Pencil","url":"https://13thpencil.com/","email":"hello@13thpencil.com","logo":"https://13thpencil.com/assets/brand/logo-512.png","description":"13th Pencil is a creative and innovation company working across brand strategy, creative studio work, AI and innovation, and brand experiences.","slogan":"Twelve is a pattern. Thirteen is a decision.","address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressRegion":"Karnataka","addressCountry":"IN"},"alternateName":"13th Pencil Bangalore","knowsAbout":["Brand strategy","Brand identity design","Art direction","Brand film","AI creative production","Brand experience design","Packaging design","Healthcare branding"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://13thpencil.com/#site","name":"13th Pencil","url":"https://13thpencil.com/","publisher":{"@id":"https://13thpencil.com/#org"},"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://13thpencil.com/#page","url":"https://13thpencil.com/","name":"13th Pencil | Creative and Innovation Company in Bangalore","description":"13th Pencil is a creative and innovation company in Bangalore offering brand strategy, creative campaigns, AI-powered content, films and brand experiences.","isPartOf":{"@id":"https://13thpencil.com/#site"},"about":{"@id":"https://13thpencil.com/#org"}}</script>
@@ -120,6 +121,13 @@ p{margin:0 0 1.1em;max-width:62ch}
 /* ---------- loader ---------- */
 .loader{position:fixed;inset:0;z-index:120;background:var(--ink);display:grid;place-items:center;transition:transform 1s var(--ease-out)}
 .loader[hidden]{display:none}
+html.skip-loader .loader{display:none}
+html.skip-loader body{overflow:auto}
+html.skip-loader .hero__h .ln{overflow:visible}
+html.skip-loader .hero__h .ln > span{transform:translateY(0)}
+html.skip-loader .hero__h em::after{transform:scaleX(1)}
+html.skip-loader .hero__bars b{transform:scaleY(1)}
+html.skip-loader .rv{opacity:1;transform:none}
 .loader.is-done{transform:translateY(-101%)}
 .loader__strokes{display:flex;align-items:flex-end;gap:clamp(6px,1.4vw,14px);height:34vh;max-height:280px}
 .loader__strokes i{display:block;width:clamp(3px,.55vw,6px);height:0;background:var(--paper-2);opacity:.55;transition:height .5s var(--ease-out)}
@@ -874,21 +882,30 @@ p{margin:0 0 1.1em;max-width:62ch}
 
   /* ---------- 1. INTRO: twelve behave, the thirteenth doesn't ---------- */
   var loader = $("#loader"), strokes = $("#loaderStrokes");
-  for(var i=0;i<13;i++){
-    var s = document.createElement("i");
-    if(i===12) s.className = "thirteen";
-    strokes.appendChild(s);
+  var LOADER_SEEN_KEY = "13p-loader-seen";
+  function markLoaderSeen(){
+    try{ sessionStorage.setItem(LOADER_SEEN_KEY, "1"); }catch(e){}
   }
-  var items = $$("#loaderStrokes i");
   function endIntro(){
+    markLoaderSeen();
     loader.classList.add("is-done");
     document.body.classList.remove("is-locked");
     setTimeout(function(){ loader.hidden = true; }, 1100);
     $("#hero").classList.add("lit");
   }
-  if(reduce){
-    loader.hidden = true; $("#hero").classList.add("lit");
+  if(document.documentElement.classList.contains("skip-loader") || reduce){
+    markLoaderSeen();
+    loader.hidden = true;
+    document.body.classList.remove("is-locked");
+    $("#hero").classList.add("lit");
   }else{
+    markLoaderSeen();
+    for(var i=0;i<13;i++){
+      var s = document.createElement("i");
+      if(i===12) s.className = "thirteen";
+      strokes.appendChild(s);
+    }
+    var items = $$("#loaderStrokes i");
     document.body.classList.add("is-locked");
     items.forEach(function(el,idx){
       setTimeout(function(){

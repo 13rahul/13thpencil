@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){try{var u=navigator.userAgent;if(/Googlebot|Google-InspectionTool|Chrome-Lighthouse|bingbot|BingPreview|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|Applebot|Yandex|Baiduspider|Pingdom|GTmetrix/i.test(u)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("skip-loader")}}catch(e){}})();',
+              '(function(){try{var u=navigator.userAgent;var seen=false;try{seen=sessionStorage.getItem("13p-loader-seen")==="1"}catch(e){}if(seen||/Googlebot|Google-InspectionTool|Chrome-Lighthouse|bingbot|BingPreview|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|Applebot|Yandex|Baiduspider|Pingdom|GTmetrix/i.test(u)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("skip-loader")}}catch(e){}})();',
           }}
         />
       </head>

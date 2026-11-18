@@ -10,9 +10,23 @@
   var loader = $("#loader");
   var strokes = $("#loaderStrokes");
   var hero = $("#hero");
-  if (!loader || !strokes || document.documentElement.classList.contains("skip-loader")) {
+  var LOADER_SEEN_KEY = "13p-loader-seen";
+  function markLoaderSeen() {
+    try {
+      sessionStorage.setItem(LOADER_SEEN_KEY, "1");
+    } catch (e) {}
+  }
+  if (!loader || !strokes) {
     return;
   }
+  if (document.documentElement.classList.contains("skip-loader")) {
+    loader.hidden = true;
+    document.body.classList.remove("is-locked");
+    if (hero) hero.classList.add("lit");
+    return;
+  }
+
+  markLoaderSeen();
 
   for (var i = 0; i < 13; i++) {
     var s = document.createElement("i");
@@ -45,6 +59,7 @@
   function endIntro() {
     if (ended) return;
     ended = true;
+    markLoaderSeen();
     items[12] && items[12].classList.add("go");
     var logo = $("#loaderLogo");
     if (logo) logo.classList.add("in");

@@ -37,7 +37,16 @@
 
   /* ---------- 1. INTRO: 13 strokes follow real load percent ---------- */
   var loader = $("#loader"), strokes = $("#loaderStrokes");
-  if(loader && strokes && !document.documentElement.classList.contains("skip-loader")){
+  var LOADER_SEEN_KEY = "13p-loader-seen";
+  function markLoaderSeen(){
+    try{ sessionStorage.setItem(LOADER_SEEN_KEY, "1"); }catch(e){}
+  }
+  if(loader && strokes && document.documentElement.classList.contains("skip-loader")){
+    loader.hidden = true;
+    document.body.classList.remove("is-locked");
+    if(hero) hero.classList.add("lit");
+  }else if(loader && strokes){
+    markLoaderSeen();
     for(var i=0;i<13;i++){
       var s = document.createElement("i");
       if(i===12) s.className = "thirteen";
@@ -62,6 +71,7 @@
     function endIntro(){
       if(ended) return;
       ended = true;
+      markLoaderSeen();
       items[12] && items[12].classList.add("go");
       var logo = $("#loaderLogo");
       if(logo) logo.classList.add("in");

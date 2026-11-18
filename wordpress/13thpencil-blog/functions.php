@@ -65,7 +65,7 @@ function tpb_enqueue_assets() {
 add_action('wp_enqueue_scripts', 'tpb_enqueue_assets', 20);
 
 function tpb_skip_loader_script() {
-  echo '<script>(function(){try{var u=navigator.userAgent;if(/Googlebot|Google-InspectionTool|Chrome-Lighthouse|bingbot|BingPreview|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|Applebot|Yandex|Baiduspider|Pingdom|GTmetrix/i.test(u)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("skip-loader")}}catch(e){}})();</script>' . "\n";
+  echo '<script>(function(){try{var u=navigator.userAgent;var seen=false;try{seen=sessionStorage.getItem("13p-loader-seen")==="1"}catch(e){}if(seen||/Googlebot|Google-InspectionTool|Chrome-Lighthouse|bingbot|BingPreview|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|Applebot|Yandex|Baiduspider|Pingdom|GTmetrix/i.test(u)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("skip-loader")}}catch(e){}})();</script>' . "\n";
 }
 add_action('wp_head', 'tpb_skip_loader_script', 0);
 

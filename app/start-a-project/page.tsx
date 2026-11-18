@@ -13,7 +13,7 @@ export default async function StartAProjectPage() {
     <>
       <SiteLoader caption={settings.loaderCaption} />
       <div dangerouslySetInnerHTML={{ __html: html }} />
-      <Script src="/assets/js/loader.js?v=1" strategy="afterInteractive" />
+      <Script src="/assets/js/loader.js?v=2" strategy="afterInteractive" />
       <Script src="/assets/js/brief.js?v=1" strategy="afterInteractive" />
     </>
   );
