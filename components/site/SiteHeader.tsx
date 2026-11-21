@@ -2,7 +2,6 @@ import type { SiteSettings } from "@/lib/types";
 import { Lockup } from "./Lockup";
 
 const links = [
-  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/work", label: "Work" },
   { href: "/about/our-story", label: "About" },
   { href: "/insights", label: "Insights" },
@@ -12,6 +11,7 @@ const links = [
 const capabilityLinks = [
   { href: "/capabilities/brand-and-strategy", label: "Brand & Strategy" },
   { href: "/capabilities/creative-studio", label: "Creative Studio" },
+  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/capabilities/experiences", label: "Experiences" },
 ];
 
@@ -48,9 +48,6 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
                       {item.label}
                     </a>
                   ))}
-                  <span className="site-header__soon">
-                    Digital Growth <i>Coming soon</i>
-                  </span>
                 </div>
               </div>
             </div>
@@ -60,7 +57,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
               </a>
             ))}
           </nav>
-          <a className="site-header__cta" href="/start-a-project">
+          <a className="site-header__cta" href="/contact#start">
             {settings.ctaLabel}
           </a>
           <button
@@ -92,9 +89,6 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
                 {item.label}
               </a>
             ))}
-            <span className="site-menu__sub site-menu__soon">
-              Digital Growth <i>Coming soon</i>
-            </span>
           </div>
         </div>
         {links.map((item) => (
@@ -102,7 +96,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             {item.label}
           </a>
         ))}
-        <a className="site-menu__cta" href="/start-a-project">
+        <a className="site-menu__cta" href="/contact#start">
           {settings.ctaLabel}
         </a>
         <p className="site-menu__meta">

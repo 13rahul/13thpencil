@@ -4,7 +4,6 @@ import { Lockup } from "./Lockup";
 const navigate = [
   { href: "/", label: "Home" },
   { href: "/#capabilities", label: "Capabilities" },
-  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/work", label: "Work" },
   { href: "/about/our-story", label: "About" },
   { href: "/principle", label: "Principle" },
@@ -15,6 +14,7 @@ const navigate = [
 const capabilities = [
   { href: "/capabilities/brand-and-strategy", label: "Brand & Strategy" },
   { href: "/capabilities/creative-studio", label: "Creative Studio" },
+  { href: "/capabilities/ai-and-innovation", label: "AI & Innovation" },
   { href: "/capabilities/experiences", label: "Experiences" },
 ];
 
@@ -27,7 +27,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
             <Lockup />
           </a>
           <p>13th Pencil · A Creative & Innovation Company</p>
-          <p>Bangalore, India</p>
+          <p>Based in India. Working worldwide.</p>
           <a className="mail" href={`mailto:${settings.primaryEmail}`}>
             {settings.primaryEmail}
           </a>
@@ -47,9 +47,6 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
               {item.label}
             </a>
           ))}
-          <span>
-            Digital Growth <i className="soon">Coming soon</i>
-          </span>
         </nav>
       </div>
       <div className="sfoot__base">
