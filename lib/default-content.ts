@@ -515,9 +515,9 @@ export const defaultContent: SiteContent = {
         body: "By thirteen it carries a mark nobody else could have made. That is the only version worth putting your name on.",
       },
     ],
-    pagerLabel: "Back to the beginning",
-    pagerTitle: "Our Story",
-    pagerHref: "/about/our-story",
+    pagerLabel: "Next",
+    pagerTitle: "Principle",
+    pagerHref: "/principle",
     ctaHeading: "Show us your version one.",
   },
 };

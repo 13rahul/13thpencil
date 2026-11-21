@@ -5,6 +5,7 @@ import type { AboutOurStoryContent, SiteSettings } from "@/lib/types";
 import { SiteFooter } from "../SiteFooter";
 import { AboutPager } from "./AboutPager";
 import { AboutSubnav } from "./AboutSubnav";
+import { nextAboutLink } from "./about-links";
 import { EmMarks } from "./TextMarks";
 
 const ART_SRC = [
@@ -193,7 +194,7 @@ export function OurStoryScene({
 
       <section className="about-cta panel panel--ink" id="start" style={{ paddingTop: "clamp(20px,4vh,54px)" }}>
         <div className="wrap">
-          <AboutPager flush label={page.pagerLabel} href={page.pagerHref} title={page.pagerTitle} />
+          <AboutPager flush {...nextAboutLink("/about/our-story")} />
           <h2 style={{ marginTop: "clamp(46px,7vh,90px)" }}>{page.ctaHeading}</h2>
           <div className="cta-row">
             <a className="btn" href="/start-a-project">

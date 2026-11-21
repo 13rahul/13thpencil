@@ -5,6 +5,7 @@ import type { AboutApproachContent, SiteSettings } from "@/lib/types";
 import { SiteFooter } from "../SiteFooter";
 import { AboutPager } from "./AboutPager";
 import { AboutSubnav } from "./AboutSubnav";
+import { nextAboutLink } from "./about-links";
 
 const NOTES: [string, string][] = [
   [
@@ -343,7 +344,7 @@ export function OurApproachScene({
 
       <section className="about-cta panel panel--ink" id="start">
         <div className="wrap">
-          <AboutPager flush label={page.pagerLabel} href={page.pagerHref} title={page.pagerTitle} />
+          <AboutPager flush {...nextAboutLink("/about/our-approach")} />
           <h2 style={{ marginTop: "clamp(46px,7vh,90px)" }}>{page.ctaHeading}</h2>
           <div className="cta-row">
             <a className="btn" href="/start-a-project">

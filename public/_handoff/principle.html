@@ -201,6 +201,17 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;margin:0;line-height:.9;le
 .pager__a span{font-size:.7em;transition:transform .35s var(--ease-out)}
 .pager__a:hover{color:var(--eraser)}
 .pager__a:hover span{transform:translateX(7px)}
+.about-nav{position:relative;z-index:5;border-bottom:1px solid var(--rule-on-ink);background:var(--ink)}
+.about-nav__in{display:flex;gap:clamp(16px,2.4vw,44px);overflow-x:auto;padding:0 var(--pad);
+  scrollbar-width:none;-ms-overflow-style:none;max-width:1500px;margin:0 auto}
+.about-nav__in::-webkit-scrollbar{display:none}
+.about-nav a{flex:none;position:relative;font-family:var(--f-display);font-weight:600;font-size:.94rem;
+  letter-spacing:-.01em;color:var(--dim-2);padding:20px 0;white-space:nowrap;transition:color .3s}
+.about-nav a::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--eraser);
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease-out)}
+.about-nav a:hover{color:var(--paper)}
+.about-nav a[aria-current]{color:var(--paper)}
+.about-nav a[aria-current]::after{transform:scaleX(1)}
 .capnav{position:relative;z-index:5;margin-top:var(--navh,84px);
   border-top:1px solid var(--rule-on-ink);
   border-bottom:1px solid var(--rule-on-ink);background:var(--ink)}
@@ -728,6 +739,15 @@ body.ready .ph__eb,body.ready .ph__sub{opacity:1}
   </div>
 </section>
 
+<nav class="about-nav" aria-label="About sections">
+  <div class="about-nav__in">
+    <a href="/about/our-story">Our Story</a>
+    <a href="/about/why-13th-pencil">Why 13th Pencil</a>
+    <a href="/about/our-approach">Our Approach</a>
+    <a href="/principle" aria-current="page">Principle</a>
+  </div>
+</nav>
+
 <!-- ========== 2. THE TWELVE ========== -->
 <section class="pin tw" id="tw">
   <div class="pin__stick">
@@ -809,6 +829,15 @@ body.ready .ph__eb,body.ready .ph__sub{opacity:1}
     </div>
   </div>
 </section>
+<section class="panel" aria-label="Continue reading">
+  <div class="wrap">
+    <div class="pager" style="border-top:0;padding-top:clamp(40px,7vh,80px);margin-bottom:0">
+      <span class="pager__l">Back to the beginning</span>
+      <a class="pager__a" href="/about/our-story">Our Story <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- ========== START A PROJECT: the desk brief ========== -->
 <section class="desk" id="start" aria-labelledby="deskT">
   <div class="wrap desk__g">

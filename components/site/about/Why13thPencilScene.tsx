@@ -5,6 +5,7 @@ import type { AboutWhyContent, SiteSettings } from "@/lib/types";
 import { SiteFooter } from "../SiteFooter";
 import { AboutPager } from "./AboutPager";
 import { AboutSubnav } from "./AboutSubnav";
+import { nextAboutLink } from "./about-links";
 import { StrongMarks } from "./TextMarks";
 
 const V = ["craft", "build", "create", "design", "shape", "engineer", "unlock", "ignite", "architect", "deliver"];
@@ -184,7 +185,7 @@ export function Why13thPencilScene({
 
       <section className="about-cta panel panel--ink" id="start">
         <div className="wrap">
-          <AboutPager flush label={page.pagerLabel} href={page.pagerHref} title={page.pagerTitle} />
+          <AboutPager flush {...nextAboutLink("/about/why-13th-pencil")} />
           <h2 style={{ marginTop: "clamp(46px,7vh,90px)" }}>{page.ctaHeading}</h2>
           <div className="cta-row">
             <a className="btn" href="/start-a-project">
