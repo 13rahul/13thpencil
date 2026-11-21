@@ -562,6 +562,15 @@ body{overflow-x:clip}
 .hero h1 em{font-style:normal;color:var(--eraser)}
 
 .studio{padding-bottom:clamp(60px,10vh,120px)}
+.detail{position:relative}
+.detail__pin{padding-bottom:clamp(40px,7vh,80px)}
+.detail .ihead{padding-top:clamp(28px,5vh,56px);padding-bottom:clamp(18px,3vh,28px);border-top:0}
+.detail .studio__g{margin-top:0}
+@media (min-width:901px){
+  .detail.is-pinned .detail__pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;
+    flex-direction:column;justify-content:center;overflow:hidden;padding-bottom:0}
+  .detail.is-pinned .ihead{padding-top:clamp(18px,3vh,36px)}
+}
 .studio__g{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
   gap:clamp(22px,3vw,54px);align-items:start}
 
@@ -735,35 +744,41 @@ body{overflow-x:clip}
   </div>
 </section>
 
-<section class="ihead panel"><div class="wrap">
-  <h2 class="rv">Every detail makes a difference.</h2><p class="rv" data-d="1">Six decisions on one poster. Hover or tap a mark to read each one.</p><ol class="sr"><li>The crop: Cut past comfortable. The eye finishes the letter itself, and that is why it stays.</li><li>The gap: Two lines, one breath between them. A pixel more and it reads as two thoughts.</li><li>The weight: Eight hundred, not six. At this size the lighter cut turns polite.</li><li>The tracking: Tightened by hand, line by line. No optical default lands here.</li><li>The mark: One coral stroke. The only colour on the page, so the only thing anyone remembers.</li><li>The space: Most of this page is empty. That is the part that took the week.</li></ol>
-</div></section>
-<!-- ========== 2. THE PIECE ========== -->
-<section class="studio panel">
-  <div class="wrap studio__g">
-    <figure class="piece rv" id="piece" style="margin:0">
-      <div class="piece__top">13th Pencil &middot; proof 07</div>
-      <div class="piece__mid">
-        <h2 class="piece__big">Look<br>again.</h2>
-        <button class="hot hot--lead" style="left:0.8%;top:25.0%" data-i="0" aria-label="Decision 1, The crop"><b>1</b></button>
-        <button class="hot" style="left:56.0%;top:50.0%" data-i="1" aria-label="Decision 2, The gap"><b>2</b></button>
-        <button class="hot" style="left:16.0%;top:74.0%" data-i="2" aria-label="Decision 3, The weight"><b>3</b></button>
-        <button class="hot" style="left:29.0%;top:25.0%" data-i="3" aria-label="Decision 4, The tracking"><b>4</b></button>
+<!-- ========== 2. THE PIECE: scroll-pinned decisions ========== -->
+<section class="detail panel" id="detail" data-detail-pin aria-labelledby="detailH">
+  <div class="detail__pin">
+    <div class="wrap">
+      <div class="ihead">
+        <h2 class="rv" id="detailH">Every detail makes a difference.</h2>
+        <p class="rv" data-d="1">Six decisions on one poster. Keep scrolling to read each one.</p>
+        <ol class="sr"><li>The crop: Cut past comfortable. The eye finishes the letter itself, and that is why it stays.</li><li>The gap: Two lines, one breath between them. A pixel more and it reads as two thoughts.</li><li>The weight: Eight hundred, not six. At this size the lighter cut turns polite.</li><li>The tracking: Tightened by hand, line by line. No optical default lands here.</li><li>The mark: One coral stroke. The only colour on the page, so the only thing anyone remembers.</li><li>The space: Most of this page is empty. That is the part that took the week.</li></ol>
       </div>
-      <div class="piece__btm">
-        <div class="piece__rule"></div>
-        <div class="piece__bot">Nothing on this page is a default.</div>
-      </div>
-      <button class="hot" style="left:11.0%;top:89.0%" data-i="4" aria-label="Decision 5, The mark"><b>5</b></button>
-      <button class="hot" style="left:76.0%;top:24.0%" data-i="5" aria-label="Decision 6, The space"><b>6</b></button>
-    </figure>
+      <div class="studio__g">
+        <figure class="piece rv" id="piece" style="margin:0">
+          <div class="piece__top">13th Pencil &middot; proof 07</div>
+          <div class="piece__mid">
+            <h2 class="piece__big">Look<br>again.</h2>
+            <button class="hot hot--lead" style="left:0.8%;top:25.0%" data-i="0" aria-label="Decision 1, The crop"><b>1</b></button>
+            <button class="hot" style="left:56.0%;top:50.0%" data-i="1" aria-label="Decision 2, The gap"><b>2</b></button>
+            <button class="hot" style="left:16.0%;top:74.0%" data-i="2" aria-label="Decision 3, The weight"><b>3</b></button>
+            <button class="hot" style="left:29.0%;top:25.0%" data-i="3" aria-label="Decision 4, The tracking"><b>4</b></button>
+          </div>
+          <div class="piece__btm">
+            <div class="piece__rule"></div>
+            <div class="piece__bot">Nothing on this page is a default.</div>
+          </div>
+          <button class="hot" style="left:11.0%;top:89.0%" data-i="4" aria-label="Decision 5, The mark"><b>5</b></button>
+          <button class="hot" style="left:76.0%;top:24.0%" data-i="5" aria-label="Decision 6, The space"><b>6</b></button>
+        </figure>
 
-    <div class="read rv" data-d="1" id="read">
-      <div class="read__n" id="readN">01 / 06</div>
-      <h3 class="read__t" id="readT">The crop</h3>
-      <p class="read__p" id="readP">Cut past comfortable. The eye finishes the letter itself, and that is why it stays.</p>
-      <div class="read__bar" id="readBar"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="read__hint">Six decisions. None of them were the first answer.</p>
+        <div class="read rv" data-d="1" id="read">
+          <div class="read__n" id="readN">01 / 06</div>
+          <h3 class="read__t" id="readT">The crop</h3>
+          <p class="read__p" id="readP">Cut past comfortable. The eye finishes the letter itself, and that is why it stays.</p>
+          <div class="read__bar" id="readBar"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="read__hint" id="readHint">Scroll to move through the six decisions.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1352,37 +1367,82 @@ body{overflow-x:clip}
 (function(){
   "use strict";
   var H=[["The crop","Cut past comfortable. The eye finishes the letter itself, and that is why it stays."],["The gap","Two lines, one breath between them. A pixel more and it reads as two thoughts."],["The weight","Eight hundred, not six. At this size the lighter cut turns polite."],["The tracking","Tightened by hand, line by line. No optical default lands here."],["The mark","One coral stroke. The only colour on the page, so the only thing anyone remembers."],["The space","Most of this page is empty. That is the part that took the week."]];
+  var sec=document.querySelector("[data-detail-pin]");
   var hots=Array.prototype.slice.call(document.querySelectorAll(".hot"));
-  if(!hots.length)return;
+  if(!sec||!hots.length)return;
   var read=document.getElementById("read"),rN=document.getElementById("readN"),
       rT=document.getElementById("readT"),rP=document.getElementById("readP"),
+      hint=document.getElementById("readHint"),
       bars=Array.prototype.slice.call(document.getElementById("readBar").children),
-      cur=0,touched=false,timer=null;
-  function show(i){
-    if(i===cur&&touched)return;
+      cur=-1,locked=false,ticking=false,
+      reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      wide=window.matchMedia("(min-width:901px)");
+  function show(i,instant){
+    i=Math.max(0,Math.min(H.length-1,i|0));
+    if(i===cur)return;
     cur=i;
-    hots.forEach(function(h,k){h.classList.toggle("on",k===i);});
+    hots.forEach(function(h,k){
+      h.classList.toggle("on",k===i);
+      h.classList.toggle("hot--lead",k===i);
+    });
     bars.forEach(function(b,k){b.classList.toggle("on",k===i);});
-    read.classList.add("swap");
-    setTimeout(function(){
+    function paint(){
       rN.textContent="0"+(i+1)+" / 0"+H.length;
       rT.textContent=H[i][0];rP.textContent=H[i][1];
       read.classList.remove("swap");
-    },170);
+    }
+    if(instant||reduce){paint();return;}
+    read.classList.add("swap");
+    setTimeout(paint,170);
+  }
+  function progress(){
+    var r=sec.getBoundingClientRect(),span=r.height-window.innerHeight;
+    if(span<=0)return 0;
+    return Math.min(1,Math.max(0,-r.top/span));
+  }
+  function stepFromP(p){
+    if(p>=0.999)return H.length-1;
+    return Math.min(H.length-1,Math.floor(p*H.length));
+  }
+  function tick(){
+    ticking=false;
+    if(!sec.classList.contains("is-pinned")||locked)return;
+    show(stepFromP(progress()));
+  }
+  function req(){if(!ticking){ticking=true;requestAnimationFrame(tick);}}
+  function setup(){
+    if(wide.matches&&!reduce){
+      sec.classList.add("is-pinned");
+      var travel=Math.round(window.innerHeight*0.72*(H.length-1));
+      sec.style.height=(window.innerHeight+travel)+"px";
+      if(hint)hint.textContent="Scroll to move through the six decisions.";
+    }else{
+      sec.classList.remove("is-pinned");
+      sec.style.height="";
+      if(hint)hint.textContent="Tap a mark to read each decision.";
+    }
+    if(!locked)show(sec.classList.contains("is-pinned")?stepFromP(progress()):0,true);
   }
   hots.forEach(function(h,i){
-    h.addEventListener("pointerenter",function(){touched=true;clearInterval(timer);show(i);});
-    h.addEventListener("click",function(){touched=true;clearInterval(timer);show(i);});
-    h.addEventListener("focus",function(){touched=true;clearInterval(timer);show(i);});
+    function pick(){
+      locked=true;
+      show(i);
+      if(sec.classList.contains("is-pinned")){
+        var r=sec.getBoundingClientRect(),span=Math.max(1,r.height-window.innerHeight);
+        var target=window.scrollY+r.top+(i/(H.length-1||1))*span;
+        window.scrollTo({top:target,behavior:reduce?"auto":"smooth"});
+        setTimeout(function(){locked=false;},reduce?0:520);
+      }else{
+        locked=false;
+      }
+    }
+    h.addEventListener("click",pick);
+    h.addEventListener("focus",pick);
   });
-  hots[0].classList.add("on");
-  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    timer=setInterval(function(){
-      if(touched){clearInterval(timer);return;}
-      show((cur+1)%H.length);
-    },3400);
-    window.addEventListener("pagehide",function(){clearInterval(timer);});
-  }
+  window.addEventListener("scroll",req,{passive:true});
+  window.addEventListener("resize",setup);
+  window.addEventListener("load",setup);
+  setup();
 })();
 </script>
 </body>
